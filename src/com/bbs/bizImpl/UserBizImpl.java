@@ -38,8 +38,10 @@ public class UserBizImpl implements UserBiz{
 	 */
 	@Override
 	public int login(String username,String password) {
-		List<User> users = userDao.login(username,password);
+		List<User> users = userDao.login(username);
 		if (users != null && users.size() > 0){
+			if (users.get(0).getHasActive() ==0)
+				return -2;
 			if (users.get(0).getPassword().equals(password))
 				return 1;
 			return -1;

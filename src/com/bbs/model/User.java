@@ -13,7 +13,7 @@ public class User implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
-	private String userName;
+	private String username;
 	private String password;
 	private String photoUrl;
 	private String email;
@@ -23,8 +23,8 @@ public class User implements java.io.Serializable {
 	private Integer level;
 	private String activeCode;
 	private Integer hasActive;
-//	private Set posts = new HashSet(0);
-//	private Set followcards = new HashSet(0);
+	private Set posts = new HashSet(0);
+	private Set followcards = new HashSet(0);
 
 	// Constructors
 
@@ -33,9 +33,9 @@ public class User implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public User(String userName, String password, String email, Integer type,
+	public User(String username, String password, String email, Integer type,
 			Timestamp registerDate, Integer level) {
-		this.userName = userName;
+		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.type = type;
@@ -44,11 +44,11 @@ public class User implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public User(String userName, String password, String photoUrl,
+	public User(String username, String password, String photoUrl,
 			String email, Integer type, Timestamp registerDate,
 			String signature, Integer level, String activeCode,
-			Integer hasActive) {
-		this.userName = userName;
+			Integer hasActive, Set posts, Set followcards) {
+		this.username = username;
 		this.password = password;
 		this.photoUrl = photoUrl;
 		this.email = email;
@@ -58,7 +58,8 @@ public class User implements java.io.Serializable {
 		this.level = level;
 		this.activeCode = activeCode;
 		this.hasActive = hasActive;
-		
+		this.posts = posts;
+		this.followcards = followcards;
 	}
 
 	// Property accessors
@@ -71,12 +72,12 @@ public class User implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public String getUserName() {
-		return this.userName;
+	public String getUsername() {
+		return this.username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -151,5 +152,20 @@ public class User implements java.io.Serializable {
 		this.hasActive = hasActive;
 	}
 
-	
+	public Set getPosts() {
+		return this.posts;
+	}
+
+	public void setPosts(Set posts) {
+		this.posts = posts;
+	}
+
+	public Set getFollowcards() {
+		return this.followcards;
+	}
+
+	public void setFollowcards(Set followcards) {
+		this.followcards = followcards;
+	}
+
 }

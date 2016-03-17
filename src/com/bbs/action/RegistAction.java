@@ -1,6 +1,8 @@
 package com.bbs.action;
 
 
+import java.sql.Timestamp;
+
 import com.bbs.biz.UserBiz;
 import com.bbs.constants.Constant;
 import com.bbs.model.User;
@@ -13,17 +15,33 @@ import com.bbs.utils.Utils;
  * 2016年3月16日下午3:08:03
  */
 public class RegistAction extends BaseAction {
-	private User user;
+	private String username;
+	private String password;
+	private String email;
 	private UserBiz userBiz;
+	
+	
 	/**
-	 * @param user the user to set
+	 * @param username the username to set
 	 */
-	public void setUser(User user) {
-		this.user = user;
+	public void setUsername(String username) {
+		this.username = username;
 	}
+
 	/**
-	 * @param userBiz the userBiz to set
+	 * @param password the password to set
 	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public void setUserBiz(UserBiz userBiz) {
 		this.userBiz = userBiz;
 	}
@@ -33,8 +51,12 @@ public class RegistAction extends BaseAction {
 	 */
 	@Override
 	public String execute() throws Exception {
-		if (user == null)
-			return "regist";
+		System.out.println(username);
+		User user = new User();
+		user.setUsername(username);
+		user.setPassword(password);
+		user.setEmail(email);
+		System.out.println(user.getEmail());
 		switch (userBiz.isExist(user)) {
 		case 1:
 			addFieldError("username", "该用户名已被注册");
@@ -45,9 +67,13 @@ public class RegistAction extends BaseAction {
 		default:
 			break;
 		}		
-		userBiz.regist(user);
 		String code = Utils.createUUID();
-		userBiz.updateCode(user.getUserName(),code);
+		user.setActiveCode(code);
+		user.setLevel(1);
+		user.setType(1);
+		user.setRegisterDate(new Timestamp(System.currentTimeMillis()));
+		user.setHasActive(0);
+		userBiz.regist(user);
 		MailUtil mail = new MailUtil();
 		mail.sendEmail(user.getEmail(),code,Constant.ACTIVE_EMAIL);
 		//注册完成后跳转至中转页面，等待用户邮箱验证

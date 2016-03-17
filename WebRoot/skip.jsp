@@ -23,6 +23,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    This is my JSP page. <br>
+    邮件已经发送至制定邮箱，请登陆邮箱进行验证. <br>
   </body>
 </html>

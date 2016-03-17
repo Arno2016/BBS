@@ -100,6 +100,9 @@ public class LoginAction extends BaseAction {
 			case -1:
 				addFieldError("password", "密码不正确");
 				return "login";
+			case -2:
+				addFieldError("username","账户未激活，请验证激活后进行登陆");
+				return "login";
 			case 0:
 				addFieldError("username", "该用户不存在");
 				return "login";

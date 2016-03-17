@@ -27,7 +27,7 @@ public interface UserDao {
 	 * @param user 用户对象
 	 * @return 对象引用列表
 	 */
-	public List<User> login(String username,String password);
+	public List<User> login(String username);
 	
 	
 	

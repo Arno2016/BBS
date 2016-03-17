@@ -34,13 +34,15 @@ public class ActiveAction extends BaseAction {
 	@Override
 	public String execute() throws Exception {
         //未激活，激活
+		if (code == null)
+			return "index";
         int result = userBiz.activeUser(code);
         String str = "message";
         if (result == 0)
         	getRequest().put("message", "该激活码已失效请重新注册");
-        if (result == -1)
+        else if (result == -1)
         	getRequest().put("message", "该激活码已激活，请勿重复激活");
-        if (result == 1){
+        else  if (result == 1){
         	getRequest().put("message", "恭喜您！账户激活成功，五秒钟后自动跳转，无法跳转请点击下面按钮");
         	str = "skip_login";
         }

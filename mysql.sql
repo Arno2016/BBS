@@ -21,7 +21,7 @@ create table user(
     photo_url tinytext,
 	email varchar(30) not null,
 	type int not null,       #类型
-	register_date datetime not null,  #注册时间
+	register_date varchar(20) not null,  #注册时间
   signature varchar(50),     #签名
 	level int not null default 0 , #等级
     active_code varchar(32),	#激活码

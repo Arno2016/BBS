@@ -9,6 +9,12 @@ import com.bbs.model.User;
  */
 public interface UserBiz {
 	public int regist(User user);
+	/**
+	 * 
+	 * @param username
+	 * @param password
+	 * @return
+	 */
 	public int login(String username,String password);
 	
 	/**

@@ -4,7 +4,6 @@ import com.bbs.dao.UserDao;
 import com.bbs.hibernate.factory.BaseHibernateDAO;
 import com.bbs.model.User;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
@@ -28,9 +27,9 @@ import org.slf4j.LoggerFactory;
  * @author MyEclipse Persistence Tools
  */
 public class UserDaoImpl extends BaseHibernateDAO implements UserDao {
-	private static final Logger log = LoggerFactory.getLogger(UserDaoImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(UserDao.class);
 	// property constants
-	public static final String USER_NAME = "userName";
+	public static final String USERNAME = "username";
 	public static final String PASSWORD = "password";
 	public static final String PHOTO_URL = "photoUrl";
 	public static final String EMAIL = "email";
@@ -102,8 +101,8 @@ public class UserDaoImpl extends BaseHibernateDAO implements UserDao {
 		}
 	}
 
-	public List findByUserName(Object userName) {
-		return findByProperty(USER_NAME, userName);
+	public List findByUsername(Object username) {
+		return findByProperty(USERNAME, username);
 	}
 
 	public List findByPassword(Object password) {
@@ -195,10 +194,8 @@ public class UserDaoImpl extends BaseHibernateDAO implements UserDao {
 
 	
 	@Override
-	public List<User> login(String username,String password) {
-		Session session = getSession();
-		String sql = "from User where username=?";
-		return session.createQuery(sql).setString(0, username).list();
+	public List<User> login(String username) {
+		return findByUsername(username);
 	}
 
 	@Override
@@ -211,7 +208,7 @@ public class UserDaoImpl extends BaseHibernateDAO implements UserDao {
 	 */
 	@Override
 	public int isExist(User user) {
-		if (findByUserName(user.getUserName()).size()>0)
+		if (findByUsername(user.getUsername()).size()>0)
 			return 1;
 		else if (findByEmail(user.getEmail()).size()>0)
 			return 2;		
@@ -232,6 +229,10 @@ public class UserDaoImpl extends BaseHibernateDAO implements UserDao {
 			User user = uses.get(0);
 			if (user.getHasActive() == 0){
 				user.setHasActive(1);
+				Session session = getSession();
+				Transaction transaction = session.beginTransaction();
+				session.update(user);
+				transaction.commit();
 				return 1;
 			}else 
 				return -1;
@@ -244,11 +245,6 @@ public class UserDaoImpl extends BaseHibernateDAO implements UserDao {
 	 */
 	@Override
 	public void updateCode(String username, String code) {
-		User user = (User) findByUserName(username).get(0);
-		Session session = getSession();
-		Transaction transaction = session.beginTransaction();
-		session.update(user);
-		transaction.commit();
 		
 	}
 
