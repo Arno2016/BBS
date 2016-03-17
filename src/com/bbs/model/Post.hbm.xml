@@ -25,6 +25,9 @@
         <property name="sendDate" type="java.sql.Timestamp">
             <column name="send_date" length="19" not-null="true" />
         </property>
+        <property name="postType" type="java.lang.String">
+            <column name="post_type" length="45" />
+        </property>
         <set name="followcards" inverse="true">
             <key>
                 <column name="send_id" not-null="true" />

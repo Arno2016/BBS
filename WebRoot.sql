@@ -18,6 +18,7 @@ create table user(
 	id int not null primary key auto_increment,
 	username varchar(20) not null,
 	password varchar(20) not null,
+    sex varchar(5),
     photo_url tinytext,
 	email varchar(30) not null,
 	type int not null,       #类型
@@ -28,12 +29,6 @@ create table user(
     hasActive int	#用户状态状态
 )charset=utf8;
 
-create table active(
-	user_id int,
-    active_code varchar(32),
-    hasActive int,
-    FOREIGN key(user_id) references user(id) on delete cascade on update cascade
-)charset=utf8;
 
 
 create table admin(
@@ -46,14 +41,15 @@ create table admin(
 )charset=utf8;
 
 
-#发贴表
-create table sendcard(
+#帖子表
+create table post(
 	id int not null primary key auto_increment,
 	forum int not null,   #属于的子版块
 	user_id int not null,  #发帖用户
 	title varchar(40) not null,  #标题
 	card_content varchar(500)not null,  #发帖内容
 	send_date datetime not null,    #发帖时间
+    post_type int, #帖子类型（普通，精华帖,由管理员设置)
 	FOREIGN key(forum) references sub_forum(id) on delete cascade on update cascade,
 	FOREIGN key(user_id) references user(id) on delete cascade on update cascade
 )charset=utf8;
@@ -66,7 +62,7 @@ create table followcard(
 	user_id int not null,
 	follow_content varchar(200),  #跟帖内容
 	follow_date datetime not null,
-	FOREIGN key(send_id) references sendcard(id) on delete cascade on update cascade,
+	FOREIGN key(send_id) references post(id) on delete cascade on update cascade,
 	FOREIGN key(user_id) references user(id) on delete cascade on update cascade
 )charset=utf8;
 

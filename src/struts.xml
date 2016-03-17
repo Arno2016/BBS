@@ -24,6 +24,13 @@
 	<constant name="struts.objectFactory" value="spring" /> -->
 	
 <package name="user" namespace="/" extends="struts-default">
+	<interceptors>
+	<interceptor name="loginPermission" class="com.bbs.interceptor.UserInterceptor"></interceptor>
+		<interceptor-stack name="loginPermissionStack">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="loginPermission"></interceptor-ref>
+		</interceptor-stack>
+	</interceptors>
 
 	<action name="regist" class="com.bbs.action.RegistAction">
 		<result name="regist">/regist.jsp</result>

@@ -31,8 +31,13 @@ public class TestUserData {
 	@Test
 	public void test() {
 		
-		testMail();
 	}
+	
+	public void testPost(){
+		
+	}
+	
+	
 	
 	public void testHQL(){
 		Session session = HibernateSessionFactory.getSession();

@@ -23,6 +23,7 @@ public class User implements java.io.Serializable {
 	private Integer level;
 	private String activeCode;
 	private Integer hasActive;
+	private String sex;
 	private Set posts = new HashSet(0);
 	private Set followcards = new HashSet(0);
 
@@ -47,7 +48,7 @@ public class User implements java.io.Serializable {
 	public User(String username, String password, String photoUrl,
 			String email, Integer type, Timestamp registerDate,
 			String signature, Integer level, String activeCode,
-			Integer hasActive, Set posts, Set followcards) {
+			Integer hasActive, String sex, Set posts, Set followcards) {
 		this.username = username;
 		this.password = password;
 		this.photoUrl = photoUrl;
@@ -58,6 +59,7 @@ public class User implements java.io.Serializable {
 		this.level = level;
 		this.activeCode = activeCode;
 		this.hasActive = hasActive;
+		this.sex = sex;
 		this.posts = posts;
 		this.followcards = followcards;
 	}
@@ -150,6 +152,14 @@ public class User implements java.io.Serializable {
 
 	public void setHasActive(Integer hasActive) {
 		this.hasActive = hasActive;
+	}
+
+	public String getSex() {
+		return this.sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 
 	public Set getPosts() {

@@ -40,6 +40,9 @@
         <property name="hasActive" type="java.lang.Integer">
             <column name="hasActive" />
         </property>
+        <property name="sex" type="java.lang.String">
+            <column name="sex" length="5" />
+        </property>
         <set name="posts" inverse="true">
             <key>
                 <column name="user_id" not-null="true" />
