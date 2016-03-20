@@ -47,6 +47,15 @@
 		<result name="skip_login">/skip_login.jsp</result>
 		<result name="index">/index.jsp</result>
 	</action>
+	
+	<action name="publish" class="com.bbs.action.PublishPostAction">
+		<result name="success">/pages/post.jsp</result>
+		<result name="index">/index.jsp</result>
+		
+		<interceptor-ref name="loginPermissionStack"></interceptor-ref>
+	</action>
+	
+	
 </package>
 
 

@@ -6,8 +6,10 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
@@ -17,7 +19,10 @@ import org.hibernate.Session;
 import org.junit.Test;
 
 import com.bbs.constants.Constant;
+import com.bbs.daoImpl.PostDaoImpl;
 import com.bbs.hibernate.factory.HibernateSessionFactory;
+import com.bbs.model.Followcard;
+import com.bbs.model.Post;
 import com.bbs.model.User;
 import com.bbs.utils.MailUtil;
 
@@ -30,11 +35,23 @@ public class TestUserData {
 
 	@Test
 	public void test() {
-		
+		testPost();
 	}
 	
 	public void testPost(){
-		
+		PostDaoImpl dao = new PostDaoImpl();
+		List<Post> posts = dao.getLatestPosts(0, 5);
+		for (Post post:posts){
+			System.out.println("title:"+post.getTitle());
+			System.out.println("user:"+post.getUser().getUsername());
+			System.out.println("content:"+post.getCardContent());
+			Set<Followcard> followcards = post.getFollowcards();
+			Iterator<Followcard> iterator = followcards.iterator();
+			while (iterator.hasNext()){
+				Followcard followcard = iterator.next();
+				System.out.println("reply:"+followcard.getFollowContent()+"---reply user:"+followcard.getUser().getUsername());
+			}
+		}
 	}
 	
 	
