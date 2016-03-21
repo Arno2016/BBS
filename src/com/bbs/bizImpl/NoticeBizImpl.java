@@ -1,0 +1,34 @@
+package com.bbs.bizImpl;
+
+import java.util.List;
+
+import com.bbs.biz.NoticeBiz;
+import com.bbs.dao.NoticeDao;
+import com.bbs.model.Notice;
+
+public class NoticeBizImpl implements NoticeBiz {
+	private NoticeDao noticeDao;
+	
+	
+	public void setNoticeDao(NoticeDao noticeDao) {
+		this.noticeDao = noticeDao;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.bbs.bizImpl.NoticeBiz#getNotice(int, int)
+	 */
+	@Override
+	public  List<Notice> getNotice(int pageIndex, int pageSize){
+		return noticeDao.getNotice(pageIndex, pageSize);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.bbs.bizImpl.NoticeBiz#publish(com.bbs.model.Notice)
+	 */
+	@Override
+	public  void publish(Notice notice){
+		noticeDao.publish(notice);
+		
+	}
+
+}

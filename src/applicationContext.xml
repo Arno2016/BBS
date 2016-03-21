@@ -24,6 +24,19 @@
 		<property name="userBiz" ref="userBiz"></property>
 	</bean>
 	
+	<!-- 帖子查询模块 -->
+	
+	<bean name="postDao" class="com.bbs.daoImpl.PostDaoImpl"></bean>
+	<bean id="postBiz" class="com.bbs.bizImpl.PostBizImpl">
+		<property name="postDao" ref="postDao"></property>
+	</bean>
+	
+	<!-- 公告模块 -->
+	
+	<bean name="noticeDao" class="com.bbs.daoImpl.NoticeDaoImpl"></bean>
+	<bean id="noticeBiz" class="com.bbs.bizImpl.NoticeBizImpl">
+		<property name="noticeDao" ref="noticeDao"></property>
+	</bean>
 	
 	
 	
