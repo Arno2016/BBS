@@ -28,7 +28,7 @@ public interface PostDao {
 	 * @param postId 帖子id
 	 * @return 回复贴列表
 	 */
-	public Set<Followcard> getFollowCards(int postId);
+//	public Set<Followcard> getFollowCards(int postId);
 	
 	/**
 	 * 获取论坛精华帖
@@ -44,8 +44,16 @@ public interface PostDao {
 	 */
 	public List<Post> getLatestPosts(int pageIndex,int pageSize );
 	
+	public Post getPostById(int postId);
+
+	/**
+	 * 获取指定帖子的回复贴
+	 * @param postId 帖子id,页数，页面大小
+	 * @return 回复贴列表
+	 */
+	List<Followcard> getFollowCards(int postId, int pageIndex, int pageSize);
 	
-	
+	public List<Post> search(String keyword);
 	
 
 }

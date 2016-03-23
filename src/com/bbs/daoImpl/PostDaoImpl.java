@@ -30,10 +30,37 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 
 	
 	@Override
-	public Set<Followcard> getFollowCards(int postId) {
-		Post post = new Post();
-		post.setId(postId);
-		return post.getFollowcards();		
+	public List<Followcard> getFollowCards(int postId,int pageIndex,int pageSize) {
+		Session session = getSession();
+		String sql = "from Followcard follow where follow.post.id=?";
+		Query query = session.createQuery(sql);
+		query.setInteger(0, postId);
+		int startIndex = (pageIndex -1) * pageSize;
+		query.setFirstResult(startIndex);
+		query.setMaxResults(pageSize);
+		return query.list();
+	}
+	
+	
+	@Override
+	public Post getPostById(int postId){
+		Session session = getSession();
+		String sql = "from Post post where post.id=?";
+		Query query = session.createQuery(sql);
+		query.setInteger(0, postId);
+		List<Post> posts = query.list();
+		if (posts != null && posts.size()>0)
+			return posts.get(0);
+		return null;
+	}
+	
+	public List<Post> search(String keyword){
+		
+		Session session = getSession();
+		String sql = "from Post post where post.title like ?";
+		Query query = session.createQuery(sql);
+		query.setString(0, '%'+keyword+'%');
+		return query.list();
 	}
 
 	
@@ -62,6 +89,9 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		query.setMaxResults(pageSize);
 		return query.list();
 	}
+
+
+	
 
 
 	

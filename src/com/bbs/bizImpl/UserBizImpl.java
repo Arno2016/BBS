@@ -43,7 +43,7 @@ public class UserBizImpl implements UserBiz{
 			if (users.get(0).getHasActive() ==0)
 				return -2;
 			if (users.get(0).getPassword().equals(password))
-				return 1;
+				return users.get(0).getId();
 			return -1;
 		}else 
 			return 0;

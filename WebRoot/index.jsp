@@ -19,6 +19,11 @@
 <link rel="stylesheet" type="text/css" href="css/zzsc-demo.css">
 <script src="js/modernizr-2.8.3.min.js"></script>
 
+   <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <link href="css/titlebar.css" rel="stylesheet">
+
 </head>
 <style>
   * {
@@ -300,25 +305,51 @@ margin: 30px 0px 0px 20px;
 
 </style>
 <body>
- <div>
- <!-- 这是最上面的div标签，登录和注册等功能 -->
-         <div class="top">
-          <p>
-          <font size="3" face="Verdana" color="#888888" >
-                       您好，欢迎来到这里！                       
-           <a href="<%=request.getContextPath()%>/login.jsp">登录</a>
-            <a href="<%=request.getContextPath()%>/regist.jsp">注册</a>
-            </font>
-           </p>
-             </div>
+
+		<nav class="navbar navbar-inverse" role="navigation">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">BBS技术论坛</a>
+            </div>
+            <% String username  = (String)session.getAttribute("username");
+            System.out.println("一登陆的用户名："+username);
+            if (username == null){
+             %>                                 
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="<%=request.getContextPath()%>/login.jsp">登陆</a></li>
+                <li><a href="<%=request.getContextPath()%>/regist.jsp">注册</a></li>
+            </ul>
+            <p class="navbar-text navbar-right">尊敬的游客您好！</p>
+   
+            <%}
+            else {
+             %>
+               <ul class="nav navbar-nav navbar-right user">
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            张建浩 <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">设置</a></li>
+                            <li><a href="#">个人中心</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">退出登陆</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                 <p class="navbar-text navbar-right">尊敬的用户您好！</p>
+                <%
+                }
+             %>
+            </nav>
  <!-- 这是放logo和搜索等功能 -->    
  <div class="logo"> 
    
-  <img  src="img/logo.png "  width="178" height="43"></img>
+  <img  src="img/logo.png " width="178" height="43"></img>
        <div id="search_box"> 
       
-       <form id="search_form" method="post" action="#"> 
-       <input type="text" id="s" value="Search" class="swap_value" /> 
+       <form id="search_form" method="post" action="<%=request.getContextPath()%>/search.action"> 
+       <input type="text" id="s" name="keywords" class="swap_value" /> 
        <input type="image" src="img/btn_search_box.gif" width="27" height="24" id="go" alt="Search" title="Search" /> 
        </form> 
        </div> 
@@ -454,7 +485,11 @@ margin: 30px 0px 0px 20px;
             </div>
 <!-- 我要发帖 -->
    
-     <input type="image" src="img/btn_ask.png" width="200" height="50" id="start"  /> 
+     <form id="search_form" method="post" action="<%=request.getContextPath()%>/pages/publish_post.jsp"> 
+     
+      <input type="image" src="img/btn_ask.png" width="200" height="50" id="start"/> 
+      
+     </form> 
   
   <div class="ri">  
   <div class="kuang">  
@@ -466,7 +501,7 @@ margin: 30px 0px 0px 20px;
   	List<Post> posts = postBiz.getBestPosts(1,10);
   	for (Post post:posts){
    %>
-   <li><span><%=post.getSendDate()%></span><a href="<%=request.getContextPath()%>/post.action?postId=<%=post.getId()%>"><%=post.getTitle() %></a></li>
+   <li><span><%=post.getSendDate()%></span><a href="<%=request.getContextPath()%>/postDetail.action?postId=<%=post.getId()%>"><%=post.getTitle() %></a></li>
     <%} %>
 </ul>
  </div>
@@ -479,7 +514,7 @@ margin: 30px 0px 0px 20px;
   <% List<Post> latestPosts = postBiz.getLatestPosts(1,10);
      for (Post post:latestPosts){
    %>
-   <li><span><%=post.getSendDate()%></span><a href="<%=request.getContextPath()%>/post.action?postId=<%=post.getId()%>"><%=post.getTitle() %></a></li>
+   <li><span><%=post.getSendDate()%></span><a href="<%=request.getContextPath()%>/postDetail.action?postId=<%=post.getId()%>"><%=post.getTitle() %></a></li>
 <%}%>
 
 </ul>

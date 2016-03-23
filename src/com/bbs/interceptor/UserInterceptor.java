@@ -11,6 +11,7 @@ public class UserInterceptor extends AbstractInterceptor {
 		String username = (String) ActionContext.getContext().getSession().get("username");
 		if (username == null){
 			//未登录，进行拦截
+			System.out.println("未登录进行拦截");
 			return "login";
 		}else {
 			//放行

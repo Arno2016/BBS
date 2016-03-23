@@ -5,6 +5,9 @@ package com.bbs.dao;
 
 import java.util.List;
 
+import org.hibernate.sql.Update;
+
+import com.bbs.model.Admin;
 import com.bbs.model.User;
 
 /**
@@ -15,31 +18,15 @@ import com.bbs.model.User;
  */
 public interface AdminDao {
 	/**
-	 * 注册用户
-	 * @param user 用户对象
-	 * @return 成功返回true,失败返回false
-	 */
-	public boolean regist(User user);
-	
-	/**
 	 * 用户登陆
 	 * @param user 用户对象
 	 * @return 对象引用列表
 	 */
-	public List<User> login(String username);
+	public List<Admin> login(String username);
 	
 	
 	
-	/**
-	 * 激活用户
-	 * @param userId 用户id
-	 * @param activeCode 激活码
-	 * @return 1-激活成功,0-该用户不存在，-1已经激活
-	 */
-	public int  activeUser(String activeCode);
-	public void updateCode(String username,String code);
-	
-	
+	public void updateAdmin(Admin admin);
 	/**
 	 * 修改用户密码
 	 * @param userId 用户id
@@ -49,6 +36,6 @@ public interface AdminDao {
 	 */
 	public boolean changePassword(int userId,int oldpasswod,int newpassword);
 	
-	public int isExist(User user);
+//	public int isExist(User user);
 
 }

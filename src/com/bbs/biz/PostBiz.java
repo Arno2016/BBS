@@ -22,7 +22,7 @@ public interface PostBiz {
 	 * @param postId 帖子id
 	 * @return 回复贴列表
 	 */
-	public abstract Set<Followcard> getFollowCards(int postId);
+	public abstract List<Followcard> getFollowCards(int postId,int pageIndex,int pageSize);
 
 	/**
 	 * 获取论坛精华帖
@@ -37,5 +37,8 @@ public interface PostBiz {
 	 * @return
 	 */
 	public abstract List<Post> getLatestPosts(int pageIndex, int pageSize);
+	public Post getPostById(int postId);
+	
+	public List<Post> searchPosts(String keyword);
 
 }

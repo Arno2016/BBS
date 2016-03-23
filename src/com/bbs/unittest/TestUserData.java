@@ -35,7 +35,32 @@ public class TestUserData {
 
 	@Test
 	public void test() {
-		testPost();
+//		testFollowCards();
+		testSearchPost("android");
+	}
+	
+	public void testSearchPost(String keywords){
+		PostDaoImpl dao = new PostDaoImpl();
+		List<Post> posts = dao.search(keywords);
+		System.out.println("差找到"+posts.size()+"条记录");
+		for (Post post:posts){
+			System.out.println("差找到"+post.getTitle());
+			
+		}
+		
+	}
+	
+	
+	public void testFollowCards(){
+		PostDaoImpl dao = new PostDaoImpl();
+		Post post = dao.getPostById(1);
+		System.out.println(post.getCardContent());
+//		List<Followcard> followcards = dao.getFollowCards(2, 2, 2);
+//		for (Followcard followcard:followcards){
+//			String content = followcard.getFollowContent();
+//			System.out.println(content);
+//		}
+
 	}
 	
 	public void testPost(){

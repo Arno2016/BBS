@@ -6,6 +6,12 @@ import com.bbs.biz.NoticeBiz;
 import com.bbs.dao.NoticeDao;
 import com.bbs.model.Notice;
 
+/**
+ * 
+ * @author 张建浩、卜凡、卢静、余莎、姚文娜
+ * @version 1.0
+ * 2016年3月23日上午11:32:48
+ */
 public class NoticeBizImpl implements NoticeBiz {
 	private NoticeDao noticeDao;
 	

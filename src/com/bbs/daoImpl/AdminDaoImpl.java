@@ -2,34 +2,32 @@ package com.bbs.daoImpl;
 
 import java.util.List;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import com.bbs.dao.AdminDao;
 import com.bbs.hibernate.factory.BaseHibernateDAO;
+import com.bbs.model.Admin;
 import com.bbs.model.User;
 
 public class AdminDaoImpl extends BaseHibernateDAO implements AdminDao{
 
 	@Override
-	public boolean regist(User user) {
-		// TODO Auto-generated method stub
-		return false;
+	public List<Admin> login(String username) {
+		Session session = getSession();
+		String sql = "from Admin admin where admin.username=?";
+		Query query = session.createQuery(sql);
+		query.setString(0, username);
+		return query.list();
 	}
 
 	@Override
-	public List<User> login(String username) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int activeUser(String activeCode) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void updateCode(String username, String code) {
-		// TODO Auto-generated method stub
-		
+	public void updateAdmin(Admin admin) {
+		Session session = getSession();
+		Transaction transaction = session.beginTransaction();
+		session.save(admin);
+		transaction.commit();
 	}
 
 	@Override
@@ -38,10 +36,6 @@ public class AdminDaoImpl extends BaseHibernateDAO implements AdminDao{
 		return false;
 	}
 
-	@Override
-	public int isExist(User user) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 
 }

@@ -94,11 +94,13 @@ public class LoginAction extends BaseAction {
 			System.out.println("username:"+username);
 			System.out.println("password:"+password);
 			int result = userBiz.login(username,password);
-			switch (result) {
-			case 1:
-				//将用户写入session
+			if (result > 0){
+				//将用户id，和姓名写入session
 				getSession().put("username", username);
+				getSession().put("userId", result);
 				return SUCCESS;
+			}
+			switch (result) {
 			case -1:
 				addFieldError("password", "密码不正确");
 				return "login";
