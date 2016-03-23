@@ -306,42 +306,7 @@ margin: 30px 0px 0px 20px;
 </style>
 <body>
 
-		<nav class="navbar navbar-inverse" role="navigation">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">BBS技术论坛</a>
-            </div>
-            <% String username  = (String)session.getAttribute("username");
-            System.out.println("一登陆的用户名："+username);
-            if (username == null){
-             %>                                 
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="<%=request.getContextPath()%>/login.jsp">登陆</a></li>
-                <li><a href="<%=request.getContextPath()%>/regist.jsp">注册</a></li>
-            </ul>
-            <p class="navbar-text navbar-right">尊敬的游客您好！</p>
-   
-            <%}
-            else {
-             %>
-               <ul class="nav navbar-nav navbar-right user">
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            张建浩 <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">设置</a></li>
-                            <li><a href="#">个人中心</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">退出登陆</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                 <p class="navbar-text navbar-right">尊敬的用户您好！</p>
-                <%
-                }
-             %>
-            </nav>
+		 <jsp:include page="/pages/header.jsp"/>
  <!-- 这是放logo和搜索等功能 -->    
  <div class="logo"> 
    
@@ -357,104 +322,51 @@ margin: 30px 0px 0px 20px;
       </div>   
 <!-- 导航栏 -->
 
- <div class="menu-container">
-	<div class="menu">
-		<ul>
-			<li><a href="#">首页</a></li>
-			<li><a href="#">精选模板</a>
-				<ul>
-					<li><a href="#">移动开发</a>
-						<ul>
-							<li><a href="#">ios</a></li>
-							<li><a href="#">Andriod</a></li>
-							<li><a href="#">Qt</a></li>
-							<li><a href="#">WP</a></li>
-						</ul>
-					</li>
-					<li><a href="#">云计算</a>
-						<ul>
-							<li><a href="#">IaaS</a></li>
-							<li><a href="#">Pass/SaaS</a></li>
-							<li><a href="#">分布式计算/Hadoop</a></li>
-						</ul>
-					</li>
-					<li><a href="#">Java技术</a>
-						<ul>
-							<li><a href="#">Java SE</a></li>
-							<li><a href="#">Java Web 开发</a></li>
-							<li><a href="#">Java EE</a></li>
-							<li><a href="#">Java其他相关</a></li>
-						</ul>
-					</li>
-					<li><a href="#">.NET技术</a>
-						<ul>
-							<li><a href="#">.NET Framework</a></li>
-							<li><a href="#">C#</a></li>
-							<li><a href="#">.NET分析与设计</a></li>
-							<li><a href="#">ASP .NET</a></li>
-							<li><a href="#">VB .NET</a></li>
-						</ul>
-					</li>
-					
-					<li><a href="#">Web开发</a>
-						<ul>
-							<li><a href="#">PHP</a></li>
-							<li><a href="#">JavaScript</a></li>
-							<li><a href="#">ASP</a></li>
-							<li><a href="#">HTML(CSS)</a></li>
-							<li><a href="#">HTML5</a></li>
-							<li><a href="#">Apache</a></li>
-						</ul>
-					</li>
-					<li><a href="#">开发语言/框架</a>
-						<ul>
-							<li><a href="#">Delphi</a></li>
-							<li><a href="#">VC/MFC</a></li>
-							<li><a href="#">VB</a></li>
-							<li><a href="#">C/C++</a></li>
-							<li><a href="#">C++ Builde</a></li>
-							<li><a href="#">其他开发语言</a></li>
-						</ul>
-					</li>
-					<li><a href="#">数据库开发</a>
-						<ul>
-							<li><a href="#">MS-SQL Server</a></li>
-							<li><a href="#">Oracle</a></li>
-							<li><a href="#">PowerBuilder</a></li>
-							<li><a href="#">Informatica</a></li>
-							<li><a href="#">其他数据库开发</a></li>
-						</ul>
-					</li>
-					<li><a href="#">硬件/嵌入式开发</a>
-						<ul>
-							<li><a href="#">嵌入开发(WinCE)</a></li>
-							<li><a href="#">驱动开发/核心开发</a></li>
-							<li><a href="#">硬件设计</a></li>
-							<li><a href="#">单片机/工控</a></li>
-							<li><a href="#">汇编语言</a></li>
-							<li><a href="#">VxWorks开发</a></li>
-						</ul>
-						
-						<li><a href="#">Linux/Unix社区</a>
-						<ul>
-							<li><a href="#">嵌入开发(WinCE)</a></li>
-							<li><a href="#">系统维护与使用区</a></li>
-							<li><a href="#">应用程序开发区</a></li>
-							<li><a href="#">内核源代码研究区</a></li>
-							<li><a href="#">驱动程序开发区</a></li>
-							<li><a href="#">>CPU和硬件区</a></li>
-						</ul>
-					</li>
-				</ul>
-			</li>
-			<li><a href="#">论坛帮助</a>
-				
-			</li>
-			<li><a href="#">关于我们</a></li>				
-			
-		</ul>
-	</div>
+<div class="container user-info">
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                        <img src="img/2.jpg" alt="...">
+                        <div class="carousel-caption">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="img/1.jpg" alt="...">
+                        <div class="carousel-caption">
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="img/2.jpg" alt="...">
+                        <div class="carousel-caption">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <script src="js/jquery-1.11.0.min.js" type="text/javascript"></script>
 <script src="js/megamenu.js"></script>
@@ -493,7 +405,7 @@ margin: 30px 0px 0px 20px;
   
   <div class="ri">  
   <div class="kuang">  
-  <span class="k">论坛热帖</span> <a href="#" target="_blank">更多</a> 
+  <span class="k">论坛热帖</span> <a href="<%=request.getContextPath() %>/more.action?type=9&&page=1" target="_blank">更多</a> 
    </div>
   <ul class="list" >
   <%
@@ -508,7 +420,7 @@ margin: 30px 0px 0px 20px;
 
  <div class="ri1">
   <div class="kuang1">
-   <span class="k1">论坛新帖</span> <a href="#" target="_blank">更多</a>
+   <span class="k1">论坛新帖</span> <a href="<%=request.getContextPath() %>/more.action?type=8&&page=1" target="_blank">更多</a>
   </div>
   <ul class="list1">
   <% List<Post> latestPosts = postBiz.getLatestPosts(1,10);

@@ -54,6 +54,6 @@ public interface PostDao {
 	List<Followcard> getFollowCards(int postId, int pageIndex, int pageSize);
 	
 	public List<Post> search(String keyword);
-	
+	public List<Post> getPostByType(int type,int pageIndex,int pageSize);
 
 }

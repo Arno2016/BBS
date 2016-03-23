@@ -77,6 +77,16 @@
 		<result name="error">/pages/error.jsp</result>
 	</action>
 	
+	<action name="more" class="com.bbs.action.MoreAction">
+		<result name="success">/pages/more.jsp</result>
+		<result name="error">/pages/error.jsp</result>
+	</action>
+	
+	<action name="logout" class="com.bbs.action.LogoutAction">
+		<result name="success">/index.jsp</result>
+		<result name="error">/pages/error.jsp</result>
+	</action>
+	
 </package>
 
 

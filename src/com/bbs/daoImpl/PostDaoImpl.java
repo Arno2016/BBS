@@ -82,12 +82,33 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 	@Override
 	public List<Post> getBestPosts(int pageIndex, int pageSize) {
 		Session session = getSession();
-		String sql = "from Post p order by p.postType asc";
+		String sql = "from Post p where p.postType = 1";
 		Query query = session.createQuery(sql);
 		int startIndex = (pageIndex -1) * pageSize;
 		query.setFirstResult(startIndex);
 		query.setMaxResults(pageSize);
 		return query.list();
+	}
+	
+	public List<Post> getPostByType(int type,int pageIndex,int pageSize){
+		if (type==1 || type==2 || type==3||type==4||type==5||type==6||type==7){
+			Session session = getSession();
+			String sql = "from Post post where post.subForum.mainForum.id=?";
+			Query query = session.createQuery(sql);
+			query.setInteger(0, type);
+			int startIndex = (pageIndex -1) * pageSize;
+			query.setFirstResult(startIndex);
+			query.setMaxResults(pageSize);
+			return query.list();
+		}else if (type==8){
+			return getLatestPosts(pageIndex, pageSize);
+		}
+		else if (type==9){
+			return getBestPosts(pageIndex, pageSize);
+		}
+		
+		return null;
+		
 	}
 
 

@@ -33,6 +33,9 @@
 	<bean id="postAction" class="com.bbs.action.PostAction">
 		<property name="postBiz" ref="postBiz"></property>
 	</bean>
+	<bean id="moreAction" class="com.bbs.action.MoreAction">
+		<property name="postBiz" ref="postBiz"></property>
+	</bean>
 	
 	<!-- 帖子搜索 -->
 	<bean id="postSearchAction" class="com.bbs.action.SearchAction">

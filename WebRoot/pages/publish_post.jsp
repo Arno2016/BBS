@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  	
+  	 <jsp:include page="/pages/header.jsp"/>
   	<script type="text/javascript" src="component/ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
         //下拉框
@@ -169,7 +169,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <td>
                 <button class="tab omg">编辑</button>
                  <button class="tab">预览</button>
-                <input type="text" name="content" id="ckeditor"></input>
+                <textarea type="text" name="content" id="ckeditor"></textarea>
                 <span style="float: right;">你还可以输入30000个字符</span>
             </td>
         </tr>
@@ -179,7 +179,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div id="change" style="float:left">
                     <a class="btn-select" id="big_btn_select">
                         <button class="cur-select">-选择大版块-</button>
-                        <select name="mainForum">
+                        <select name="mainForum">aaaa
                             <option value="1">移动开发</option>
                             <option value="2">云计算</option>
                             <option value="3">Web开发</option>

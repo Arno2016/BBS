@@ -66,6 +66,9 @@ public class PostBizImpl implements PostBiz {
 		return postDao.search(keyword);
 		
 	}
+	public List<Post> getPostByType(int type,int pageIndex,int pageSize){
+		return postDao.getPostByType(type, pageIndex, pageSize);
+	}
 
 	
 	

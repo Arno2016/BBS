@@ -36,7 +36,16 @@ public class TestUserData {
 	@Test
 	public void test() {
 //		testFollowCards();
-		testSearchPost("android");
+//		testSearchPost("android");
+		testSearchByForum(2, 1, 2);
+	}
+	
+	public void testSearchByForum(int type,int pageIndex,int pageSize){
+		PostDaoImpl dao = new PostDaoImpl();
+		List<Post> posts = dao.getPostByType(type,pageIndex,pageSize);
+		for (Post post:posts){
+			System.out.println("差找到"+post.getTitle());
+		}
 	}
 	
 	public void testSearchPost(String keywords){
