@@ -34,5 +34,11 @@ public interface UserBiz {
 	
 	public void updateCode(String username,String code);
 	
+	public void update(User user);
+	public int getUserIdByUsername(String username);
+	public int getUserIdByEmail(String email);
+	public User getUserById(Integer integer);
+
+	
 
 }

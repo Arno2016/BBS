@@ -37,6 +37,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <li><a href="<%=request.getContextPath()%>/regist.jsp">注册</a></li>
             </ul>
             <p class="navbar-text navbar-right">尊敬的游客您好！</p>
+            
+	      
    
             <%}
             else {
@@ -45,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            张建浩 <b class="caret"></b>
+                            <%=username%> <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="<%=path+"/pages/change-info.jsp"%>">设置</a></li>
@@ -56,9 +58,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </li>
                 </ul>
                  <p class="navbar-text navbar-right">尊敬的用户您好！</p>
+                 
                 <%
                 }
              %>
+                <form class="navbar-form navbar-right" role="search" action="<%=request.getContextPath()%>/search.action">
+		       <div class="input-group">
+	         <input type="text" class="form-control" name="keywords" placeholder="search">
+	        <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span> </span>
+	     		 </div>
+      		</form> 
             </nav>
   
   </body>

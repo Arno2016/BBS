@@ -189,13 +189,21 @@ public class UserDaoImpl extends BaseHibernateDAO implements UserDao {
 		Transaction transaction = session.beginTransaction();
 		session.save(user);
 		transaction.commit();
-		return false;
+		return true;
 	}
 
 	
 	@Override
 	public List<User> login(String username) {
 		return findByUsername(username);
+	}
+	
+	public void update(User user){
+		System.out.println("更新："+user.getUsername());
+		Session session = getSession();
+		Transaction transaction = session.beginTransaction();
+		session.update(user);
+		transaction.commit();
 	}
 
 	@Override
@@ -246,6 +254,28 @@ public class UserDaoImpl extends BaseHibernateDAO implements UserDao {
 	@Override
 	public void updateCode(String username, String code) {
 		
+	}
+
+	@Override
+	public User getUserById(Integer integer) {
+		return  findById(integer);
+		
+	}
+
+	@Override
+	public int getUserByEmail(String email) {
+		List<User>users = findByEmail(email);
+		if (users != null && users.size()>0)
+			return users.get(0).getId();
+		return -1;
+	}
+
+	@Override
+	public int getUserIdByUsername(String username) {
+		List<User>users = findByUsername(username);
+		if (users != null && users.size()>0)
+			return users.get(0).getId();
+		return -1;
 	}
 
 	

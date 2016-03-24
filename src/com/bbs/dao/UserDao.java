@@ -52,5 +52,13 @@ public interface UserDao {
 	
 	public int isExist(User user);
 	
+	public void update(User user);
+
+	public User getUserById(Integer integer);
+
+	public int getUserByEmail(String email);
+
+	public int getUserIdByUsername(String username);
+	
 
 }

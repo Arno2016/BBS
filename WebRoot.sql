@@ -42,8 +42,8 @@ create table user(
 )charset=utf8;
 
 INSERT INTO `user` 
-VALUES ('1','qq123','123','男',NULL,'123@qq.com','0','2016-03-17 21:54:37','hello','0',NULL,NULL)
-, ('2','qq456','123','女',NULL,'456@qq.com','0','2016-03-16 21:55:33','空你起哇','0',NULL,NULL);
+VALUES ('1','qq123','123','男',NULL,'123@qq.com','0','2016-03-17 21:54:37','hello','0',NULL,1)
+, ('2','张建浩','123','女',NULL,'456@qq.com','0','2016-03-16 21:55:33','空你起哇','0',NULL,1);
 
 
 create table admin(

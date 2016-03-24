@@ -87,6 +87,12 @@
 		<result name="error">/pages/error.jsp</result>
 	</action>
 	
+	<action name="userchange" class="com.bbs.action.UserAction">
+		<result name="success">/pages/change-info.jsp</result>
+		<result name="error">/pages/error.jsp</result>
+		<result name="input">/pages/error.jsp</result>
+	</action>
+	
 </package>
 
 

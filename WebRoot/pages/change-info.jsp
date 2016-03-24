@@ -1,7 +1,15 @@
+<%@page import="com.bbs.model.User"%>
+<%@page import="com.bbs.biz.UserBiz"%>
+<%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
+<%@page import="org.springframework.context.ApplicationContext"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib uri="/struts-tags" prefix="s" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+if (session.getAttribute("username") == null){
+	response.sendRedirect("/BBS/login.jsp");
+}
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -44,46 +52,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </h3>
                 </div>
                 <div class="panel-body">
-
-
-                    <div class="column">
+				<%
+				 ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+				 UserBiz userBiz = (UserBiz)context.getBean("userBiz");
+				 User user = userBiz.getUserById((Integer)session.getAttribute("userId"));
+				 
+				 %>
+				<form action="<%=path%>/userchange.action" method="post" enctype="multipart/form-data">
 
 
                         <div class="form-group">
-                            <img alt="@zhangjianhao" class="avatar left" height="70" src="https://avatars0.githubusercontent.com/u/11853067?v=3&amp;u=fed7eb6359173869cb89a97ae62368a6a0adc76f&amp;s=140" width="70" />
+                            <img alt="@zhangjianhao" class="avatar left" height="70" src="<%=path+"/"+user.getPhotoUrl() %>" width="70" />
                             请上传你的头像<br/>
 
                         </div>
-                        <input type="file" id="inputfile"><br/>
+                        <input type="file" id="inputfile" name="photoImg"><br/>
 
                         <div class="form-group">
                             <label for="name">用户名</label>
-                            <input type="text" class="form-control" id="name" width="200px" height="80px"
-                                   placeholder="请输入名称">
+                            <input type="text" class="form-control" name="username" id="name" width="200px" height="80px" value="<%=user.getUsername() %>"
+                                   placeholder="请输入名称"> <p class="help-block"><s:fielderror fieldName="username"></s:fielderror></p>
                         </div>
 
                         <div class="form-group">
                             <label for="name">性 别</label><br/>
-                            男<input type="radio" name="sex" value="0"> &nbsp &nbsp女<input type="radio" name="sex" value="1">
-
-
+                            <%if (user.getSex().equals("男")){%>
+                            男<input type="radio" name="sex" value="男" checked="checked"> 
+                             &nbsp &nbsp女<input type="radio" name="sex" value="女">
+                            <%} else if (user.getSex().equals("女")){%>
+                            男<input type="radio" name="sex" value="男" > 
+                             &nbsp &nbsp女<input type="radio" name="sex" value="女" checked="checked">
+                           <%} else {%>
+                             男<input type="radio" name="sex" value="男" > 
+                             &nbsp &nbsp女<input type="radio" name="sex" value="女">
+                           <%} %>
                         </div>
 
 
                         <dl class="form-group">
                             <dt><label for="user_profile_blog">邮箱</label></dt>
-                            <dd><input type="email" class="form-control" id="user_profile_blog" name="" size="30" value="1519503862@qq.com" /></dd>
+                            <dd><input type="email" class="form-control" id="user_profile_blog" name="email" size="30" value="<%=user.getEmail()%>" />
+                            <p class="help-block"><s:fielderror fieldName="email"></s:fielderror></p>
+                            </dd>
                         </dl>
                         <dl class="form-group">
                             <dt><label for="user_profile_company">密码</label></dt>
-                            <dd><input class="form-control" id="user_profile_company" name="" size="30" type="password" width="200px" /></dd>
+                            <dd><input class="form-control" id="user_profile_company" name="password" size="30" type="password" width="200px" /></dd>
                         </dl>
                         <dl class="form-group">
                             <dt><label for="user_profile_location">重复密码</label></dt>
-                            <dd><input class="form-control" id="user_profile_location" name="" size="30" type="password" width="200px" /></dd>
+                            <dd><input class="form-control" id="user_profile_location" name="password" size="30" type="password" width="200px" /></dd>
                         </dl>
-                        <p><button type="submit" class="btn btn-primary">确认修改</button></p>
-                    </div>
+                        <input type="submit" value="提交">
                     </form>
                 </div>
             </div>

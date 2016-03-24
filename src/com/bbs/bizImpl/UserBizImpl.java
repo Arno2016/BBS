@@ -82,6 +82,29 @@ public class UserBizImpl implements UserBiz{
 		
 	}
 	
+	public void update(User user){
+		userDao.update(user);
+	}
+
+
+	@Override
+	public int getUserIdByUsername(String username) {
+		return userDao.getUserIdByUsername(username);
+	}
+
+
+	@Override
+	public User getUserById(Integer integer) {
+		return userDao.getUserById(integer);
+	}
+
+
+	@Override
+	public int getUserIdByEmail(String email) {
+		return userDao.getUserByEmail(email);
+	}
+
+	
 	
 
 }

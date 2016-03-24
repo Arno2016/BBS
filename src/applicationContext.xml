@@ -21,8 +21,12 @@
 	</bean>	
 	
 	<bean name="activeAction" class="com.bbs.action.ActiveAction">
-		<property name="userBiz" ref="userBiz"></property>
+		
 	</bean>
+	
+	<bean name="userAction" class="com.bbs.action.UserAction">
+			<property name="userBiz" ref="userBiz"></property>
+	 </bean>
 	
 	<!-- 帖子查询模块 -->
 	
@@ -68,6 +72,8 @@
 	<bean id="adminAction" class="com.bbs.action.AdminAction">
 		<property name="adminBiz" ref="adminBiz"></property>
 	</bean>
+	
+	
 	
 	
 	

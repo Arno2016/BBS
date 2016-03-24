@@ -73,6 +73,7 @@ public class RegistAction extends BaseAction {
 		user.setType(1);
 		user.setRegisterDate(new Timestamp(System.currentTimeMillis()));
 		user.setHasActive(0);
+		user.setPhotoUrl("/upload/default/head_icon.jpg");//默认头像
 		userBiz.regist(user);
 		MailUtil mail = new MailUtil();
 		mail.sendEmail(user.getEmail(),code,Constant.ACTIVE_EMAIL);
