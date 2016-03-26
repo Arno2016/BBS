@@ -112,6 +112,21 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 	}
 
 
+	@Override
+	public List<Post> getPostByUserId(int userId,int pageIndex,int pageSize) {
+		Session session = getSession();
+		String sql = "from Post p where p.user.id = ?";
+		Query query = session.createQuery(sql);
+		query.setInteger(0, userId);
+		int startIndex = (pageIndex -1) * pageSize;
+		query.setFirstResult(startIndex);
+		query.setMaxResults(pageSize);
+		return query.list();
+	}
+	
+	
+
+
 	
 
 

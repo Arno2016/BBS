@@ -70,6 +70,11 @@ public class PostBizImpl implements PostBiz {
 		return postDao.getPostByType(type, pageIndex, pageSize);
 	}
 
+	@Override
+	public List<Post> getPostByUserId(int userId,int pageIndex,int pageSize){
+		return postDao.getPostByUserId(userId,pageIndex,pageSize);
+	}
+
 	
 	
 	

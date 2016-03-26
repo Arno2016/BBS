@@ -62,7 +62,7 @@ public class MoreAction extends BaseAction {
 			break;
 		}
 		if (type>0&&page>0){
-			List<Post>posts = postBiz.getPostByType(type, page, 2);
+			List<Post>posts = postBiz.getPostByType(type, page, 10);
 //			for (Post post:posts){
 //				System.out.println("差找到"+post.getTitle());
 //			}

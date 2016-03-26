@@ -18,8 +18,9 @@ public class Post implements java.io.Serializable {
 	private String title;
 	private String cardContent;
 	private Timestamp sendDate;
-	private String postType;
-	private Set followcards = new HashSet();
+	private Integer postType;
+	private Integer replyNum;
+	private Set followcards = new HashSet(0);
 
 	// Constructors
 
@@ -39,13 +40,15 @@ public class Post implements java.io.Serializable {
 
 	/** full constructor */
 	public Post(User user, SubForum subForum, String title, String cardContent,
-			Timestamp sendDate, String postType, Set followcards) {
+			Timestamp sendDate, Integer postType, Integer replyNum,
+			Set followcards) {
 		this.user = user;
 		this.subForum = subForum;
 		this.title = title;
 		this.cardContent = cardContent;
 		this.sendDate = sendDate;
 		this.postType = postType;
+		this.replyNum = replyNum;
 		this.followcards = followcards;
 	}
 
@@ -99,12 +102,20 @@ public class Post implements java.io.Serializable {
 		this.sendDate = sendDate;
 	}
 
-	public String getPostType() {
+	public Integer getPostType() {
 		return this.postType;
 	}
 
-	public void setPostType(String postType) {
+	public void setPostType(Integer postType) {
 		this.postType = postType;
+	}
+
+	public Integer getReplyNum() {
+		return this.replyNum;
+	}
+
+	public void setReplyNum(Integer replyNum) {
+		this.replyNum = replyNum;
 	}
 
 	public Set getFollowcards() {

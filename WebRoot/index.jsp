@@ -91,7 +91,7 @@
 					   %>
 				
                 
-                <a href="<%=request.getContextPath()%>/postDetail.action?postId=<%=post.getId()%>" class="list-group-item">
+                <a href="<%=request.getContextPath()%>/pages/post.jsp?postId=<%=post.getId()%>&&page=1" class="list-group-item">
                     <h4 class="list-group-item-heading">[<%=post.getSubForum().getMainForum().getTitle()%>]</h4>
                     <%=post.getTitle() %><span class="badge">新</span>
                     <p class="text-right" style="float: right;margin-right: 20px">发表日期:<%=post.getSendDate()%></p>
@@ -115,7 +115,7 @@
                          <a href="<%=request.getContextPath()%>/notice.action?noticeId=<%=notice.getId() %>" class="list-group-item"><%=notice.getContent()%></a>
                     <%} %>
             </ul>
-               <a href="<%=request.getContextPath()%>/pages/publish_post.jsp" ><button type="button" class="btn btn-primary" style="width: 200px;height:50px;margin-left: 30px">我要发帖</button></a>
+               <a href="<%=request.getContextPath()%>/publish_post.jsp" ><button type="button" class="btn btn-primary" style="width: 200px;height:50px;margin-left: 30px">我要发帖</button></a>
         </div>
 
         <div class="row">
@@ -130,7 +130,7 @@
 				  	List<Post> posts = postBiz.getBestPosts(1,6);
 				  	for (Post post:posts){
 				   %>
-                    <a href="<%=request.getContextPath()%>/postDetail.action?postId=<%=post.getId()%>" class="list-group-item">
+                    <a href="<%=request.getContextPath()%>/pages/post.jsp?postId=<%=post.getId()%>&&page=1" class="list-group-item">
                         <h4 class="list-group-item-heading">[<%=post.getSubForum().getMainForum().getTitle()%>]</h4>
                             <%=post.getTitle() %><span class="badge">热</span>
                         <p class="text-right" style="float: right;margin-right: 20px">发表日期:<%=post.getSendDate()%></p>
@@ -214,12 +214,8 @@
         </div>
 
     </div>
-     
- 
-
-
- 
-
+    
+  <jsp:include page="/pages/bottom.jsp"/>
  
 </body>
 </html>

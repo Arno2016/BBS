@@ -27,6 +27,7 @@ public class PostDAO extends BaseHibernateDAO {
 	public static final String TITLE = "title";
 	public static final String CARD_CONTENT = "cardContent";
 	public static final String POST_TYPE = "postType";
+	public static final String REPLY_NUM = "replyNum";
 
 	public void save(Post transientInstance) {
 		log.debug("saving Post instance");
@@ -100,6 +101,10 @@ public class PostDAO extends BaseHibernateDAO {
 
 	public List findByPostType(Object postType) {
 		return findByProperty(POST_TYPE, postType);
+	}
+
+	public List findByReplyNum(Object replyNum) {
+		return findByProperty(REPLY_NUM, replyNum);
 	}
 
 	public List findAll() {

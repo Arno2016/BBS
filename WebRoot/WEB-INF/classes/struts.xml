@@ -49,7 +49,7 @@
 	</action>
 	
 	<action name="publish" class="com.bbs.action.PublishPostAction">
-		<result name="success">/pages/message.jsp</result>
+		<result name="success">/pages/mypost.jsp</result>
 		<result name="login">/login.jsp</result>
 		<result name="error">/pages/error.jsp</result>
 		<interceptor-ref name="loginPermissionStack"></interceptor-ref>
@@ -61,10 +61,7 @@
 	</action>
 	
 	<action name="reply" class="com.bbs.action.ReplyAction">
-		<result name="success" type="redirectAction">
-			<param name="actionName">postDetail</param>
-			<param name="postId">${postId}</param>
-		</result>
+		<result name="success">/pages/post.jsp</result>
 		<result name="error">/pages/error.jsp</result>
 		<result name="login">/login.jsp</result>
 		<!-- 回复要登陆 -->

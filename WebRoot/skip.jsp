@@ -23,5 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     邮件已经发送至制定邮箱，请登陆邮箱进行验证. <br>
+     <jsp:include page="/pages/bottom.jsp"/>
+    
   </body>
 </html>

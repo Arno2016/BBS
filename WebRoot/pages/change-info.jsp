@@ -34,12 +34,12 @@ if (session.getAttribute("username") == null){
      <jsp:include page="/pages/header.jsp"/>
      
      
-     <div class="container user-info">
+     <div class="container" style="margin-top: 30px">
     <div class="row">
         <div class="col-xs-3">
             <ul class="nav nav-pills nav-stacked">
-                <li role="presentation" class="active"><a href="#">资料修改</a></li>
-                <li role="presentation"><a href="#">我的帖子</a></li>
+                <li role="presentation" class="active"><a href="<%=path%>/pages/change-info.jsp">资料修改</a></li>
+                <li role="presentation"><a href="<%=path%>/pages/mypost.jsp?page=1">我的帖子</a></li>
             </ul>
 
         </div>
@@ -117,6 +117,6 @@ if (session.getAttribute("username") == null){
     </div>
 </div>
      
-     
+      <jsp:include page="/pages/bottom.jsp"/>
   </body>
 </html>

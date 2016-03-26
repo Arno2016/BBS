@@ -68,6 +68,7 @@ create table post(
 	card_content varchar(500)not null,  #发帖内容
 	send_date datetime not null,    #发帖时间
     post_type int, #帖子类型（普通，精华帖,由管理员设置)
+    reply_num int,#帖子回复数目
 	FOREIGN key(forum) references sub_forum(id) on delete cascade on update cascade,
 	FOREIGN key(user_id) references user(id) on delete cascade on update cascade
 )charset=utf8;

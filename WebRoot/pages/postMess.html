@@ -1,32 +1,12 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html>
 <html>
-  <head>
-    <base href="<%=basePath%>">
-    
-    <title>发布帖子</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link href="css/titlebar.css" rel="stylesheet">
-
-  </head>
-  
-  <body>
-  	 <jsp:include page="/pages/header.jsp"/>
-  	<script type="text/javascript" src="component/ckeditor/ckeditor.js"></script>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+    <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
         //下拉框
-
+/*
         var $$ = function (id) {
             return document.getElementById(id);
         }
@@ -49,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 curSelect.innerHTML = text2;
             }
         }
-       
+       */
       
     </script>
     <style type="text/css">
@@ -154,14 +134,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         color: #fff;
                     }
     </style>
-    <table class="tb" cellspacing="0" cellpadding="3">
-    <form method="post" action="<%=path%>/publish.action">
+
+</head>
+<body>
+ <table class="tb" cellspacing="0" cellpadding="3">
         <tr>
             <th>文章标题</th>
-             
             <td>
-                <input type="text" id="textfile" name="title" />
-                <span>你可以输入30个字符</span>
+                <input type="text" id="textfile" name="textfile" />
+                <span>你还可以输入30个字符</span>
             </td>
         </tr>
         <tr>
@@ -169,7 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <td>
                 <button class="tab omg">编辑</button>
                  <button class="tab">预览</button>
-                <textarea type="text" name="content" id="ckeditor"></textarea>
+                <textarea type="text" class="" name="" id="ckeditor"></textarea>
                 <span style="float: right;">你还可以输入30000个字符</span>
             </td>
         </tr>
@@ -177,42 +158,49 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <th>选择版块</th>
             <td>
                 <div id="change" style="float:left">
-                    <a class="btn-select" id="big_btn_select">
-                        <button class="cur-select">-选择大版块-</button>
-                        <select name="mainForum">aaaa
-                            <option value="1">移动开发</option>
-                            <option value="2">云计算</option>
-                            <option value="3">Web开发</option>
-                            <option value="4">开发语言框架</option>
-                            <option value="5">数据库开发</option>
-                            <option value="6">硬件/嵌入式开发</option>
-                            <option value="7">Linux/Unix社区</option>
+                   
+                        <select>
+                            <option value="volvo">移动开发</option>
+                            <option value="saab">云计算</option>
+                            <option value="opel">Java技术</option>
+                            <option value="audi">.NET技术</option><option value="volvo">移动开发</option>
+                            <option value="saab">前端开发</option>
+                            <option value="opel">开发语言/框架</option>
+                            <option value="audi">数据库开发</option>
+                            <option value="opel">硬件/嵌入式开发</option>
+                            <option value="audi">Linux/Unix</option>
                         </select>
-                    </a>
-                     <a class="btn-select" id="small_btn_select">
-                        <button class="cur-select">-选择小版块-</button>
-                        <select name="subForum">
-                            <option value="1">Android</option>
-                            <option value="1">ios</option>
-                            <option value="2">javaEE</option>
-                            <option value="3">分布式计算</option>
+                   
+          
+                        <select>
+                            <option value="volvo">移动开发</option>
+                            <option value="saab">云计算</option>
+                            <option value="opel">Java技术</option>
+                            <option value="audi">.NET技术</option><option value="volvo">移动开发</option>
+                            <option value="saab">前端开发</option>
+                            <option value="opel">开发语言/框架</option>
+                            <option value="audi">数据库开发</option>
+                            <option value="opel">硬件/嵌入式开发</option>
+                            <option value="audi">Linux/Unix</option>
                         </select>
-                    </a>
+                    
                      
-               
+                </form>
                <span style="float:left;line-height:35px;">请选择所要发帖的版块</span>
             </td>
         </tr>
         <tr>
             <th></th>
             <td>
-               	<input type="submit" value="提交"/>
+                <span>主动邀请（请输入用户名，多个用户用“,”（英文逗号）分隔）</span>
+                <input type="text" id="text1" name="textfile" />
+                <button>确定</button>
             </td>
         </tr>
-        </form>
     </table>
     <script type="text/javascript">
         CKEDITOR.replace('ckeditor', { allowedContent: true });
     </script>
-  </body>
+
+</body>
 </html>

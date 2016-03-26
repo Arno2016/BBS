@@ -41,5 +41,6 @@ public interface PostBiz {
 	
 	public List<Post> searchPosts(String keyword);
 	public List<Post> getPostByType(int type,int pageIndex,int pageSize);
+	public List<Post> getPostByUserId(int userId,int pageIndex,int pageSize);  
 
 }

@@ -37,7 +37,8 @@ public class TestUserData {
 	public void test() {
 //		testFollowCards();
 //		testSearchPost("android");
-		testSearchByForum(2, 1, 2);
+//		testSearchByForum(2, 1, 2);
+		testFollowCards();
 	}
 	
 	public void testSearchByForum(int type,int pageIndex,int pageSize){
@@ -62,13 +63,14 @@ public class TestUserData {
 	
 	public void testFollowCards(){
 		PostDaoImpl dao = new PostDaoImpl();
-		Post post = dao.getPostById(1);
-		System.out.println(post.getCardContent());
+//		Post post = dao.getPostById(1);
+		List<Followcard> followcards = dao.getFollowCards(66, 2, 5);
+//		System.out.println(post.getCardContent());
 //		List<Followcard> followcards = dao.getFollowCards(2, 2, 2);
-//		for (Followcard followcard:followcards){
-//			String content = followcard.getFollowContent();
-//			System.out.println(content);
-//		}
+		for (Followcard followcard:followcards){
+			String content = followcard.getFollowContent();
+			System.out.println(content);
+		}
 
 	}
 	

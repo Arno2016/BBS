@@ -48,6 +48,7 @@ public class ReplyAction extends BaseAction{
 			user.setUsername((String) getSession().get("username"));
 			followcard.setUser(user);
 			followcardBiz.addReply(followcard);
+			getRequest().put("postId", postId);
 			return SUCCESS;
 		}
 		return ERROR;

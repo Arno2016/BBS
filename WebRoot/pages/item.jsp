@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <%
         	for (Post post:posts){
      %>
-    <a href="<%=path+"/postDetail.action?postId="+post.getId()%>" class="list-group-item">
+    <a href="<%=path%>/pages/post.jsp?postId=<%=post.getId()%>&&page=1" class="list-group-item">
             <h4 class="list-group-item-heading">
                 [<%=post.getSubForum().getMainForum().getTitle() %>]
             </h4>
@@ -51,6 +51,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 
 
-
+ <jsp:include page="/pages/bottom.jsp"/>
   </body>
 </html>

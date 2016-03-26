@@ -54,6 +54,14 @@
 		<property name="followcardBiz" ref="followcardBiz"></property>
 	</bean>
 	
+	<bean name="mainForumDao" class="com.bbs.daoImpl.MainForumDaoImpl"></bean>
+	<bean id="mainForumBiz" class="com.bbs.bizImpl.MainForumBizImpl">
+		<property name="mainDao" ref="mainForumDao"></property>
+	</bean>
+	
+	
+	
+	
 	
 	
 	<!-- 公告模块 -->
