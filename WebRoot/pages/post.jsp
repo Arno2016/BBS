@@ -1,3 +1,4 @@
+<%@page import="com.bbs.biz.UserBiz"%>
 <%@page import="com.bbs.model.User"%>
 <%@page import="com.bbs.model.Followcard"%>
 <%@page import="com.bbs.model.Post"%>
@@ -31,6 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+<div style="height:100%">
   
    <jsp:include page="/pages/header.jsp"/>
   	 <div class="container" style="margin-top: 50px">
@@ -49,6 +51,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		 String num = request.getParameter("page");
   		 if (num != null)
   		    pageNum = Integer.parseInt(num);
+  		 else 
+  		 	pageNum = (Integer)request.getAttribute("page");
   		    System.out.println("postId"+postId+"pageNum:"+pageNum);
   	 	 List<Followcard> followcards = postBiz.getFollowCards(postId, pageNum, 5);
   	 %>
@@ -101,24 +105,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
     </div>
-    
+    </div>
        
   	 
   	 
   	  
   	 
     
+   
     <!-- 回复内容 -->
      <%
    
   	 	 int size = followcards.size();
   	 	 System.out.println("回复数目："+size);
+  	 	 UserBiz userBiz = (UserBiz)context.getBean("userBiz");
 		for (int i = 0;i<size;i++ ){
 		Followcard followcard = followcards.get(i);
 		int floor = i+5*(pageNum-1);
 		User user = followcard.getUser();
+		User repeatUser = null;
+		if (user.getSex() == null){
+		  repeatUser = userBiz.getUserById(user.getId());
+		  System.out.println("sexi is null:"+user.getId());
+		    user.setSex(repeatUser.getSex());
+		}
+		if (user.getLevel() == null&&repeatUser!=null){
+		  user.setLevel(repeatUser.getLevel());		  
+		}
+		   
   	  %>
-  	 
+  	 <div class="container">
     <div class="row" style="margin-top: 5px">
         <div class="col-md-1 reply-border">
 
@@ -171,9 +187,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <%}%>
 
     </div>
+     </div>
     
   
-</div>
+
   	 
   	 <ul class="pagination pagination-lg" style="float: right;margin-right: 20px;">
 <% if (pageNum>1) { int pageIndex = pageNum -1;%>
@@ -213,6 +230,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<div style="height: 200px;margin: 70px auto; width: 800px;">
   	<form action="<%=path%>/reply.action" method="post">
   	<input type="hidden" name="postId" value="<%=postId%>">
+  	<input type="hidden" name="page" value="<%=pageNum%>">
         <div style="margin: 5px auto;height: 100px; width: 800px">
             <textarea id="TextArea1" cols="20" rows="1" name="content" class="ckeditor"></textarea>
 
@@ -226,8 +244,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
   	
-
-     <jsp:include page="/pages/bottom.jsp"/>
+</div>
     
   </body>
 </html>

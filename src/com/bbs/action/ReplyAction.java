@@ -9,7 +9,12 @@ import com.bbs.model.User;
 
 public class ReplyAction extends BaseAction{
 	private int postId;
-//	private int userId;
+	private int pageNum;
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+
+
 	private String content;
 	private FollowcardBiz followcardBiz;
 	
@@ -49,6 +54,7 @@ public class ReplyAction extends BaseAction{
 			followcard.setUser(user);
 			followcardBiz.addReply(followcard);
 			getRequest().put("postId", postId);
+			getRequest().put("page", pageNum);
 			return SUCCESS;
 		}
 		return ERROR;

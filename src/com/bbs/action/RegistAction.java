@@ -71,6 +71,7 @@ public class RegistAction extends BaseAction {
 		user.setActiveCode(code);
 		user.setLevel(1);
 		user.setType(1);
+		user.setSex("男");
 		user.setRegisterDate(new Timestamp(System.currentTimeMillis()));
 		user.setHasActive(0);
 		user.setPhotoUrl("/upload/default/head_icon.jpg");//默认头像
