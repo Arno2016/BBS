@@ -17,6 +17,7 @@ public class Admin implements java.io.Serializable {
 	private String photoUrl;
 	private String email;
 	private Integer type;
+	private String sex;
 	private Set notices = new HashSet(0);
 
 	// Constructors
@@ -35,12 +36,13 @@ public class Admin implements java.io.Serializable {
 
 	/** full constructor */
 	public Admin(String userName, String password, String photoUrl,
-			String email, Integer type, Set notices) {
+			String email, Integer type, String sex, Set notices) {
 		this.userName = userName;
 		this.password = password;
 		this.photoUrl = photoUrl;
 		this.email = email;
 		this.type = type;
+		this.sex = sex;
 		this.notices = notices;
 	}
 
@@ -92,6 +94,14 @@ public class Admin implements java.io.Serializable {
 
 	public void setType(Integer type) {
 		this.type = type;
+	}
+
+	public String getSex() {
+		return this.sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 
 	public Set getNotices() {

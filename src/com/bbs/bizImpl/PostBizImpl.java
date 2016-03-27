@@ -75,6 +75,12 @@ public class PostBizImpl implements PostBiz {
 		return postDao.getPostByUserId(userId,pageIndex,pageSize);
 	}
 
+	@Override
+	public void autoIncreaseReply(int postId) {
+		postDao.autoIncreaseReply(postId);
+		
+	}
+
 	
 	
 	

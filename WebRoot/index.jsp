@@ -1,3 +1,4 @@
+<%@page import="java.util.Set"%>
 <%@page import="com.bbs.model.Notice"%>
 <%@page import="com.bbs.biz.NoticeBiz"%>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
@@ -7,6 +8,9 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.bbs.bizImpl.PostBizImpl"%>
 <%@page import="com.bbs.biz.PostBiz"%>
+<%@page import="com.bbs.model.SubForum"%>
+<%@page import="com.bbs.model.MainForum"%>
+<%@page import="com.bbs.biz.MainForumBiz"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -97,7 +101,7 @@
                 <a href="<%=request.getContextPath()%>/pages/post.jsp?postId=<%=post.getId()%>&&page=1" class="list-group-item">
                     <h4 class="list-group-item-heading">[<%=post.getSubForum().getMainForum().getTitle()%>]</h4>
                     <%=post.getTitle() %><span class="badge">新</span>
-                    <p class="text-right" style="float: right;margin-right: 20px">发表日期:<%=post.getSendDate()%></p>
+                    <p class="text-right" style="float: right;margin-right: 20px">评论量:<%=post.getReplyNum()%>&nbsp;发表日期:<%=post.getTime()%></p>
                 </a>
 				<%}%>
             </ul>
@@ -136,7 +140,7 @@
                     <a href="<%=request.getContextPath()%>/pages/post.jsp?postId=<%=post.getId()%>&&page=1" class="list-group-item">
                         <h4 class="list-group-item-heading">[<%=post.getSubForum().getMainForum().getTitle()%>]</h4>
                             <%=post.getTitle() %><span class="badge">热</span>
-                        <p class="text-right" style="float: right;margin-right: 20px">发表日期:<%=post.getSendDate()%></p>
+                        <p class="text-right" style="float: right;margin-right: 20px">评论量:<%=post.getReplyNum()%>&nbsp;发表日期:<%=post.getTime()%></p>
                     </a>
                     
                      <%} %>
@@ -148,78 +152,50 @@
      <h3 style="margin-top: 20px;margin-left: 15px">板块分类</h3>
     <hr/>
       <div  class="container">
-        <div class="row">
+      <%
+                  	   MainForumBiz mainForumBiz = (MainForumBiz)context.getBean("mainForumBiz");
+                  	   List<MainForum> mainForums = mainForumBiz.getAllMainForums();
+                  	   int size = mainForums.size();
+                  	   for (int i=1; i<=size; i++){
+                  	   MainForum mainForum = mainForums.get(i-1);
+                  	 
+                  	  
+                  	   if (i%4 == 1){
+        %>
+         <div class="row">
+       <%} %>
+      
+       
             <div class="col-md-3 col-sm-12">
                 <a href="<%=request.getContextPath() %>/more.action?type=1&&page=1">
                 <div class="main-forum">
-                    <h3>移动开发</h3>
-                    <span class="label label-success">android</span>
-                    <span class="label label-info">ios</span>
+                    <h3><%=mainForum.getTitle() %></h3>
+                    <% Set<SubForum> subForums = mainForum.getSubForums();
+                      boolean switcher = true;
+                       for (SubForum subForum:subForums){
+                       if (switcher){
+                       switcher = false;
+                     %>
+                    <%=subForum.getTitle()%>
+                    <%}else{ switcher = true;%>
+                    <%=subForum.getTitle()%>
+                    <%}} %>
                 </div>
                 </a>
 
             </div>
-             <div class="col-md-3 col-sm-12">
-          		 <a href="<%=request.getContextPath() %>/more.action?type=2&&page=1">
-	                <div class="main-forum">
-	                    <h3>web开发</h3>
-	                    <span class="label label-success">javaEE</span>
-	                    <span class="label label-info">.net</span>
-	                </div>
-                </a>
-           </div>
-             <div class="col-md-3 col-sm-12">
-          		 <a href="<%=request.getContextPath() %>/more.action?type=3&&page=1">
-	                <div class="main-forum">
-	                    <h3>云计算</h3>
-	                    <span class="label label-success">android</span>
-	                    <span class="label label-info">ios</span>
-	                </div>
-                </a>
-           </div>
-             <div class="col-md-3 col-sm-12">
-          		 <a href="<%=request.getContextPath() %>/more.action?type=4&&page=1">
-	                <div class="main-forum">
-	                    <h3>开发语言框架</h3>
-	                    <span class="label label-success">android</span>
-	                    <span class="label label-info">ios</span>
-	                </div>
-                </a>
-           </div>
-        <div class="row">
-			<div class="col-md-3 col-sm-12">
-          		 <a href="<%=request.getContextPath() %>/more.action?type=5&&page=1">
-	                <div class="main-forum">
-	                    <h3>数据库开发</h3>
-	                    <span class="label label-success">javaEE</span>
-	                    <span class="label label-info">.net</span>
-	                </div>
-                </a>
-           </div>
-             <div class="col-md-3 col-sm-12">
-          		 <a href="<%=request.getContextPath() %>/more.action?type=6&&page=1">
-	                <div class="main-forum">
-	                    <h3>硬件/嵌入式开发</h3>
-	                    <span class="label label-success">android</span>
-	                    <span class="label label-info">ios</span>
-	                </div>
-                </a>
-           </div>
-             <div class="col-md-3 col-sm-12">
-          		 <a href="<%=request.getContextPath() %>/more.action?type=7&&page=1">
-	                <div class="main-forum">
-	                    <h3>Linux/Unix</h3>
-	                    <span class="label label-success">android</span>
-	                    <span class="label label-info">ios</span>
-	                </div>
-                </a>
-           </div>
-        </div>
+            
+              <% if (i%4 == 4){%>
+              </div>
+              <%} }%>
+            
+          
+  
 
     </div>
     </div>
     
-   </div></div></div>
+   </div></div></div></div>
 
  
  <div  style="margin-top: 80px;background-color: rgba(0,0,0,0.8);height: 100px;color: darkgray;width: 100%">

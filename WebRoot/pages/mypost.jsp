@@ -62,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <%=post.getTitle() %>
                     </a>
                     <a href="#" style="float: right">申请精华贴</a>
-                    <p style="float: right;margin-right: 50px"><%=post.getSendDate()%></p>
+                    <p style="float: right;margin-right: 50px">评论量:<%=post.getReplyNum()%>&nbsp;发表日期:<%=post.getTime()%></p>
                 </div>
  				<%} %>
             </ul>

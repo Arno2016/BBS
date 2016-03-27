@@ -90,6 +90,14 @@
 		<result name="input">/pages/error.jsp</result>
 	</action>
 	
+	<!-- 管理员模块 -->
+	<action name="adminlogin" class="com.bbs.action.AdminAction" method="login">
+		<result name="success">/pages/manager.jsp</result>
+		<result name="login">/pages/admin.jsp</result>
+		<result name="error">/pages/error.jsp</result>
+		<result name="input">/pages/error.jsp</result>
+	</action>
+	
 </package>
 
 

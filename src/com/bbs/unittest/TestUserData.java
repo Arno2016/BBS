@@ -38,7 +38,16 @@ public class TestUserData {
 //		testFollowCards();
 //		testSearchPost("android");
 //		testSearchByForum(2, 1, 2);
-		testFollowCards();
+//		testFollowCards();
+		testAddReply(1);
+	}
+	/**
+	 * 测试增加回复数目
+	 * @param postId
+	 */
+	public void testAddReply(int postId){
+		PostDaoImpl dao = new PostDaoImpl();
+		dao.autoIncreaseReply(postId);
 	}
 	
 	public void testSearchByForum(int type,int pageIndex,int pageSize){

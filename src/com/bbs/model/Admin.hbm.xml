@@ -25,6 +25,9 @@
         <property name="type" type="java.lang.Integer">
             <column name="type" not-null="true" />
         </property>
+        <property name="sex" type="java.lang.String">
+            <column name="sex" length="10" />
+        </property>
         <set name="notices" inverse="true">
             <key>
                 <column name="admin_id" not-null="true" />

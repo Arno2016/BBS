@@ -52,7 +52,8 @@ create table admin(
 	password varchar(20) not null,
     photo_url tinytext,
 	email varchar(30) not null,
-	type int not null
+	type int not null,
+    sex varchar(10)
 )charset=utf8;
 
 INSERT INTO 

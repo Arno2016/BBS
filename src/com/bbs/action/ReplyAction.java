@@ -3,6 +3,7 @@ package com.bbs.action;
 import java.sql.Timestamp;
 
 import com.bbs.biz.FollowcardBiz;
+import com.bbs.biz.PostBiz;
 import com.bbs.model.Followcard;
 import com.bbs.model.Post;
 import com.bbs.model.User;
@@ -17,9 +18,13 @@ public class ReplyAction extends BaseAction{
 
 	private String content;
 	private FollowcardBiz followcardBiz;
+	private PostBiz postBiz;
 	
 	
 	
+	public void setPostBiz(PostBiz postBiz) {
+		this.postBiz = postBiz;
+	}
 	public int getPostId() {
 		return postId;
 	}
@@ -53,6 +58,7 @@ public class ReplyAction extends BaseAction{
 			user.setUsername((String) getSession().get("username"));
 			followcard.setUser(user);
 			followcardBiz.addReply(followcard);
+			postBiz.autoIncreaseReply(postId);
 			getRequest().put("postId", postId);
 			getRequest().put("page", pageNum);
 			return SUCCESS;

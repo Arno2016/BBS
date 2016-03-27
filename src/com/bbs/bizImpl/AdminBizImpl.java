@@ -21,9 +21,7 @@ public class AdminBizImpl implements AdminBiz {
 
 
 
-	/* (non-Javadoc)
-	 * @see com.bbs.bizImpl.AdminBiz#login(java.lang.String, java.lang.String)
-	 */
+	
 	@Override
 	public int login(String username,String password){
 		List<Admin> admins = adminDao.login(username);
@@ -37,9 +35,6 @@ public class AdminBizImpl implements AdminBiz {
 	
 	
 	
-	/* (non-Javadoc)
-	 * @see com.bbs.bizImpl.AdminBiz#updateAdmin(com.bbs.model.Admin)
-	 */
 	@Override
 	public void updateAdmin(Admin admin){
 		adminDao.updateAdmin(admin);

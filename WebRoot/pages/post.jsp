@@ -86,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <h2 style="margin-left:20px;color:black">[<%=post.getSubForum().getTitle()%>]<%=post.getTitle()%></h2>
                 <div style="margin-left:20px" >
 
-                    <span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;435 &nbsp;|&nbsp;<span>发表于:<%=post.getSendDate() %></span>
+                    <span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;<%=post.getReplyNum() %> &nbsp;|&nbsp;<span>发表于:<%=post.getTime() %></span>
 
                 </div>
                 <strong style=" float:right;margin-right:10px;margin-top: 10px">
@@ -119,9 +119,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	 	 int size = followcards.size();
   	 	 System.out.println("回复数目："+size);
   	 	 UserBiz userBiz = (UserBiz)context.getBean("userBiz");
+  	 	 int floor = 0;
 		for (int i = 0;i<size;i++ ){
 		Followcard followcard = followcards.get(i);
-		int floor = i+5*(pageNum-1);
+		floor = i+5*(pageNum-1)+1;
 		User user = followcard.getUser();
 		User repeatUser = null;
 		if (user.getSex() == null){
@@ -163,7 +164,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="col-md-8 reply-content">
 
             <div class="reply-time">
-                <span style="color: gray">回复于:<%=followcard.getFollowDate() %></span>
+                <span style="color: gray">回复于:<%=followcard.getTime() %></span>
                 <% if (floor == 1) {%>
                 <span class="badge" style="float:right;margin-right:10px;background: #ff6927;width: 50px;">沙发</span>
                 <%}else if (floor == 2) {%>

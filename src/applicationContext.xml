@@ -52,6 +52,7 @@
 	</bean>
 	<bean id="replyAction" class="com.bbs.action.ReplyAction">
 		<property name="followcardBiz" ref="followcardBiz"></property>
+		<property name="postBiz" ref="postBiz"></property>
 	</bean>
 	
 	<bean name="mainForumDao" class="com.bbs.daoImpl.MainForumDaoImpl"></bean>

@@ -125,5 +125,14 @@ public class Post implements java.io.Serializable {
 	public void setFollowcards(Set followcards) {
 		this.followcards = followcards;
 	}
+	
+	public String getTime(){
+		String time = getSendDate().toString();
+		int index = time.lastIndexOf('.');
+		if (index != -1)
+		return time.substring(0,index);
+		else 
+			return time.toString();
+	}
 
 }

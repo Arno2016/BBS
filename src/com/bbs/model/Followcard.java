@@ -79,5 +79,13 @@ public class Followcard implements java.io.Serializable {
 	public void setFollowDate(Timestamp followDate) {
 		this.followDate = followDate;
 	}
+	public String getTime(){
+		String time = getFollowDate().toString();
+		int index = time.lastIndexOf('.');
+		if (index != -1)
+		return time.substring(0,index);
+		else 
+			return time.toString();
+	}
 
 }

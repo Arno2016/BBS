@@ -56,6 +56,8 @@ public interface PostDao {
 	public List<Post> search(String keyword);
 	public List<Post> getPostByType(int type,int pageIndex,int pageSize);
 	
-	public List<Post> getPostByUserId(int userId,int pageIndex,int pageSize); 
+	public List<Post> getPostByUserId(int userId,int pageIndex,int pageSize);
+
+	public void autoIncreaseReply(int postId); 
 
 }

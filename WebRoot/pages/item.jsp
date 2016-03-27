@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 [<%=post.getSubForum().getMainForum().getTitle() %>]
             </h4>
             <%=post.getTitle()%>&nbsp[<%=post.getSubForum().getTitle() %>]
-            <p class="text-right post-date"><%=post.getSendDate()%></p>
+            <p class="text-right post-date">评论量:<%=post.getReplyNum()%>&nbsp;发表日期:<%=post.getTime()%></p>
     </a>
     <%} %>
 </div>
