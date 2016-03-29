@@ -161,8 +161,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <tr>
             <th>文章内容</th>
             <td>
-                <button class="tab omg">编辑</button>
-                 <button class="tab">预览</button>
+               
                 <textarea type="text" class="" name="content" id="ckeditor"></textarea>
                 <span style="float: right;">你还可以输入30000个字符</span>
             </td>

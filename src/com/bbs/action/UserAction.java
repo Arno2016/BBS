@@ -55,29 +55,28 @@ public class UserAction  extends BaseAction{
 		if (username!=null || password != null || email != null || photoImg != null){
 			
 			User user = userBiz.getUserById((Integer)getSession().get("userId"));
-			if (username != null)
+			if (username != null&&username.length()>0)
 			user.setUsername(username);
-			if (sex != null)
+			if (sex != null&&sex.length()>0)
 				user.setSex(sex);
-			if (email != null)
+			if (email != null&&email.length()>0)
 			user.setEmail(email);
-			if (password != null)
-			user.setPassword(password);
+			if (password != null&&password.length()>0)
+				user.setPassword(password);
 			System.out.println("username:"+username+email);
 			switch (userBiz.isExist(user)) {
 			case 1:
 				int id = userBiz.getUserIdByUsername(username);
-				if (id != (Integer)getSession().get("userId")){
+				if (id!= -1&&id != (Integer)getSession().get("userId")){
 					System.out.println("该用户已存在");
 					addFieldError("username", "该用户名已存在");
 					return SUCCESS;
-				}else if (username != null){
-					getSession().put("username", username);
 				}
 				
 			case 2:
 				int id2 = userBiz.getUserIdByEmail(email);
-				if (id2 != (Integer)getSession().get("userId")){
+				System.out.println("id2");
+				if (id2!=-1&&id2 != (Integer)getSession().get("userId")){
 					System.out.println("该邮箱已存在");
 					addFieldError("email","该邮箱已存在");
 					return SUCCESS;
@@ -99,7 +98,6 @@ public class UserAction  extends BaseAction{
 				String saveFilename = Utils.createUUID()+filename;//防止文件重名
 				String abstractPath = "/upload/headImg/"+hex.charAt(0)+"/"+hex.charAt(1)+"/"+saveFilename;
 				File dstFile = new File(dstDir,saveFilename);
-				System.out.println(dstFile.toPath());
 				if (!dstFile.getParentFile().exists()){
 					dstFile.getParentFile().mkdirs();
 				}

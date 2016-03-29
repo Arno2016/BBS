@@ -75,7 +75,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   	   	    state = "已被拒绝";
                   	   	break;
                   	   }
-                  	   System.out.println("循环一次");
                   	   Post post = bestPost.getPost();
                   	   if (post.getTitle() == null){
                   	   System.out.println("post is null");

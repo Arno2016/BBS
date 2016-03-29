@@ -12,9 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <title>Title</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/search-result.css" rel="stylesheet"/>
-    <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-        <link href="css/titlebar.css" rel="stylesheet">
+   
     
 </head>
 
@@ -51,6 +49,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 
 
- <jsp:include page="/pages/bottom.jsp"/>
   </body>
 </html>

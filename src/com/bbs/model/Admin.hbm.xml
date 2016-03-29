@@ -28,7 +28,7 @@
         <property name="sex" type="java.lang.String">
             <column name="sex" length="10" />
         </property>
-        <set name="notices" inverse="true">
+        <set name="notices" inverse="true" lazy="false">
             <key>
                 <column name="admin_id" not-null="true" />
             </key>

@@ -43,33 +43,17 @@ private SessionFactory sessionFactory;
 		return sessionFactory.openSession();
 	}
 
-	public void save(BestPost transientInstance) {
-		log.debug("saving BestPost instance");
-		try {
-			getSession().save(transientInstance);
-			log.debug("save successful");
-		} catch (RuntimeException re) {
-			log.error("save failed", re);
-			throw re;
-		}
-	}
+	
 
-	public void delete(BestPost persistentInstance) {
-		log.debug("deleting BestPost instance");
-		try {
-			getSession().delete(persistentInstance);
-			log.debug("delete successful");
-		} catch (RuntimeException re) {
-			log.error("delete failed", re);
-			throw re;
-		}
-	}
+
 
 	public BestPost findById(java.lang.Integer id) {
 		log.debug("getting BestPost instance with id: " + id);
 		try {
-			BestPost instance = (BestPost) getSession().get(
+			Session session = getSession();
+			BestPost instance = (BestPost)session .get(
 					"com.bbs.model.BestPost", id);
+			session.close();
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
@@ -77,20 +61,7 @@ private SessionFactory sessionFactory;
 		}
 	}
 
-	public List findByExample(BestPost instance) {
-		log.debug("finding BestPost instance by example");
-		try {
-			List results = getSession()
-					.createCriteria("com.bbs.model.BestPost")
-					.add(Example.create(instance)).list();
-			log.debug("find by example successful, result size: "
-					+ results.size());
-			return results;
-		} catch (RuntimeException re) {
-			log.error("find by example failed", re);
-			throw re;
-		}
-	}
+	
 
 	public List findByProperty(String propertyName, Object value) {
 		log.debug("finding BestPost instance with property: " + propertyName
@@ -98,60 +69,20 @@ private SessionFactory sessionFactory;
 		try {
 			String queryString = "from BestPost as model where model."
 					+ propertyName + "= ?";
-			Query queryObject = getSession().createQuery(queryString);
+			Session session = getSession();
+			Query queryObject = session.createQuery(queryString);
 			queryObject.setParameter(0, value);
-			return queryObject.list();
+			List list = queryObject.list();
+			session.close();
+			return list;
 		} catch (RuntimeException re) {
-			log.error("find by property name failed", re);
 			throw re;
 		}
 	}
 
-	public List findAll() {
-		log.debug("finding all BestPost instances");
-		try {
-			String queryString = "from BestPost";
-			Query queryObject = getSession().createQuery(queryString);
-			return queryObject.list();
-		} catch (RuntimeException re) {
-			log.error("find all failed", re);
-			throw re;
-		}
-	}
+	
 
-	public BestPost merge(BestPost detachedInstance) {
-		log.debug("merging BestPost instance");
-		try {
-			BestPost result = (BestPost) getSession().merge(detachedInstance);
-			log.debug("merge successful");
-			return result;
-		} catch (RuntimeException re) {
-			log.error("merge failed", re);
-			throw re;
-		}
-	}
 
-	public void attachDirty(BestPost instance) {
-		log.debug("attaching dirty BestPost instance");
-		try {
-			getSession().saveOrUpdate(instance);
-			log.debug("attach successful");
-		} catch (RuntimeException re) {
-			log.error("attach failed", re);
-			throw re;
-		}
-	}
-
-	public void attachClean(BestPost instance) {
-		log.debug("attaching clean BestPost instance");
-		try {
-			getSession().buildLockRequest(LockOptions.NONE).lock(instance);
-			log.debug("attach successful");
-		} catch (RuntimeException re) {
-			log.error("attach failed", re);
-			throw re;
-		}
-	}
 
 	@Override
 	public void insert(BestPost post) {
@@ -196,14 +127,15 @@ private SessionFactory sessionFactory;
 		Query query = session.createQuery(sql);
 		query.setInteger(0, postId);
 		List<BestPost> posts = query.list();
+		 session.flush();
+		session.close();
 		if (posts != null && posts.size()>0){
 			BestPost post = posts.get(0);
 			post.setState(state);
 			Transaction beginTransaction = session.beginTransaction();
 			session.update(post);
 			beginTransaction.commit();	
-			 session.flush();
-				session.close();
+			
 		}
 			
 		
@@ -232,13 +164,11 @@ private SessionFactory sessionFactory;
 		Query query = session.createQuery(sql);
 		query.setInteger(0, postId);
 		List<BestPost> posts = query.list();
-		if (posts != null && posts.size()>0){
-			session.flush();
-			session.clear();
-			return true;
-		}
 		session.flush();
 		session.clear();
+		if (posts != null && posts.size()>0){
+			return true;
+		}
 		return false;
 	}
 }

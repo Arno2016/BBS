@@ -12,7 +12,6 @@ public interface MainForumDao {
 
 	public abstract MainForum findById(java.lang.Integer id);
 
-	public abstract List findByExample(MainForum instance);
 
 	public abstract List findByProperty(String propertyName, Object value);
 
@@ -20,12 +19,9 @@ public interface MainForumDao {
 
 	public abstract List findByInfo(Object info);
 
-	public abstract List findAll();
+	public abstract List<MainForum> findAll();
 
-	public abstract MainForum merge(MainForum detachedInstance);
 
-	public abstract void attachDirty(MainForum instance);
-
-	public abstract void attachClean(MainForum instance);
+	
 
 }

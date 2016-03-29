@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +39,9 @@ public class MainForumDaoImpl extends BaseHibernateDAO implements MainForumDao {
 	public void save(MainForum transientInstance) {
 		log.debug("saving MainForum instance");
 		try {
-			getSession().save(transientInstance);
+			Session session = getSession();
+			session.save(transientInstance);
+			session.close();
 			log.debug("save successful");
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
@@ -53,7 +56,9 @@ public class MainForumDaoImpl extends BaseHibernateDAO implements MainForumDao {
 	public void delete(MainForum persistentInstance) {
 		log.debug("deleting MainForum instance");
 		try {
-			getSession().delete(persistentInstance);
+			Session session = getSession();
+			session.delete(persistentInstance);
+			session.close();
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
@@ -68,8 +73,10 @@ public class MainForumDaoImpl extends BaseHibernateDAO implements MainForumDao {
 	public MainForum findById(java.lang.Integer id) {
 		log.debug("getting MainForum instance with id: " + id);
 		try {
-			MainForum instance = (MainForum) getSession().get(
+			Session session = getSession();
+			MainForum instance = (MainForum)session .get(
 					"com.bbs.model.MainForum", id);
+			session.close();
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
@@ -77,28 +84,7 @@ public class MainForumDaoImpl extends BaseHibernateDAO implements MainForumDao {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.bbs.daoImpl.MainForumDao#findByExample(com.bbs.model.MainForum)
-	 */
-	@Override
-	public List findByExample(MainForum instance) {
-		log.debug("finding MainForum instance by example");
-		try {
-			List results = getSession()
-					.createCriteria("com.bbs.model.MainForum")
-					.add(Example.create(instance)).list();
-			log.debug("find by example successful, result size: "
-					+ results.size());
-			return results;
-		} catch (RuntimeException re) {
-			log.error("find by example failed", re);
-			throw re;
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see com.bbs.daoImpl.MainForumDao#findByProperty(java.lang.String, java.lang.Object)
-	 */
+	
 	@Override
 	public List findByProperty(String propertyName, Object value) {
 		log.debug("finding MainForum instance with property: " + propertyName
@@ -106,9 +92,12 @@ public class MainForumDaoImpl extends BaseHibernateDAO implements MainForumDao {
 		try {
 			String queryString = "from MainForum as model where model."
 					+ propertyName + "= ?";
-			Query queryObject = getSession().createQuery(queryString);
+			Session session = getSession();
+			Query queryObject = session.createQuery(queryString);
 			queryObject.setParameter(0, value);
-			return queryObject.list();
+			List list = queryObject.list();
+			session.close();
+			return list;
 		} catch (RuntimeException re) {
 			log.error("find by property name failed", re);
 			throw re;
@@ -131,65 +120,28 @@ public class MainForumDaoImpl extends BaseHibernateDAO implements MainForumDao {
 		return findByProperty(INFO, info);
 	}
 
+	
+
 	/* (non-Javadoc)
-	 * @see com.bbs.daoImpl.MainForumDao#findAll()
+	 * @see com.bbs.daoImpl.MainForumDao#merge(com.bbs.model.MainForum)
 	 */
-	@Override
+	
 	public List findAll() {
 		log.debug("finding all MainForum instances");
 		try {
 			String queryString = "from MainForum";
-			Query queryObject = getSession().createQuery(queryString);
-			return queryObject.list();
+			Session session = getSession();
+			Query queryObject = session.createQuery(queryString);
+			List list = queryObject.list();
+			session.close();
+			return list;
 		} catch (RuntimeException re) {
 			log.error("find all failed", re);
 			throw re;
 		}
 	}
+	
+	
 
-	/* (non-Javadoc)
-	 * @see com.bbs.daoImpl.MainForumDao#merge(com.bbs.model.MainForum)
-	 */
-	@Override
-	public MainForum merge(MainForum detachedInstance) {
-		log.debug("merging MainForum instance");
-		try {
-			MainForum result = (MainForum) getSession().merge(detachedInstance);
-			log.debug("merge successful");
-			return result;
-		} catch (RuntimeException re) {
-			log.error("merge failed", re);
-			throw re;
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see com.bbs.daoImpl.MainForumDao#attachDirty(com.bbs.model.MainForum)
-	 */
-	@Override
-	public void attachDirty(MainForum instance) {
-		log.debug("attaching dirty MainForum instance");
-		try {
-			getSession().saveOrUpdate(instance);
-			log.debug("attach successful");
-		} catch (RuntimeException re) {
-			log.error("attach failed", re);
-			throw re;
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see com.bbs.daoImpl.MainForumDao#attachClean(com.bbs.model.MainForum)
-	 */
-	@Override
-	public void attachClean(MainForum instance) {
-		log.debug("attaching clean MainForum instance");
-		try {
-			getSession().buildLockRequest(LockOptions.NONE).lock(instance);
-			log.debug("attach successful");
-		} catch (RuntimeException re) {
-			log.error("attach failed", re);
-			throw re;
-		}
-	}
+	
 }

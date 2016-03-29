@@ -39,32 +39,34 @@ public class UserDaoImpl extends BaseHibernateDAO implements UserDao {
 	public static final String ACTIVE_CODE = "activeCode";
 	public static final String HAS_ACTIVE = "hasActive";
 
-	public void save(User transientInstance) {
-		log.debug("saving User instance");
-		try {
-			getSession().save(transientInstance);
-			log.debug("save successful");
-		} catch (RuntimeException re) {
-			log.error("save failed", re);
-			throw re;
-		}
-	}
-
-	public void delete(User persistentInstance) {
-		log.debug("deleting User instance");
-		try {
-			getSession().delete(persistentInstance);
-			log.debug("delete successful");
-		} catch (RuntimeException re) {
-			log.error("delete failed", re);
-			throw re;
-		}
-	}
+//	public void save(User transientInstance) {
+//		log.debug("saving User instance");
+//		try {
+//			getSession().save(transientInstance);
+//			log.debug("save successful");
+//		} catch (RuntimeException re) {
+//			log.error("save failed", re);
+//			throw re;
+//		}
+//	}
+//
+//	public void delete(User persistentInstance) {
+//		log.debug("deleting User instance");
+//		try {
+//			getSession().delete(persistentInstance);
+//			log.debug("delete successful");
+//		} catch (RuntimeException re) {
+//			log.error("delete failed", re);
+//			throw re;
+//		}
+//	}
 
 	public User findById(java.lang.Integer id) {
 		log.debug("getting User instance with id: " + id);
 		try {
-			User instance = (User) getSession().get("com.bbs.model.User", id);
+			Session session = getSession();
+			User instance = (User) session.get("com.bbs.model.User", id);
+			session.close();
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
@@ -72,19 +74,7 @@ public class UserDaoImpl extends BaseHibernateDAO implements UserDao {
 		}
 	}
 
-	public List findByExample(User instance) {
-		log.debug("finding User instance by example");
-		try {
-			List results = getSession().createCriteria("com.bbs.model.User")
-					.add(Example.create(instance)).list();
-			log.debug("find by example successful, result size: "
-					+ results.size());
-			return results;
-		} catch (RuntimeException re) {
-			log.error("find by example failed", re);
-			throw re;
-		}
-	}
+	
 
 	public List findByProperty(String propertyName, Object value) {
 		log.debug("finding User instance with property: " + propertyName
@@ -92,9 +82,12 @@ public class UserDaoImpl extends BaseHibernateDAO implements UserDao {
 		try {
 			String queryString = "from User as model where model."
 					+ propertyName + "= ?";
-			Query queryObject = getSession().createQuery(queryString);
+			Session session = getSession();
+			Query queryObject = session.createQuery(queryString);
 			queryObject.setParameter(0, value);
-			return queryObject.list();
+			List list = queryObject.list();
+			session.close();
+			return list;
 		} catch (RuntimeException re) {
 			log.error("find by property name failed", re);
 			throw re;
@@ -137,51 +130,11 @@ public class UserDaoImpl extends BaseHibernateDAO implements UserDao {
 		return findByProperty(HAS_ACTIVE, hasActive);
 	}
 
-	public List findAll() {
-		log.debug("finding all User instances");
-		try {
-			String queryString = "from User";
-			Query queryObject = getSession().createQuery(queryString);
-			return queryObject.list();
-		} catch (RuntimeException re) {
-			log.error("find all failed", re);
-			throw re;
-		}
-	}
+	
+	
 
-	public User merge(User detachedInstance) {
-		log.debug("merging User instance");
-		try {
-			User result = (User) getSession().merge(detachedInstance);
-			log.debug("merge successful");
-			return result;
-		} catch (RuntimeException re) {
-			log.error("merge failed", re);
-			throw re;
-		}
-	}
+	
 
-	public void attachDirty(User instance) {
-		log.debug("attaching dirty User instance");
-		try {
-			getSession().saveOrUpdate(instance);
-			log.debug("attach successful");
-		} catch (RuntimeException re) {
-			log.error("attach failed", re);
-			throw re;
-		}
-	}
-
-	public void attachClean(User instance) {
-		log.debug("attaching clean User instance");
-		try {
-			getSession().buildLockRequest(LockOptions.NONE).lock(instance);
-			log.debug("attach successful");
-		} catch (RuntimeException re) {
-			log.error("attach failed", re);
-			throw re;
-		}
-	}
 	
 	@Override
 	public boolean regist(User user) {
@@ -206,6 +159,7 @@ public class UserDaoImpl extends BaseHibernateDAO implements UserDao {
 		Transaction transaction = session.beginTransaction();
 		session.update(user);
 		transaction.commit();
+		session.close();
 	}
 
 	@Override
@@ -243,6 +197,7 @@ public class UserDaoImpl extends BaseHibernateDAO implements UserDao {
 				Transaction transaction = session.beginTransaction();
 				session.update(user);
 				transaction.commit();
+				session.close();
 				return 1;
 			}else 
 				return -1;

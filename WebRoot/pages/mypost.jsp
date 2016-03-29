@@ -58,8 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   	   List<Post> posts = postBiz.getPostByUserId((Integer)session.getAttribute("userId"),pageNum,10);
                   	    BestPostBiz bestPostBiz = (BestPostBiz)context.getBean("bestPostBiz");
                   	   for (Post post:posts){
-                  	   if (bestPostBiz.isExist(post.getId()))
-                  	   continue;
+                  	  
                   	  
                 %>
                
@@ -68,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <h4 class="list-group-item-heading" style="color:black">[<%=post.getSubForum().getMainForum().getTitle()%>]</h4>
                         <%=post.getTitle() %>
                     </a>
-                    <%if (post.getPostType() == 0) {%>
+                    <%if (post.getPostType() == 0 && !bestPostBiz.isExist(post.getId())) {%>
                     <a href="<%=path%>/applybest.action?postId=<%=post.getId()%>" style="float: right">申请精华贴</a>
                     <%} %>
                     <p style="float: right;margin-right: 50px">评论量:<%=post.getReplyNum()%>&nbsp;发表日期:<%=post.getTime()%></p>

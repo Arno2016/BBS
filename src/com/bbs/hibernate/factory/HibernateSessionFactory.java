@@ -60,6 +60,11 @@ public class HibernateSessionFactory {
 		}
 
         return session;
+//    	if (sessionFactory == null){
+//    		rebuildSessionFactory();
+//    	}
+//    	return sessionFactory.openSession();
+    	
     }
 
 	/**

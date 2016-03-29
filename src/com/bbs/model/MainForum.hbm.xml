@@ -16,7 +16,7 @@
         <property name="info" type="java.lang.String">
             <column name="info" length="60" />
         </property>
-        <set name="subForums" inverse="true">
+        <set name="subForums" inverse="true" lazy="false">
             <key>
                 <column name="main_forum" not-null="true" />
             </key>
