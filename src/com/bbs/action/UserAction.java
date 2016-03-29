@@ -76,7 +76,7 @@ public class UserAction  extends BaseAction{
 				}
 				
 			case 2:
-				int id2 = userBiz.getUserIdByUsername(username);
+				int id2 = userBiz.getUserIdByEmail(email);
 				if (id2 != (Integer)getSession().get("userId")){
 					System.out.println("该邮箱已存在");
 					addFieldError("email","该邮箱已存在");
@@ -102,13 +102,13 @@ public class UserAction  extends BaseAction{
 				System.out.println(dstFile.toPath());
 				if (!dstFile.getParentFile().exists()){
 					dstFile.getParentFile().mkdirs();
-					FileUtils.copyFile(photoImg,dstFile);
-					user.setPhotoUrl(abstractPath);
-					ActionContext.getContext().put("message", "上传成功");
-					return SUCCESS;
 				}
+				FileUtils.copyFile(photoImg,dstFile);
+				user.setPhotoUrl(abstractPath);
+				ActionContext.getContext().put("message", "上传成功");
 			}
 			userBiz.update(user);
+			this.addFieldError("update_result", "修改成功");
 		}
 		
 		return SUCCESS;

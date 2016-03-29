@@ -81,6 +81,18 @@ public class PostBizImpl implements PostBiz {
 		
 	}
 
+	@Override
+	public void delete(int postId) {
+		postDao.delete(postId);
+		
+	}
+
+	@Override
+	public void updateType(Integer postId) {
+		postDao.updateType(postId);
+		
+	}
+
 	
 	
 	

@@ -26,6 +26,8 @@
 		<mapping resource="com/bbs/model/MainForum.hbm.xml" />
 		<mapping resource="com/bbs/model/Followcard.hbm.xml" />
 		<mapping resource="com/bbs/model/Notice.hbm.xml" />
+		<mapping resource="com/bbs/model/BlackList.hbm.xml" />
+		<mapping resource="com/bbs/model/BestPost.hbm.xml" />
 
 	</session-factory>
 

@@ -14,6 +14,7 @@ public class Notice implements java.io.Serializable {
 	private Admin admin;
 	private String content;
 	private Timestamp noticeDate;
+	private String title;
 
 	// Constructors
 
@@ -28,10 +29,12 @@ public class Notice implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Notice(Admin admin, String content, Timestamp noticeDate) {
+	public Notice(Admin admin, String content, Timestamp noticeDate,
+			String title) {
 		this.admin = admin;
 		this.content = content;
 		this.noticeDate = noticeDate;
+		this.title = title;
 	}
 
 	// Property accessors
@@ -66,6 +69,14 @@ public class Notice implements java.io.Serializable {
 
 	public void setNoticeDate(Timestamp noticeDate) {
 		this.noticeDate = noticeDate;
+	}
+
+	public String getTitle() {
+		return this.title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 }

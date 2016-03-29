@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Example;
 import org.slf4j.Logger;
@@ -29,6 +30,18 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 	public static final String CARD_CONTENT = "cardContent";
 	public static final String POST_TYPE = "postType";
 	public static final String REPLY_NUM = "replyNum";
+	
+	private SessionFactory sessionFactory;
+	
+	
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+	
+	public Session getMySession(){
+		return sessionFactory.openSession();
+	}
 
 	public void save(Post transientInstance) {
 		log.debug("saving Post instance");
@@ -124,7 +137,9 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		Session session = getSession();
 		Transaction transaction = session.beginTransaction();
 		session.save(post);
-		transaction.commit();		
+		transaction.commit();
+		session.flush();
+		session.close();
 	}
 
 	
@@ -137,7 +152,10 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		int startIndex = (pageIndex -1) * pageSize;
 		query.setFirstResult(startIndex);
 		query.setMaxResults(pageSize);
-		return query.list();
+		List list = query.list();
+		session.flush();
+		session.close();
+		return list;
 	}
 	
 	
@@ -150,6 +168,9 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		List<Post> posts = query.list();
 		if (posts != null && posts.size()>0)
 			return posts.get(0);
+		session.flush();
+		session.close();
+		
 		return null;
 	}
 	
@@ -159,7 +180,10 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		String sql = "from Post post where post.title like ?";
 		Query query = session.createQuery(sql);
 		query.setString(0, '%'+keyword+'%');
-		return query.list();
+		List list = query.list();
+		session.flush();
+		session.close();
+		return list;
 	}
 
 	
@@ -174,7 +198,10 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		int startIndex = (pageIndex -1) * pageSize;
 		query.setFirstResult(startIndex);
 		query.setMaxResults(pageSize);
-		return query.list();
+		List list = query.list();
+		session.flush();
+		session.close();
+		return list;
 	}
 
 
@@ -186,7 +213,10 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		int startIndex = (pageIndex -1) * pageSize;
 		query.setFirstResult(startIndex);
 		query.setMaxResults(pageSize);
-		return query.list();
+		List list = query.list();
+		session.flush();
+		session.close();
+		return list;
 	}
 	
 	public List<Post> getPostByType(int type,int pageIndex,int pageSize){
@@ -198,14 +228,16 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 			int startIndex = (pageIndex -1) * pageSize;
 			query.setFirstResult(startIndex);
 			query.setMaxResults(pageSize);
-			return query.list();
+			List list = query.list();
+			session.flush();
+			session.close();
+			return list;
 		}else if (type==8){
 			return getLatestPosts(pageIndex, pageSize);
 		}
 		else if (type==9){
 			return getBestPosts(pageIndex, pageSize);
 		}
-		
 		return null;
 		
 	}
@@ -220,7 +252,10 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		int startIndex = (pageIndex -1) * pageSize;
 		query.setFirstResult(startIndex);
 		query.setMaxResults(pageSize);
-		return query.list();
+		List list = query.list();
+		session.flush();
+		session.close();
+		return list;
 	}
 
 
@@ -238,7 +273,31 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		Transaction transaction = session.beginTransaction();
 		session.update(post);
 		transaction.commit();
+		session.flush();
+		session.close();
 		
+	}
+	
+	public void delete(int postId){
+		Post post = findById(postId);
+		Session session = getSession();
+		Transaction transaction = session.beginTransaction();
+		session.delete(post);
+		transaction.commit();
+		session.flush();
+		session.close();
+	}
+
+	@Override
+	public void updateType(Integer postId) {
+		Post post = findById(postId);
+		post.setPostType(1);
+		Session session = getSession();
+		Transaction transaction = session.beginTransaction();
+		session.update(post);
+		transaction.commit();
+		session.flush();
+		session.close();
 	}
 	
 	

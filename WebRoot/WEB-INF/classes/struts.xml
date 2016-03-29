@@ -92,11 +92,44 @@
 	
 	<!-- 管理员模块 -->
 	<action name="adminlogin" class="com.bbs.action.AdminAction" method="login">
-		<result name="success">/pages/manager.jsp</result>
-		<result name="login">/pages/admin.jsp</result>
+		<result name="success">/manage/notice.jsp</result>
+		<result name="login">/manage/admin.jsp</result>
 		<result name="error">/pages/error.jsp</result>
 		<result name="input">/pages/error.jsp</result>
 	</action>
+	<action name="adminupdate" class="com.bbs.action.AdminAction" method="update">
+		<result name="success">/manage/change-admin.jsp</result>
+		<result name="login">/manage/admin.jsp</result>
+		<result name="error">/pages/error.jsp</result>
+		<result name="input">/pages/error.jsp</result>
+	</action>
+	<action name="postdelete" class="com.bbs.action.PostAction" method="delete">
+		<result name="success">/manage/newpost.jsp</result>
+		<result name="login">/manage/admin.jsp</result>
+		<result name="error">/pages/error.jsp</result>
+		<result name="input">/pages/error.jsp</result>
+	</action>
+	
+	<!-- 公告模块 -->
+	<action name="notice" class="com.bbs.action.NoticeAction">
+		<result name="success">/manage/notice.jsp</result>
+		<result name="error">/pages/error.jsp</result>
+		<result name="input">/pages/error.jsp</result>
+	</action>
+	
+	<!-- 申请精华帖模块 -->
+	<action name="applybest" class="com.bbs.action.PostAction" method="applyBestPost">
+		<result name="success">/pages/mypost.jsp</result>
+		<result name="error">/pages/error.jsp</result>
+		<result name="input">/pages/error.jsp</result>
+	</action>
+	<action name="replyapply" class="com.bbs.action.PostAction" method="replyapply">
+		<result name="success">/manage/bestpost.jsp</result>
+		<result name="error">/pages/error.jsp</result>
+		<result name="input">/pages/error.jsp</result>
+	</action>
+	
+	
 	
 </package>
 

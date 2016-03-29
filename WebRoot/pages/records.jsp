@@ -1,3 +1,4 @@
+<%@page import="com.bbs.model.SubForum"%>
 <%@page import="com.bbs.biz.BestPostBiz"%>
 <%@page import="com.bbs.model.BestPost"%>
 <%@page import="com.bbs.model.Post"%>
@@ -15,7 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'mypost.jsp' starting page</title>
+    <title>My JSP 'records.jsp' starting page</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -29,6 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+    
     <jsp:include page="/pages/header.jsp"/>
    
    <div class="container" style="margin-top: 30px">
@@ -36,8 +38,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="col-xs-3">
             <ul class="nav nav-pills nav-stacked">
                 <li role="presentation" ><a href="<%=path%>/pages/change-info.jsp">资料修改</a></li>
-                <li role="presentation" class="active"><a href="<%=path%>/pages/mypost.jsp">我的帖子</a></li>
-                <li role="presentation"><a href="<%=path%>/pages/records.jsp">申请记录</a></li>
+                <li role="presentation"><a href="<%=path%>/pages/mypost.jsp">我的帖子</a></li>
+                <li role="presentation" class="active"><a href="<%=path%>/pages/records.jsp">申请记录</a></li>
                 <!--<li role="presentation"><a href="#">Messages</a></li>-->
             </ul>
         </div>
@@ -46,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
             <ul class="list-group">
                 <a class="list-group-item active">
-                    我的帖子
+                    申请记录
                 </a>
 
                <% ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -55,43 +57,60 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   	   int pageNum = 1;
                   	   if (pageNumStr != null)
                   	   pageNum = Integer.parseInt(pageNumStr);
-                  	   List<Post> posts = postBiz.getPostByUserId((Integer)session.getAttribute("userId"),pageNum,10);
                   	    BestPostBiz bestPostBiz = (BestPostBiz)context.getBean("bestPostBiz");
-                  	   for (Post post:posts){
-                  	   if (bestPostBiz.isExist(post.getId()))
-                  	   continue;
+                  	     List<BestPost>bestPosts = bestPostBiz.getPostsByUserId((Integer)session.getAttribute("userId"), pageNum, 10);
+                  	     
+                  	   System.out.println("size:"+bestPosts.size());
+                  	    String state = "未知";
+                  	   for (BestPost bestPost:bestPosts){
                   	  
+                  	   switch(bestPost.getState()){
+                  	   	case 1:
+                  	   	state = "等待审核中";
+                  	   	break;
+                  	   	case 2:
+                  	   	 	state = "已同意";
+                  	   	break;
+                  	   	case 3:
+                  	   	    state = "已被拒绝";
+                  	   	break;
+                  	   }
+                  	   System.out.println("循环一次");
+                  	   Post post = bestPost.getPost();
+                  	   if (post.getTitle() == null){
+                  	   System.out.println("post is null");
+                  	   return ;
+                  	   }
                 %>
                
                 <div class="list-group-item">
                     <a href="<%=path%>/pages/post.jsp?postId=<%=post.getId()%>&&page=1" style="color:grey">
+                    <%SubForum sub = post.getSubForum();if (sub !=null && sub.getMainForum() !=null){%>
                         <h4 class="list-group-item-heading" style="color:black">[<%=post.getSubForum().getMainForum().getTitle()%>]</h4>
+                        <%} %>
                         <%=post.getTitle() %>
                     </a>
-                    <%if (post.getPostType() == 0) {%>
-                    <a href="<%=path%>/applybest.action?postId=<%=post.getId()%>" style="float: right">申请精华贴</a>
-                    <%} %>
-                    <p style="float: right;margin-right: 50px">评论量:<%=post.getReplyNum()%>&nbsp;发表日期:<%=post.getTime()%></p>
+                    <p style="float: right;margin-right: 50px">状态：<%=state %></p>
                 </div>
  				<%} %>
             </ul>
             
    <ul class="pagination pagination-lg" style="float:right">
 <% if (pageNum>1) { int pageIndex = pageNum -1;%>
-    <li><a href="<%=path+"/pages/mypost.jsp?page="+pageIndex%>">&laquo;</a></li>
+    <li><a href="<%=path+"/pages/records.jsp?page="+pageIndex%>">&laquo;</a></li>
     <%}
     	if (pageNum<=5){
     		for (int i=1; i<=5; i++){
     		if (pageNum == i){
      %>
-    <li class="active"><a href="<%=path+"/mypost.jsp?page="+i%>"><%=i%></a></li>
+    <li class="active"><a href="<%=path+"/records.jsp?page="+i%>"><%=i%></a></li>
     <%}else {
      %>
-    <li><a href="<%=path+"/pages/mypost.jsp?page="+i%>"><%=i%></a></li>
+    <li><a href="<%=path+"/pages/records.jsp?page="+i%>"><%=i%></a></li>
     <%}
     if (i ==5){
     %>
-     <li><a href="<%=path+"/pages/mypost.jsp?page="+6%>">&raquo;</a></li>
+     <li><a href="<%=path+"/pages/records.jsp?page="+6%>">&raquo;</a></li>
    <%}}}
     if (pageNum >5){
     int maxPage = pageNum+1;
@@ -99,12 +118,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	int pageIndex = pageNum - i;
     	if (i==0){
      %>
-     <li class="active"><a href="<%=path+"/pages/mypost.jsp?page="+pageIndex%>"><%=pageIndex%></a></li>
+     <li class="active"><a href="<%=path+"/pages/records.jsp?page="+pageIndex%>"><%=pageIndex%></a></li>
    
     <%}else {%>
-     <li class=""><a href="<%=path+"/pages/mypost.jsp?page="+pageIndex%>"><%=pageIndex%></a></li>
+     <li class=""><a href="<%=path+"/pages/records.jsp?page="+pageIndex%>"><%=pageIndex%></a></li>
      <%}}%>
-      <li><a href="<%=path+"/pages/mypost.jsp?page="+maxPage%>">&raquo;</a></li>
+      <li><a href="<%=path+"/pages/records.jsp?page="+maxPage%>">&raquo;</a></li>
     <%}%>
     
    
@@ -113,8 +132,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
     </div>
 </div>
-
-
-
+    
+    
+    
   </body>
 </html>

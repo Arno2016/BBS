@@ -39,4 +39,36 @@ public class AdminBizImpl implements AdminBiz {
 	public void updateAdmin(Admin admin){
 		adminDao.updateAdmin(admin);
 	}
+
+
+
+
+	@Override
+	public Admin getAdminById(Integer adminId) {
+		return adminDao.getAdminById(adminId);
+	}
+
+
+
+
+	@Override
+	public int getAdminIdByUsername(String username) {
+		return adminDao.getAdminIdByUsername(username);
+	}
+
+
+
+
+	@Override
+	public int getAdminIdByEmail(String email) {
+		return adminDao.getAdminIdByEmail(email);
+	}
+
+
+
+
+	@Override
+	public int isExist(Admin admin) {
+		return adminDao.isExist(admin);
+	}
 }

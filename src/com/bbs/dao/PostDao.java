@@ -58,6 +58,10 @@ public interface PostDao {
 	
 	public List<Post> getPostByUserId(int userId,int pageIndex,int pageSize);
 
-	public void autoIncreaseReply(int postId); 
+	public void autoIncreaseReply(int postId);
+
+	public void delete(int postId);
+
+	public void updateType(Integer postId); 
 
 }

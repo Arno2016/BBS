@@ -44,5 +44,9 @@ public interface PostBiz {
 	public List<Post> getPostByUserId(int userId,int pageIndex,int pageSize);
 
 	public  void autoIncreaseReply(int postId);  
+	public void delete(int postId);
+
+	public abstract void updateType(Integer postId);
+	
 
 }

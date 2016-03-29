@@ -15,6 +15,7 @@ public class User implements java.io.Serializable {
 	private Integer id;
 	private String username;
 	private String password;
+	private String sex;
 	private String photoUrl;
 	private String email;
 	private Integer type;
@@ -23,8 +24,9 @@ public class User implements java.io.Serializable {
 	private Integer level;
 	private String activeCode;
 	private Integer hasActive;
-	private String sex;
+	private Set bestPosts = new HashSet(0);
 	private Set posts = new HashSet(0);
+	private Set blackLists = new HashSet(0);
 	private Set followcards = new HashSet(0);
 
 	// Constructors
@@ -45,12 +47,14 @@ public class User implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public User(String username, String password, String photoUrl,
+	public User(String username, String password, String sex, String photoUrl,
 			String email, Integer type, Timestamp registerDate,
 			String signature, Integer level, String activeCode,
-			Integer hasActive, String sex, Set posts, Set followcards) {
+			Integer hasActive, Set bestPosts, Set posts, Set blackLists,
+			Set followcards) {
 		this.username = username;
 		this.password = password;
+		this.sex = sex;
 		this.photoUrl = photoUrl;
 		this.email = email;
 		this.type = type;
@@ -59,8 +63,9 @@ public class User implements java.io.Serializable {
 		this.level = level;
 		this.activeCode = activeCode;
 		this.hasActive = hasActive;
-		this.sex = sex;
+		this.bestPosts = bestPosts;
 		this.posts = posts;
+		this.blackLists = blackLists;
 		this.followcards = followcards;
 	}
 
@@ -88,6 +93,14 @@ public class User implements java.io.Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getSex() {
+		return this.sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 
 	public String getPhotoUrl() {
@@ -154,12 +167,12 @@ public class User implements java.io.Serializable {
 		this.hasActive = hasActive;
 	}
 
-	public String getSex() {
-		return this.sex;
+	public Set getBestPosts() {
+		return this.bestPosts;
 	}
 
-	public void setSex(String sex) {
-		this.sex = sex;
+	public void setBestPosts(Set bestPosts) {
+		this.bestPosts = bestPosts;
 	}
 
 	public Set getPosts() {
@@ -168,6 +181,14 @@ public class User implements java.io.Serializable {
 
 	public void setPosts(Set posts) {
 		this.posts = posts;
+	}
+
+	public Set getBlackLists() {
+		return this.blackLists;
+	}
+
+	public void setBlackLists(Set blackLists) {
+		this.blackLists = blackLists;
 	}
 
 	public Set getFollowcards() {

@@ -2,6 +2,10 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+if (session.getAttribute("adminname") == null){
+response.sendRedirect(path+"/manage/admin.jsp");
+return ;
+}
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -9,14 +13,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'skip_login.jsp' starting page</title>
+    <title>My JSP 'limit.jsp' starting page</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<meta http-equiv="refresh" content="5";url="<%=path%>/login.jsp">  
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
@@ -24,9 +27,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-   ${message}
-   
-    <jsp:include page="/pages/bottom.jsp"/>
-   
+    This is my JSP page. <br>
   </body>
 </html>

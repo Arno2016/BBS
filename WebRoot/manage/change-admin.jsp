@@ -1,5 +1,5 @@
-<%@page import="com.bbs.model.User"%>
-<%@page import="com.bbs.biz.UserBiz"%>
+<%@page import="com.bbs.model.Admin"%>
+<%@page import="com.bbs.biz.AdminBiz"%>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
@@ -7,8 +7,9 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-if (session.getAttribute("username") == null){
-	response.sendRedirect("/BBS/login.jsp");
+if (session.getAttribute("adminname") == null){
+response.sendRedirect(path+"/manage/admin.jsp");
+return ;
 }
 %>
 
@@ -17,7 +18,7 @@ if (session.getAttribute("username") == null){
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'change-info.jsp' starting page</title>
+    <title>My JSP 'change-admin.jsp' starting page</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -31,21 +32,22 @@ if (session.getAttribute("username") == null){
   </head>
   
   <body>
-     <jsp:include page="/pages/header.jsp"/>
-     
-     
-     <div class="container" style="margin-top: 30px">
+    <jsp:include page="/manage/adminhead.jsp"/>
+    
+    <div class="container" style="margin-top: 80px">
     <div class="row">
         <div class="col-xs-3">
             <ul class="nav nav-pills nav-stacked">
-                <li role="presentation" class="active"><a href="<%=path%>/pages/change-info.jsp">资料修改</a></li>
-                <li role="presentation"><a href="<%=path%>/pages/mypost.jsp?page=1">我的帖子</a></li>
-                  <li role="presentation"><a href="<%=path%>/pages/records.jsp">申请记录</a></li>
+               <li role="presentation" ><a href="<%=path%>/manage/notice.jsp">发布公告</a></li>
+                <li role="presentation" class="active"><a href="<%=path%>/manage/change-admin.jsp">资料修改</a></li>
+                <li role="presentation"><a href="<%=path%>/manage/newpost.jsp">查看新帖</a></li>
+                <li role="presentation"><a href="<%=path%>/manage/bestpost.jsp">精华帖请求</a></li>
+                <!--<li role="presentation"><a href="#">Messages</a></li>-->
             </ul>
-
         </div>
 
-        <div class="col-xs-9">
+        <div class="col-md-9">
+
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -53,48 +55,49 @@ if (session.getAttribute("username") == null){
                     </h3>
                 </div>
                 <div class="panel-body">
-				<%
-				 ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-				 UserBiz userBiz = (UserBiz)context.getBean("userBiz");
-				 User user = userBiz.getUserById((Integer)session.getAttribute("userId"));
-				 
-				 %>
-				<form action="<%=path%>/userchange.action" method="post" enctype="multipart/form-data">
+  					<form action="<%=path%>/adminupdate.action" method="post" enctype="multipart/form-data">
 
+                    <div class="column">
+					<%
+					 ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+				 		AdminBiz adminBiz = (AdminBiz)context.getBean("adminBiz");
+				 		Admin admin = adminBiz.getAdminById((Integer)session.getAttribute("adminid"));
+				 
+					 %>
 
                         <div class="form-group">
-                            <img alt="@zhangjianhao" class="avatar left" height="70" src="<%=path+"/"+user.getPhotoUrl() %>" width="70" />
+                            <img alt="@zhangjianhao" class="avatar left" height="70" src="<%=path+"/"+admin.getPhotoUrl() %>" width="70" />
                             请上传你的头像<br/>
-
                         </div>
                         <input type="file" id="inputfile" name="photoImg"><br/>
 
                         <div class="form-group">
                             <label for="name">用户名</label>
-                            <input type="text" class="form-control" name="username" id="name" width="200px" height="80px" value="<%=user.getUsername() %>"
-                                   placeholder="请输入名称"> <p class="help-block"><s:fielderror fieldName="username"></s:fielderror></p>
+                            <input type="text" class="form-control" id="name" width="200px" height="80px"
+                                   placeholder="请输入名称" name="username" value="<%=admin.getUserName()%>"><s:fielderror fieldName="username"></s:fielderror>
                         </div>
 
                         <div class="form-group">
                             <label for="name">性 别</label><br/>
-                            <%if (user.getSex().equals("男")){%>
+                             <%if (admin.getSex().equals("男")){%>
                             男<input type="radio" name="sex" value="男" checked="checked"> 
                              &nbsp &nbsp女<input type="radio" name="sex" value="女">
-                            <%} else if (user.getSex().equals("女")){%>
+                            <%} else if (admin.getSex().equals("女")){%>
                             男<input type="radio" name="sex" value="男" > 
                              &nbsp &nbsp女<input type="radio" name="sex" value="女" checked="checked">
                            <%} else {%>
                              男<input type="radio" name="sex" value="男" > 
                              &nbsp &nbsp女<input type="radio" name="sex" value="女">
                            <%} %>
+
+
                         </div>
 
 
                         <dl class="form-group">
                             <dt><label for="user_profile_blog">邮箱</label></dt>
-                            <dd><input type="email" class="form-control" id="user_profile_blog" name="email" size="30" value="<%=user.getEmail()%>" />
-                            <p class="help-block"><s:fielderror fieldName="email"></s:fielderror></p>
-                            </dd>
+                            <dd><input type="email" class="form-control" id="user_profile_blog" name="email" size="30" value="<%=admin.getEmail()%>"  /></dd>
+                            <s:fielderror fieldName="email"></s:fielderror>
                         </dl>
                         <dl class="form-group">
                             <dt><label for="user_profile_company">密码</label></dt>
@@ -102,22 +105,18 @@ if (session.getAttribute("username") == null){
                         </dl>
                         <dl class="form-group">
                             <dt><label for="user_profile_location">重复密码</label></dt>
-                            <dd><input class="form-control" id="user_profile_location" name="password" size="30" type="password" width="200px" /></dd>
+                            <dd><input class="form-control" id="user_profile_location" name="" size="30" type="password" width="200px" /></dd>
                         </dl>
-                        <input type="submit" value="提交"> <s:fielderror fieldName="update-result"></s:fielderror>
+                        <p><input type="submit" value="确认修改"></p>
+                    </div>
                     </form>
                 </div>
             </div>
 
-
-
-
-                </div>
-            </div>
         </div>
     </div>
 </div>
-     
-      <jsp:include page="/pages/bottom.jsp"/>
+    
+   
   </body>
 </html>

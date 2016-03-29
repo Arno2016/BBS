@@ -112,4 +112,6 @@ public class Admin implements java.io.Serializable {
 		this.notices = notices;
 	}
 
+	
+
 }

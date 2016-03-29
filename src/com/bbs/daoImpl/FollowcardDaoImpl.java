@@ -18,6 +18,8 @@ public class FollowcardDaoImpl extends BaseHibernateDAO implements FollowcardDao
 		Transaction transaction = session.beginTransaction();
 		session.save(followcard);
 		transaction.commit();
+		session.flush();
+		session.close();
 	}
 	
 	

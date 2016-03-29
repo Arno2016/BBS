@@ -18,9 +18,14 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.junit.Test;
 
+import com.bbs.biz.BestPostBiz;
+import com.bbs.bizImpl.BestPostBizImpl;
 import com.bbs.constants.Constant;
+import com.bbs.dao.BestPostDao;
+import com.bbs.daoImpl.BestPostDaoImpl;
 import com.bbs.daoImpl.PostDaoImpl;
 import com.bbs.hibernate.factory.HibernateSessionFactory;
+import com.bbs.model.BestPost;
 import com.bbs.model.Followcard;
 import com.bbs.model.Post;
 import com.bbs.model.User;
@@ -39,7 +44,23 @@ public class TestUserData {
 //		testSearchPost("android");
 //		testSearchByForum(2, 1, 2);
 //		testFollowCards();
-		testAddReply(1);
+//		testReadBestList(1, 10);
+		testChangePostType();
+	}
+	
+	public void testChangePostType(){
+		PostDaoImpl daoImpl = new PostDaoImpl();
+		daoImpl.updateType(1);
+	}
+	
+	public void testReadBestList(int pageIndex,int pageSize){
+		BestPostDao dao = new BestPostDaoImpl();
+		List<BestPost> posts = dao.getBestPosts(pageIndex, pageSize);
+		System.out.println("size:"+posts.size());
+		for (BestPost post:posts){
+			System.out.println(post.getPost().getTitle());
+		}
+		
 	}
 	/**
 	 * 测试增加回复数目

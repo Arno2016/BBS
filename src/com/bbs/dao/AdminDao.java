@@ -35,6 +35,25 @@ public interface AdminDao {
 	 * @return true修改成功，false 未找到与userid和旧密码匹配的用户，修改失败
 	 */
 	public boolean changePassword(int userId,int oldpasswod,int newpassword);
+
+
+
+	public Admin getAdminById(Integer adminId);
+
+
+
+	public int getAdminIdByUsername(String username);
+
+
+
+	public int getAdminIdByEmail(String email);
+
+
+
+	public int isExist(Admin admin);
+
+
+
 	
 //	public int isExist(User user);
 

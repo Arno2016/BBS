@@ -5,7 +5,37 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd" xmlns:tx="http://www.springframework.org/schema/tx">
 
-
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="url" value="jdbc:mysql://localhost:3306/BBS?useUnicode=true&amp;characterEncoding=UTF-8"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="101606"></property>
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		
+	</bean>
+<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+			</props>
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.bbs.model.BestPost</value>
+				<value>com.bbs.model.BlackList</value>
+				<value>com.bbs.model.Followcard</value>
+				<value>com.bbs.model.User</value>
+				<value>com.bbs.model.MainForum</value>
+				<value>com.bbs.model.SubForum</value>
+				<value>com.bbs.model.Post</value></list>
+		</property>
+		</bean>
 	
 	<!-- 用户注册模板bean -->
 	<bean name="userDao" class="com.bbs.daoImpl.UserDaoImpl"></bean>
@@ -27,15 +57,26 @@
 	<bean name="userAction" class="com.bbs.action.UserAction">
 			<property name="userBiz" ref="userBiz"></property>
 	 </bean>
+	 
+	 <!-- 精华帖申请模块 -->
+	<bean name="bestPostDao" class="com.bbs.daoImpl.BestPostDaoImpl">
+	<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="bestPostBiz" class="com.bbs.bizImpl.BestPostBizImpl">
+		<property name="bestPostDao" ref="bestPostDao"></property>
+	</bean>
 	
 	<!-- 帖子查询模块 -->
 	
-	<bean name="postDao" class="com.bbs.daoImpl.PostDaoImpl"></bean>
+	<bean name="postDao" class="com.bbs.daoImpl.PostDaoImpl">
+	<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
 	<bean id="postBiz" class="com.bbs.bizImpl.PostBizImpl">
 		<property name="postDao" ref="postDao"></property>
 	</bean>
 	<bean id="postAction" class="com.bbs.action.PostAction">
 		<property name="postBiz" ref="postBiz"></property>
+		<property name="bestPostBiz" ref="bestPostBiz"></property>
 	</bean>
 	<bean id="moreAction" class="com.bbs.action.MoreAction">
 		<property name="postBiz" ref="postBiz"></property>
@@ -46,7 +87,8 @@
 		<property name="postBiz" ref="postBiz"></property>
 	</bean>
 	<!-- 回复模块属性注入 -->
-	<bean name="followcardDao" class="com.bbs.daoImpl.FollowcardDaoImpl"></bean>
+	<bean name="followcardDao" class="com.bbs.daoImpl.FollowcardDaoImpl">
+	</bean>
 	<bean id="followcardBiz" class="com.bbs.bizImpl.FollowcardBizImpl">
 		<property name="followcardDao" ref="followcardDao"></property>
 	</bean>
@@ -65,12 +107,21 @@
 	
 	
 	
+	
+	
+	
+	
+	
 	<!-- 公告模块 -->
 	
 	<bean name="noticeDao" class="com.bbs.daoImpl.NoticeDaoImpl"></bean>
 	<bean id="noticeBiz" class="com.bbs.bizImpl.NoticeBizImpl">
 		<property name="noticeDao" ref="noticeDao"></property>
 	</bean>
+	<bean id="noticeAction" class="com.bbs.action.NoticeAction">
+		<property name="noticeBiz" ref="noticeBiz"></property>
+	</bean>
+	
 	
 	
 	<!-- 管理员模块 -->
@@ -81,6 +132,11 @@
 	<bean id="adminAction" class="com.bbs.action.AdminAction">
 		<property name="adminBiz" ref="adminBiz"></property>
 	</bean>
+	
+	
+	
+	
+	
 	
 	
 	

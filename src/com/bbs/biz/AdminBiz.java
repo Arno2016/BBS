@@ -1,6 +1,7 @@
 package com.bbs.biz;
 
 import com.bbs.model.Admin;
+import com.bbs.model.User;
 /**
  * 
  * @author 张建浩、卜凡、卢静、余莎、姚文娜
@@ -17,5 +18,14 @@ public interface AdminBiz {
 	public abstract int login(String username, String password);
 
 	public abstract void updateAdmin(Admin admin);
+
+	public abstract Admin getAdminById(Integer adminId);
+
+
+	public abstract int getAdminIdByEmail(String email);
+
+	public abstract int isExist(Admin admin);
+
+	public abstract int getAdminIdByUsername(String username);
 
 }

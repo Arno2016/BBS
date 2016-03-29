@@ -20,9 +20,7 @@
 <title>技术论坛</title>
 <link rel="stylesheet" type="text/css" href="css/zzsc-demo.css">
 
-   <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
-    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+   
     <link href="css/index.css" rel="stylesheet">
 
 </head>
@@ -30,9 +28,9 @@
 <body>
 
 
-
+ <jsp:include page="/pages/header.jsp"/>
 <div style="width: 100%;">
-		 <jsp:include page="/pages/header.jsp"/>
+		
 		 
 		 <div class="container user-info">
     <div class="row">
@@ -114,12 +112,11 @@
                     论坛公告
                 </div>
                   <%
-                  	   
                   	    NoticeBiz noticeBiz = (NoticeBiz)context.getBean("noticeBiz");
                   	    List<Notice> notices = noticeBiz.getNotice(1,5);
                   	    for (Notice notice:notices){
                    %>
-                         <a href="<%=request.getContextPath()%>/notice.action?noticeId=<%=notice.getId() %>" class="list-group-item"><%=notice.getContent()%></a>
+                         <a href="<%=request.getContextPath()%>/notice.action?noticeId=<%=notice.getId() %>" class="list-group-item"><%=notice.getTitle()%></a>
                     <%} %>
             </ul>
                <a href="<%=request.getContextPath()%>/publish_post.jsp" ><button type="button" class="btn btn-primary" style="width: 200px;height:50px;margin-left: 30px">我要发帖</button></a>
@@ -130,7 +127,7 @@
                 <ul class="list-group">
                     <div class="list-group-item active">
                         论坛热帖
-                        <a href="<%=request.getContextPath() %>/more.action?type=8&&page=1" style="float: right;color: white">更多>></a>
+                        <a href="<%=request.getContextPath() %>/more.action?type=9&&page=1" style="float: right;color: white">更多>></a>
                     </div>
                      <%
 				   

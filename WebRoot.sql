@@ -57,8 +57,8 @@ create table admin(
 )charset=utf8;
 
 INSERT INTO 
-`admin` VALUES ('1','admin1','123',NULL,'admin1@qq.com','0'), 
-('2','admin2','123',NULL,'admin2@qq.com','1');
+`admin` VALUES ('1','admin1','123','/upload/default/head_icon.jpg','admin1@qq.com',0,'男'), 
+('2','admin2','123','/upload/default/head_icon.jpg','admin2@qq.com',1,'男');
 
 #帖子表
 create table post(
@@ -73,12 +73,7 @@ create table post(
 	FOREIGN key(forum) references sub_forum(id) on delete cascade on update cascade,
 	FOREIGN key(user_id) references user(id) on delete cascade on update cascade
 )charset=utf8;
-INSERT INTO `post`
- VALUES ('1','1','1','android问题1','如题，怎么解决','2016-03-17 22:01:59','0'),
- ('2','2','1','ios问题','随意，瑞','2016-03-17 22:04:53','0'),
- ('3','1','2','android问题2222','223333333','2016-03-17 22:05:32','0'), 
- ('4','3','1','php问题','测试1 11 11','2016-03-17 22:06:02','0'), 
- ('5','1','2','androd问题21','阿萨阿萨阿迪','2016-03-17 22:06:38','0');
+
 
 #跟帖表
 create table followcard(
@@ -91,13 +86,7 @@ create table followcard(
 	FOREIGN key(user_id) references user(id) on delete cascade on update cascade
 )charset=utf8;
 
-INSERT INTO `followcard`
- VALUES ('1','1','2','沙发','2016-03-17 22:02:40'), 
- ('2','2','2','我不会ios啊啊啊','2016-03-17 22:07:16'), 
- ('3','2','2','我还是不会','2016-03-17 22:07:29'),
- ('4','2','1','你不会啊啊啊啊','2016-03-17 22:07:47'),
- ('5','3','2','andorid阿萨啊','2016-03-17 22:08:34'), 
- ('6','3','1','随意回答','2016-03-17 22:08:32');
+
  
  
 #公告表
@@ -106,10 +95,35 @@ create table notice(
 	admin_id int not null,  #发布的管理员
 	content varchar(200),  #内容
 	notice_date datetime not null,  #公告时间
+    title varchar(45),
 	FOREIGN key(admin_id) references admin(id) on delete cascade on update cascade
 )charset=utf8;
-INSERT INTO `notice` 
-VALUES ('1','1','大家随意啊','2016-03-17 22:09:38');
+insert into notice values (1,1,'社区问答-数据结构背后的原理','2016-03-17 22:09:38','社区问答-数据结构背后的原理'),
+(2,1,'不容错过，知识库精华资源推荐','2016-03-20 23:45:00','不容错过，知识库精华资源推荐'),
+(3,1,'2016年上半年热门下载资源','2016-03-18 22:09:38','2016年上半年热门下载资源'),
+(4,1,'问答2016年3月活动开始啦！','2016-03-19 22:09:38','问答2016年3月活动开始啦！');
+
+#精华帖申请列表
+CREATE TABLE best_post(
+	 id int not null primary key auto_increment,
+     post_id int not null,
+     user_id int not null,
+     apply_date timestamp,
+     state int,
+     FOREIGN key(post_id) references post(id) on delete cascade on update cascade,
+     FOREIGN key(user_id) references user(id) on delete cascade on update cascade
+) charset=utf8;
+
+#用户黑名单，用于管理员管理用户权限
+CREATE TABLE black_list(
+	id int not null primary key auto_increment,
+    user_id int not null,
+    level int,#用户拦截等级，1，代表最高限制，禁止用户登陆账号，2禁止用户发帖，同时禁止回复 3禁止用户发帖 4禁止用户回复
+    FOREIGN key(user_id) references user(id) on delete cascade on update cascade
+)charset=utf8;
+
+
+
 
 
 

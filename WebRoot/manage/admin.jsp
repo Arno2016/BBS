@@ -3,6 +3,9 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+if (session.getAttribute("adminname") != null){
+response.sendRedirect("notice.jsp");
+}
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -24,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   
-    <jsp:include page="/pages/header.jsp"/>
+    <jsp:include page="/manage/adminhead.jsp"/>
     
  <div class="login">
 	<div style="margin-left: 120px;">后台管理系统登陆</div>

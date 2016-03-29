@@ -23,7 +23,10 @@ public class NoticeDaoImpl extends BaseHibernateDAO implements NoticeDao{
 		int startIndex = (pageIndex -1) * pageSize;
 		query.setFirstResult(startIndex);
 		query.setMaxResults(pageSize);
-		return query.list();
+		List list = query.list();
+		session.flush();
+		session.close();
+		return list;
 	}
 	
 	/* (non-Javadoc)
@@ -35,6 +38,8 @@ public class NoticeDaoImpl extends BaseHibernateDAO implements NoticeDao{
 		Transaction transaction = session.beginTransaction();
 		session.save(notice);
 		transaction.commit();	
+		session.flush();
+		session.close();
 
 	}
 
