@@ -97,14 +97,14 @@ if (username!=null || password != null || email != null || photoImg != null){
 			switch (adminBiz.isExist(admin)) {
 			case 1:
 				int id = adminBiz.getAdminIdByUsername(username);
-				if (id != (Integer)getSession().get("adminid")){
+				if (id !=-1 &&id != (Integer)getSession().get("adminid")){
 					System.out.println("该用户已存在");
 					addFieldError("username", "该用户名已存在");
 					return SUCCESS;
 				}
 			case 2:
 				int id2 = adminBiz.getAdminIdByEmail(email);
-				if (id2 != (Integer)getSession().get("adminid")){
+				if (id2!=2&&id2 != (Integer)getSession().get("adminid")){
 					System.out.println("该邮箱已存在");
 					addFieldError("email","该邮箱已存在");
 					return SUCCESS;

@@ -172,7 +172,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div id="change" style="float:left">
                     <!-- <a class="btn-select" id="big_btn_select"> -->
                          
-                        <select id="mainforum" name="mainForum" onchange="onselected(this)">
+                        <select id="mainforum" name="mainForum" onclick="onselected(this)">
                          
                         <%
                          ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");

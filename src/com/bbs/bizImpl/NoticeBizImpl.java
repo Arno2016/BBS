@@ -36,5 +36,10 @@ public class NoticeBizImpl implements NoticeBiz {
 		noticeDao.publish(notice);
 		
 	}
+	
+	public Notice getNoticeById(int noticeId){
+		return noticeDao.getNoticeById(noticeId);
+		
+	}
 
 }

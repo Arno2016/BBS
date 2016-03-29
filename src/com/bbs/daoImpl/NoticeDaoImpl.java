@@ -43,6 +43,20 @@ public class NoticeDaoImpl extends BaseHibernateDAO implements NoticeDao{
 
 	}
 
+	@Override
+	public Notice getNoticeById(int noticeId) {
+		Session session = getSession();
+		String sql = "from Notice notice where notice.id=?";
+		Query query = session.createQuery(sql);
+		query.setInteger(0, noticeId);
+		List<Notice> list = query.list();
+		session.flush();
+		session.close();
+		if (list.size()>0)
+		return list.get(0);
+		else return null;
+	}
+
 	
 	
 

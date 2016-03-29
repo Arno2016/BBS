@@ -15,4 +15,6 @@ public interface NoticeDao {
 
 	public  void publish(Notice notice);
 
+	public Notice getNoticeById(int noticeId);
+
 }

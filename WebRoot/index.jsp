@@ -116,7 +116,7 @@
                   	    List<Notice> notices = noticeBiz.getNotice(1,5);
                   	    for (Notice notice:notices){
                    %>
-                         <a href="<%=request.getContextPath()%>/notice.action?noticeId=<%=notice.getId() %>" class="list-group-item"><%=notice.getTitle()%></a>
+                         <a href="<%=request.getContextPath()%>/pages/notice.jsp?noticeId=<%=notice.getId() %>" class="list-group-item"><%=notice.getTitle()%></a>
                     <%} %>
             </ul>
                <a href="<%=request.getContextPath()%>/publish_post.jsp" ><button type="button" class="btn btn-primary" style="width: 200px;height:50px;margin-left: 30px">我要发帖</button></a>
