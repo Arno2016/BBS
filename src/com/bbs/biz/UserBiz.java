@@ -1,5 +1,7 @@
 package com.bbs.biz;
 
+import java.util.List;
+
 import com.bbs.model.User;
 
 /**
@@ -38,6 +40,7 @@ public interface UserBiz {
 	public int getUserIdByUsername(String username);
 	public int getUserIdByEmail(String email);
 	public User getUserById(Integer integer);
+	public List<User> getUserLike(String like);
 
 	
 

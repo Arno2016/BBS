@@ -50,6 +50,7 @@
 	
 	<action name="publish" class="com.bbs.action.PublishPostAction">
 		<result name="success">/pages/mypost.jsp</result>
+		<result name="publish">/publish_post.jsp</result>
 		<result name="login">/login.jsp</result>
 		<result name="error">/pages/error.jsp</result>
 		<interceptor-ref name="loginPermissionStack"></interceptor-ref>
@@ -62,6 +63,7 @@
 	
 	<action name="reply" class="com.bbs.action.ReplyAction">
 		<result name="success">/pages/post.jsp</result>
+		<result name="post">/pages/post.jsp</result>
 		<result name="error">/pages/error.jsp</result>
 		<result name="login">/login.jsp</result>
 		<!-- 回复要登陆 -->
@@ -127,6 +129,17 @@
 		<result name="success">/manage/bestpost.jsp</result>
 		<result name="error">/pages/error.jsp</result>
 		<result name="input">/pages/error.jsp</result>
+	</action>
+	<action name="searchuser" class="com.bbs.action.LimitUserAction">
+		<result name="success">/manage/limit.jsp</result>
+		<result name="error">/pages/error.jsp</result>
+		<result name="input">/pages/error.jsp</result>
+	</action>
+	<action name="limit" class="com.bbs.action.LimitUserAction" method="limit">
+		<result name="success" type="redirectAction">
+		<param name="actionName">searchuser</param>
+		<param name="keywords">${keywords}</param>
+		</result>
 	</action>
 	
 	

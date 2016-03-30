@@ -48,6 +48,7 @@
 	
 	<bean name="loginAction" class="com.bbs.action.LoginAction">
 		<property name="userBiz" ref="userBiz"></property>
+		<property name="blackListBiz" ref="blackListBiz"></property>
 	</bean>	
 	
 	<bean name="activeAction" class="com.bbs.action.ActiveAction">
@@ -81,6 +82,11 @@
 	<bean id="moreAction" class="com.bbs.action.MoreAction">
 		<property name="postBiz" ref="postBiz"></property>
 	</bean>
+	<bean id="publishAction" class="com.bbs.action.PublishPostAction">
+		<property name="postBiz" ref="postBiz"></property>
+		<property name="blackListBiz" ref="blackListBiz"></property>
+	</bean>
+	
 	
 	<!-- 帖子搜索 -->
 	<bean id="postSearchAction" class="com.bbs.action.SearchAction">
@@ -95,12 +101,25 @@
 	<bean id="replyAction" class="com.bbs.action.ReplyAction">
 		<property name="followcardBiz" ref="followcardBiz"></property>
 		<property name="postBiz" ref="postBiz"></property>
+		<property name="blackListBiz" ref="blackListBiz"></property>
 	</bean>
 	
 	<bean name="mainForumDao" class="com.bbs.daoImpl.MainForumDaoImpl"></bean>
 	<bean id="mainForumBiz" class="com.bbs.bizImpl.MainForumBizImpl">
 		<property name="mainDao" ref="mainForumDao"></property>
 	</bean>
+	
+	<!-- 封锁用户id模块 -->
+	<bean name="blackListDao" class="com.bbs.daoImpl.BlackListDaoImpl">
+	</bean>
+	<bean id="blackListBiz" class="com.bbs.bizImpl.BlackListBizImpl">
+		<property name="blackListDao" ref="blackListDao"></property>
+	</bean>
+	<bean id="blAction" class="com.bbs.action.LimitUserAction">
+		<property name="blackListBiz" ref="blackListBiz"></property>
+		<property name="userBiz" ref="userBiz"></property>
+	</bean>
+	
 	
 	
 	

@@ -6,6 +6,7 @@
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" autoFlush="false" buffer="1000kb"%>
+<%@taglib uri="/struts-tags" prefix="s" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -234,6 +235,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <textarea id="TextArea1" cols="20" rows="1" name="content" class="ckeditor"></textarea>
 
         </div>
+        <s:fielderror fieldName="limit"></s:fielderror>
     <div style="float:right;margin: 60px auto">
         <input type="submit" class="btn btn-primary" style="width: 60px;" value="回复"></input>
     </div>

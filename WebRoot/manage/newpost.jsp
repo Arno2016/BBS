@@ -42,7 +42,7 @@ return ;
                 <li role="presentation" ><a href="<%=path%>/manage/change-admin.jsp">资料修改</a></li>
                 <li role="presentation" class="active"><a href="<%=path%>/manage/newpost.jsp">查看新帖</a></li>
                 <li role="presentation"><a href="<%=path%>/manage/bestpost.jsp">精华帖请求</a></li>
-                <!--<li role="presentation"><a href="#">Messages</a></li>-->
+                 <li role="presentation"><a href="<%=path%>/manage/limit.jsp">封锁用户</a></li>
             </ul>
         </div>
 

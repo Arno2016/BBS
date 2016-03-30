@@ -91,7 +91,7 @@ private SessionFactory sessionFactory;
 		session.save(post);
 		beginTransaction.commit();
 		 session.flush();
-			session.close();
+		session.close();
 		
 	}
 
@@ -127,17 +127,21 @@ private SessionFactory sessionFactory;
 		Query query = session.createQuery(sql);
 		query.setInteger(0, postId);
 		List<BestPost> posts = query.list();
-		 session.flush();
-		session.close();
+		
 		if (posts != null && posts.size()>0){
 			BestPost post = posts.get(0);
 			post.setState(state);
 			Transaction beginTransaction = session.beginTransaction();
 			session.update(post);
-			beginTransaction.commit();	
+			beginTransaction.commit();
+			 session.flush();
+				session.close();
 			
+		}else {
+			 session.flush();
+				session.close();
 		}
-			
+		
 		
 	}
 

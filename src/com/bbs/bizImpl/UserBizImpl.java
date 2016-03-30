@@ -104,6 +104,12 @@ public class UserBizImpl implements UserBiz{
 		return userDao.getUserByEmail(email);
 	}
 
+
+	@Override
+	public List<User> getUserLike(String like) {
+		return userDao.getUserLike(like);
+	}
+
 	
 	
 

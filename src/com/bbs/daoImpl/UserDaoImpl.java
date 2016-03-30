@@ -235,5 +235,17 @@ public class UserDaoImpl extends BaseHibernateDAO implements UserDao {
 		return -1;
 	}
 
+
+
+	@Override
+	public List<User> getUserLike(String like) {
+		Session session = getSession();
+		String sql = "from User user where user.username like ? or user.email like ?";
+		Query query = session.createQuery(sql);
+		query.setString(0, '%'+like+'%');
+		query.setString(1, '%'+like+'%');
+		return query.list();
+	}
+
 	
 }

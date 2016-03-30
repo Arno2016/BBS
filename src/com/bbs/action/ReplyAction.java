@@ -2,6 +2,7 @@ package com.bbs.action;
 
 import java.sql.Timestamp;
 
+import com.bbs.biz.BlackListBiz;
 import com.bbs.biz.FollowcardBiz;
 import com.bbs.biz.PostBiz;
 import com.bbs.model.Followcard;
@@ -20,8 +21,15 @@ public class ReplyAction extends BaseAction{
 	private FollowcardBiz followcardBiz;
 	private PostBiz postBiz;
 	
+	private BlackListBiz blackListBiz;
 	
 	
+	
+	
+	
+	public void setBlackListBiz(BlackListBiz blackListBiz) {
+		this.blackListBiz = blackListBiz;
+	}
 	public void setPostBiz(PostBiz postBiz) {
 		this.postBiz = postBiz;
 	}
@@ -45,6 +53,12 @@ public class ReplyAction extends BaseAction{
 	@Override
 	public String execute() throws Exception {
 		if (content != null){
+			int userId = (Integer) getSession().get("userId");
+			int level = blackListBiz.getLevel(userId);
+			if (level == 4 || level == 2||level ==1){
+				this.addFieldError("limit", "你已被管理员限制发表回复");
+				return "post";
+			}
 			Followcard followcard = new Followcard();
 			followcard.setFollowContent(content);
 			Post post = new Post();
@@ -52,7 +66,6 @@ public class ReplyAction extends BaseAction{
 			followcard.setPost(post);
 			followcard.setFollowDate(new Timestamp(System.currentTimeMillis()));
 			User user = new User();
-			int userId = (Integer) getSession().get("userId");
 			user.setId(userId);
 			System.out.println("user id:"+userId+user.getUsername());
 			user.setUsername((String) getSession().get("username"));

@@ -1,5 +1,6 @@
 package com.bbs.action;
 
+import com.bbs.biz.BlackListBiz;
 import com.bbs.biz.UserBiz;
 import com.bbs.model.User;
 
@@ -14,8 +15,20 @@ public class LoginAction extends BaseAction {
 	private String password;
 	private UserBiz userBiz;
 	
+	private BlackListBiz blackListBiz;
+	 
 	
 	
+	
+	public void setBlackListBiz(BlackListBiz blackListBiz) {
+		this.blackListBiz = blackListBiz;
+	}
+
+
+
+
+
+
 	/**
 	 * 
 	 */
@@ -91,10 +104,14 @@ public class LoginAction extends BaseAction {
 	 */
 	@Override
 	public String execute() throws Exception {
-			System.out.println("username:"+username);
-			System.out.println("password:"+password);
+		   
 			int result = userBiz.login(username,password);
 			if (result > 0){
+				int level = blackListBiz.getLevel(result);
+				if (level == 1){
+					this.addFieldError("username", "您已被管理员限制登陆");
+					return "login";
+				}
 				//将用户id，和姓名写入session
 				getSession().put("username", username);
 				getSession().put("userId", result);

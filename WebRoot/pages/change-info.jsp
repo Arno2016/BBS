@@ -59,7 +59,7 @@ if (session.getAttribute("username") == null){
 				 User user = userBiz.getUserById((Integer)session.getAttribute("userId"));
 				 
 				 %>
-				<form action="<%=path%>/userchange.action" method="post" enctype="multipart/form-data">
+				<form id="form1" action="<%=path%>/userchange.action" method="post" enctype="multipart/form-data">
 
 
                         <div class="form-group">
@@ -67,11 +67,11 @@ if (session.getAttribute("username") == null){
                             请上传你的头像<br/>
 
                         </div>
-                        <input type="file" id="inputfile" name="photoImg"><br/>
+                        <input type="file" id="inputfile" accept="image/*" name="photoImg"><br/>
 
                         <div class="form-group">
                             <label for="name">用户名</label>
-                            <input type="text" class="form-control" name="username" id="name" width="200px" height="80px" value="<%=user.getUsername() %>"
+                            <input id="username" type="text" class="form-control" name="username" id="name" width="200px" height="80px" value="<%=user.getUsername() %>"
                                    placeholder="请输入名称"> <p class="help-block"><s:fielderror fieldName="username"></s:fielderror></p>
                         </div>
 
@@ -92,19 +92,19 @@ if (session.getAttribute("username") == null){
 
                         <dl class="form-group">
                             <dt><label for="user_profile_blog">邮箱</label></dt>
-                            <dd><input type="email" class="form-control" id="user_profile_blog" name="email" size="30" value="<%=user.getEmail()%>" />
+                            <dd><input id="email" type="email" class="form-control" id="user_profile_blog" name="email" size="30" value="<%=user.getEmail()%>" />
                             <p class="help-block"><s:fielderror fieldName="email"></s:fielderror></p>
                             </dd>
                         </dl>
                         <dl class="form-group">
                             <dt><label for="user_profile_company">密码</label></dt>
-                            <dd><input class="form-control" id="user_profile_company" name="password" size="30" type="password" width="200px"/></dd>
+                            <dd><input class="form-control" id="password" name="password" size="30" type="password" width="200px" /></dd>
                         </dl>
                         <dl class="form-group">
                             <dt><label for="user_profile_location">重复密码</label></dt>
-                            <dd><input class="form-control" id="user_profile_location" size="30" type="password" width="200px" /></dd>
+                            <dd><input class="form-control" id="confirm_password" name="confirm_password" size="30" type="password" width="200px" /></dd>
                         </dl>
-                        <input class="btn btn-primary" type="submit" value="提交"> <s:fielderror fieldName="update-result"></s:fielderror>
+                        <input type="submit" value="提交"> <s:fielderror fieldName="update-result"></s:fielderror>
                     </form>
                 </div>
             </div>
@@ -120,4 +120,46 @@ if (session.getAttribute("username") == null){
      
       <jsp:include page="/pages/bottom.jsp"/>
   </body>
+  <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+  <script type="text/javascript">
+  	$(function(){
+  	 	$("#form1").validate({
+  	 		rules:{
+                    username:{
+                        required:true
+                    },
+                    email:{
+                        required:true,
+                        email:true
+                    },
+                    password:{
+                        rangelength:[6,20]
+                    },
+                    confirm_password:{
+                        equalTo:"#password"
+                    }              
+                },
+                messages:{
+                    username:{
+                        required:"必填"
+                    },
+                    email:{
+                        required:"必填",
+                        email:"E-Mail格式不正确"
+                    },
+                    password:{
+                        rangelength: $.validator.format("密码最小长度:{0}, 最大长度:{1}。")
+                    },
+                    confirm_password:{
+                        equalTo:"两次密码输入不一致"
+                    }                                    
+                }
+  	 	});
+  	});
+  </script>
+  <style type="text/css">
+  .error{
+    color:red;
+  }
+  </style>
 </html>

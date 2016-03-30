@@ -5,6 +5,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
+<%@taglib uri="/struts-tags" prefix="s" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -16,6 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta charset="UTF-8">
 <title>Insert title here</title>
     <script type="text/javascript" src="component/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="js/publish-post.js"></script>
     <script type="text/javascript">
         //下拉框
 /*
@@ -149,19 +151,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 </head>
 <body>
+
+ <jsp:include page="/pages/header.jsp"/>
  <table class="tb" cellspacing="0" cellpadding="3">
   <form method="post" action="<%=path%>/publish.action">
               <tr>
             <th>文章标题</th>
             <td>
-                <input type="text" id="textfile" name="title" />
+                <input required type="text" id="textfile" name="title" />
+                <s:fielderror fieldName="limit"></s:fielderror>
                 <span>你还可以输入30个字符</span>
             </td>
         </tr>
         <tr>
             <th>文章内容</th>
             <td>
-               
+                <button class="tab omg">编辑</button>
+                 <button class="tab">预览</button>
                 <textarea type="text" class="" name="content" id="ckeditor"></textarea>
                 <span style="float: right;">你还可以输入30000个字符</span>
             </td>
@@ -172,7 +178,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div id="change" style="float:left">
                     <!-- <a class="btn-select" id="big_btn_select"> -->
                          
-                        <select id="mainforum" name="mainForum" onclick="onselected(this)">
+                        <select id="mainforum" name="mainForum" onchange="onselected(this)">
                          
                         <%
                          ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -223,4 +229,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </script>
 
 </body>
+	<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+  <script type="text/javascript">
+	  	$(function(){
+	  	 	$("#signupForm").validate();
+	  	});
+  </script>
 </html>

@@ -59,6 +59,8 @@ public interface UserDao {
 	public int getUserByEmail(String email);
 
 	public int getUserIdByUsername(String username);
+
+	public List<User> getUserLike(String like);
 	
 
 }

@@ -29,16 +29,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
      <jsp:include page="/pages/header.jsp"/>
  <div class="regist">
-    <form role="form" action="<%=path%>/regist.action" method="post">
+    <form id="form1" role="form" action="<%=path%>/regist.action" method="post">
             <!--<label for="name">用户名:</label>-->
-            <input type="text" class="form-control" name="username" style="height: 40px; margin-top: 20px;"
+            <input id="username" type="text" class="form-control" name="username" style="height: 40px; margin-top: 20px;"
                    placeholder="请输入用户名"><s:fielderror fieldName="username"></s:fielderror>
             <!--<label for="name"></label>-->
-        <input type="password" class="form-control" name="password" style="height: 40px;margin-top: 20px;"
+        <input id="password" type="password" class="form-control" name="password" style="height: 40px;margin-top: 20px;"
                placeholder="请输入密码"><s:fielderror fieldName="password"></s:fielderror>
       
 
-        <input type="password" class="form-control" name="password" style="height: 40px;margin-top: 20px;"
+        <input id="confirm_password" type="password" class="form-control" name="password" style="height: 40px;margin-top: 20px;"
                placeholder="请重复密码">
                
                  <div style="margin-top: 10px;margin-left: 10px;">
@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 女<input type="radio" name="sex" value="女">
             </div>
         </div>
-        <input type="password" class="form-control" name="email" style="height: 40px;margin-top: 20px;"
+        <input id="email" type="email" class="form-control" name="email" style="height: 40px;margin-top: 20px;"
                placeholder="请输入邮箱"><s:fielderror fieldName="email"></s:fielderror>
         <div style="height: 80px;width: 100%;margin-top: 20px;margin-left: 30px;">
             <!--<div style="float:left;width: 100%;padding: 20px;">-->
@@ -84,4 +84,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
  
   </body>
+  <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+  <script type="text/javascript">
+  	$(function(){
+  	 	$("#form1").validate({
+  	 		rules:{
+                    username:{
+                        required:true
+                    },
+                    email:{
+                        required:true,
+                        email:true
+                    },
+                    password:{
+                        required:true,
+                        rangelength:[6,20]
+                    },
+                    confirm_password:{
+                        equalTo:"#password"
+                    }                    
+                },
+                messages:{
+                    username:{
+                        required:"必填"
+                    },
+                    email:{
+                        required:"必填",
+                        email:"E-Mail格式不正确"
+                    },
+                    password:{
+                        required: "不能为空",
+                        rangelength: $.validator.format("密码最小长度:{0}, 最大长度:{1}。")
+                    },
+                    confirm_password:{
+                        equalTo:"两次密码输入不一致"
+                    }                                    
+                }
+  	 	});
+  	});
+  </script>
+  <style type="text/css">
+  .error{
+    color:red;
+  }
+  </style>
 </html>

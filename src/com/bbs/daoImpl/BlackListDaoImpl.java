@@ -1,5 +1,6 @@
 package com.bbs.daoImpl;
 
+import com.bbs.dao.BlackListDao;
 import com.bbs.hibernate.factory.BaseHibernateDAO;
 import com.bbs.model.BlackList;
 
@@ -7,6 +8,8 @@ import java.util.List;
 
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Example;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,16 +25,24 @@ import org.slf4j.LoggerFactory;
  * @see com.bbs.model.BlackList
  * @author MyEclipse Persistence Tools
  */
-public class BlackListDaoImpl extends BaseHibernateDAO {
+public class BlackListDaoImpl extends BaseHibernateDAO implements BlackListDao {
 	private static final Logger log = LoggerFactory
 			.getLogger(BlackListDaoImpl.class);
 	// property constants
 	public static final String LEVEL = "level";
 
+	/* (non-Javadoc)
+	 * @see com.bbs.daoImpl.BlackListDao#save(com.bbs.model.BlackList)
+	 */
+	@Override
 	public void save(BlackList transientInstance) {
 		log.debug("saving BlackList instance");
 		try {
-			getSession().save(transientInstance);
+			Session session = getSession();
+			Transaction transaction = session.beginTransaction();
+			session.save(transientInstance);
+			transaction.commit();
+			session.close();
 			log.debug("save successful");
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
@@ -39,22 +50,15 @@ public class BlackListDaoImpl extends BaseHibernateDAO {
 		}
 	}
 
-	public void delete(BlackList persistentInstance) {
-		log.debug("deleting BlackList instance");
-		try {
-			getSession().delete(persistentInstance);
-			log.debug("delete successful");
-		} catch (RuntimeException re) {
-			log.error("delete failed", re);
-			throw re;
-		}
-	}
+	
 
 	public BlackList findById(java.lang.Integer id) {
 		log.debug("getting BlackList instance with id: " + id);
 		try {
-			BlackList instance = (BlackList) getSession().get(
+			Session session = getSession();
+			BlackList instance = (BlackList) session.get(
 					"com.bbs.model.BlackList", id);
+			session.close();
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
@@ -62,20 +66,7 @@ public class BlackListDaoImpl extends BaseHibernateDAO {
 		}
 	}
 
-	public List findByExample(BlackList instance) {
-		log.debug("finding BlackList instance by example");
-		try {
-			List results = getSession()
-					.createCriteria("com.bbs.model.BlackList")
-					.add(Example.create(instance)).list();
-			log.debug("find by example successful, result size: "
-					+ results.size());
-			return results;
-		} catch (RuntimeException re) {
-			log.error("find by example failed", re);
-			throw re;
-		}
-	}
+	
 
 	public List findByProperty(String propertyName, Object value) {
 		log.debug("finding BlackList instance with property: " + propertyName
@@ -83,9 +74,12 @@ public class BlackListDaoImpl extends BaseHibernateDAO {
 		try {
 			String queryString = "from BlackList as model where model."
 					+ propertyName + "= ?";
-			Query queryObject = getSession().createQuery(queryString);
+			Session session = getSession();
+			Query queryObject = session.createQuery(queryString);
 			queryObject.setParameter(0, value);
-			return queryObject.list();
+			List list = queryObject.list();
+			session.close();
+			return list;
 		} catch (RuntimeException re) {
 			log.error("find by property name failed", re);
 			throw re;
@@ -95,50 +89,48 @@ public class BlackListDaoImpl extends BaseHibernateDAO {
 	public List findByLevel(Object level) {
 		return findByProperty(LEVEL, level);
 	}
-
-	public List findAll() {
-		log.debug("finding all BlackList instances");
-		try {
-			String queryString = "from BlackList";
-			Query queryObject = getSession().createQuery(queryString);
-			return queryObject.list();
-		} catch (RuntimeException re) {
-			log.error("find all failed", re);
-			throw re;
+	
+	/* (non-Javadoc)
+	 * @see com.bbs.daoImpl.BlackListDao#getLevel(int)
+	 */
+	@Override
+	public int getLevel(int userId){
+		String sql = "from BlackList bl where bl.user.id = ?";
+		Session session = getSession();
+		Query query = session.createQuery(sql);
+		query.setInteger(0, userId);
+		List list = query.list();
+		if (list != null && list.size()>0){
+			BlackList blackList = (BlackList) list.get(0);
+			return blackList.getLevel();
 		}
+		return -1;//不存在
+		 
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.bbs.daoImpl.BlackListDao#update(com.bbs.model.BlackList)
+	 */
+	@Override
+	public void update(BlackList list){
+		Session session = getSession();
+		Transaction transaction = session.beginTransaction();
+		String sql = "from BlackList list where list.user.id = ?";
+		Query query = session.createQuery(sql);
+		query.setInteger(0, list.getUser().getId());
+		BlackList blackList = (BlackList) query.list().get(0);
+		blackList.setLevel(list.getLevel());
+		session.update(blackList);
+		session.flush();
+		transaction.commit();
+		session.close();
+	}
+	
+	
+	
+	
 
-	public BlackList merge(BlackList detachedInstance) {
-		log.debug("merging BlackList instance");
-		try {
-			BlackList result = (BlackList) getSession().merge(detachedInstance);
-			log.debug("merge successful");
-			return result;
-		} catch (RuntimeException re) {
-			log.error("merge failed", re);
-			throw re;
-		}
-	}
+	
 
-	public void attachDirty(BlackList instance) {
-		log.debug("attaching dirty BlackList instance");
-		try {
-			getSession().saveOrUpdate(instance);
-			log.debug("attach successful");
-		} catch (RuntimeException re) {
-			log.error("attach failed", re);
-			throw re;
-		}
-	}
-
-	public void attachClean(BlackList instance) {
-		log.debug("attaching clean BlackList instance");
-		try {
-			getSession().buildLockRequest(LockOptions.NONE).lock(instance);
-			log.debug("attach successful");
-		} catch (RuntimeException re) {
-			log.error("attach failed", re);
-			throw re;
-		}
-	}
+	
 }

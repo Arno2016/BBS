@@ -33,17 +33,16 @@ response.sendRedirect("notice.jsp");
 	<div style="margin-left: 120px;">后台管理系统登陆</div>
     <form role="form" action="<%=path%>/adminlogin.action" method="post">
             <!--<label for="name">用户名:</label>-->
-            <input type="text" class="form-control" name="username" style="height: 55px; margin-top: 30px;"
+            <input required type="text" class="form-control" name="username" style="height: 55px; margin-top: 30px;"
                    placeholder="请输入管理员用户名"><s:fielderror fieldName="adminName"></s:fielderror>
             <!--<label for="name"></label>-->
-            <input type="password" class="form-control" name="password" style="height: 55px;margin-top: 30px;"
+            <input required type="password" class="form-control" name="password" style="height: 55px;margin-top: 30px;"
                    placeholder="请输入管理员密码"><s:fielderror fieldName="adminPassword"></s:fielderror><br/>
         <div style="height: 100px;width: 100%;margin-top: 30px;margin-left: 30px;">
             <div style="float:left;width: 100%;padding: 20px;">
                 <input type="submit" class="btn btn-primary" value="登陆"
                    style="margin:auto;width: 80%;height: 50px;padding: 13px;"></input>
             </div>
-           
 
         </div>
 
@@ -68,5 +67,10 @@ response.sendRedirect("notice.jsp");
      
      
   </body>
-  
+  <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+  <script type="text/javascript">
+  	$(function(){
+  	 	$("#signupForm").validate();
+  	});
+  </script>
 </html>

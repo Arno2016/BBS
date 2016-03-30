@@ -2,6 +2,7 @@ package com.bbs.action;
 
 import java.sql.Timestamp;
 
+import com.bbs.biz.BlackListBiz;
 import com.bbs.biz.PostBiz;
 import com.bbs.model.MainForum;
 import com.bbs.model.Post;
@@ -16,9 +17,16 @@ public class PublishPostAction extends BaseAction{
 	
 	private PostBiz postBiz;
 	
+	private BlackListBiz blackListBiz;
+	
+	
 	
 
 	
+
+	public void setBlackListBiz(BlackListBiz blackListBiz) {
+		this.blackListBiz = blackListBiz;
+	}
 
 	public void setPostBiz(PostBiz postBiz) {
 		this.postBiz = postBiz;
@@ -44,10 +52,13 @@ public class PublishPostAction extends BaseAction{
 
 	@Override
 	public String execute() throws Exception {
-		System.out.println(title);
-		System.out.println(content);
-		System.out.println(mainForum);
-		System.out.println(subForum);
+		
+		int userId = (Integer) getSession().get("userId");
+		if (blackListBiz.getLevel(userId)<=3){
+			this.addFieldError("limit", "您已被管理员限制发帖");
+			return "publish";
+		}
+	
 		Post post = new Post();
 		post.setTitle(title);
 		post.setCardContent(content);

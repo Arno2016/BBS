@@ -32,12 +32,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <jsp:include page="/pages/header.jsp"/>
  <div class="login">
 
-    <form role="form" action="<%=path%>/login.action" method="post">
+    <form id="form1" role="form" action="<%=path%>/login.action" method="post">
             <!--<label for="name">用户名:</label>-->
-            <input type="text" class="form-control" name="username" style="height: 55px; margin-top: 30px;"
+            <input id="username" required type="text" class="form-control" name="username" style="height: 55px; margin-top: 30px;"
                    placeholder="请输入用户名"><s:fielderror fieldName="username"></s:fielderror>
             <!--<label for="name"></label>-->
-            <input type="password" class="form-control" name="password" style="height: 55px;margin-top: 30px;"
+            <input type="password" required class="form-control" name="password" style="height: 55px;margin-top: 30px;"
                    placeholder="请输入密码"><s:fielderror fieldName="password"></s:fielderror>
         <div style="height: 100px;width: 100%;margin-top: 30px;">
             <div style="float:left;width: 50%;padding: 20px;">
@@ -70,4 +70,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     </div>
   </body>
+  <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+  <script type="text/javascript">
+  	$(function(){
+  	 	$("#signupForm").validate();
+  	});
+  </script>
 </html>
