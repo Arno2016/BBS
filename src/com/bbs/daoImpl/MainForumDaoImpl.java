@@ -58,6 +58,7 @@ public class MainForumDaoImpl extends BaseHibernateDAO implements MainForumDao {
 		try {
 			Session session = getSession();
 			session.delete(persistentInstance);
+			session.flush();
 			session.close();
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
@@ -76,6 +77,7 @@ public class MainForumDaoImpl extends BaseHibernateDAO implements MainForumDao {
 			Session session = getSession();
 			MainForum instance = (MainForum)session .get(
 					"com.bbs.model.MainForum", id);
+			session.flush();
 			session.close();
 			return instance;
 		} catch (RuntimeException re) {
@@ -96,6 +98,7 @@ public class MainForumDaoImpl extends BaseHibernateDAO implements MainForumDao {
 			Query queryObject = session.createQuery(queryString);
 			queryObject.setParameter(0, value);
 			List list = queryObject.list();
+			session.flush();
 			session.close();
 			return list;
 		} catch (RuntimeException re) {
@@ -133,6 +136,7 @@ public class MainForumDaoImpl extends BaseHibernateDAO implements MainForumDao {
 			Session session = getSession();
 			Query queryObject = session.createQuery(queryString);
 			List list = queryObject.list();
+			session.flush();
 			session.close();
 			return list;
 		} catch (RuntimeException re) {

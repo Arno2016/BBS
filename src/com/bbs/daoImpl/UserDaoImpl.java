@@ -66,6 +66,7 @@ public class UserDaoImpl extends BaseHibernateDAO implements UserDao {
 		try {
 			Session session = getSession();
 			User instance = (User) session.get("com.bbs.model.User", id);
+			session.flush();
 			session.close();
 			return instance;
 		} catch (RuntimeException re) {
@@ -86,6 +87,7 @@ public class UserDaoImpl extends BaseHibernateDAO implements UserDao {
 			Query queryObject = session.createQuery(queryString);
 			queryObject.setParameter(0, value);
 			List list = queryObject.list();
+			session.flush();
 			session.close();
 			return list;
 		} catch (RuntimeException re) {
@@ -159,6 +161,7 @@ public class UserDaoImpl extends BaseHibernateDAO implements UserDao {
 		Transaction transaction = session.beginTransaction();
 		session.update(user);
 		transaction.commit();
+		session.flush();
 		session.close();
 	}
 
@@ -197,10 +200,14 @@ public class UserDaoImpl extends BaseHibernateDAO implements UserDao {
 				Transaction transaction = session.beginTransaction();
 				session.update(user);
 				transaction.commit();
+				session.flush();
 				session.close();
 				return 1;
-			}else 
+			}else {
+				
 				return -1;
+			}
+				
 		}		
 		return 0;
 	}
@@ -244,7 +251,10 @@ public class UserDaoImpl extends BaseHibernateDAO implements UserDao {
 		Query query = session.createQuery(sql);
 		query.setString(0, '%'+like+'%');
 		query.setString(1, '%'+like+'%');
-		return query.list();
+		List list = query.list();
+		session.flush();
+		session.close();
+		return list;
 	}
 
 	

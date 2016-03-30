@@ -31,17 +31,7 @@ public class BestPostDaoImpl extends BaseHibernateDAO implements BestPostDao{
 	private static final Logger log = LoggerFactory
 			.getLogger(BestPostDaoImpl.class);
 
-private SessionFactory sessionFactory;
-	
-	
 
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-	
-	public Session getMySession(){
-		return sessionFactory.openSession();
-	}
 
 	
 
@@ -157,7 +147,6 @@ private SessionFactory sessionFactory;
 		 List<BestPost>  bestPosts = query.list();
 		 session.flush();
 			session.close();
-		System.out.println("数据库size："+bestPosts.size());
 		return bestPosts;
 	}
 
@@ -169,7 +158,7 @@ private SessionFactory sessionFactory;
 		query.setInteger(0, postId);
 		List<BestPost> posts = query.list();
 		session.flush();
-		session.clear();
+		session.close();
 		if (posts != null && posts.size()>0){
 			return true;
 		}

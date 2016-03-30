@@ -88,6 +88,7 @@ return ;
                             封锁用户 <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
+                        	<li><a href="<%=path%>/limit.action?userId=<%=user.getId()%>&&level=-1&&keywords=<%=keywords%>">解除限制</a></li>
                             <li><a href="<%=path%>/limit.action?userId=<%=user.getId()%>&&level=4&&keywords=<%=keywords%>">限制回复</a></li>
                             <li><a href="<%=path%>/limit.action?userId=<%=user.getId()%>&&level=3&&keywords=<%=keywords%>">限制发帖</a></li>
                             <li><a href="<%=path%>/limit.action?userId=<%=user.getId()%>&&level=2&&keywords=<%=keywords%>">限制发帖与回复</a></li>

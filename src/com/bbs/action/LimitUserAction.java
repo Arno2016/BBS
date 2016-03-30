@@ -83,6 +83,8 @@ public class LimitUserAction extends BaseAction {
 				blackListBiz.save(blackList);
 			}
 			
+		}else if (level<0){
+			blackListBiz.remove(userId);
 		}
 		return SUCCESS;
 	}

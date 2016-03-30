@@ -35,4 +35,9 @@ public class BlackListBizImpl implements BlackListBiz {
 		
 	}
 
+	@Override
+	public void remove(int userId) {
+		blackListDao.remove(userId);		
+	}
+
 }

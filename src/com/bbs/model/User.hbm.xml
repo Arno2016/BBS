@@ -43,25 +43,25 @@
         <property name="hasActive" type="java.lang.Integer">
             <column name="hasActive" />
         </property>
-        <set name="bestPosts" inverse="true">
+        <set name="bestPosts" inverse="true" lazy="false">
             <key>
                 <column name="user_id" not-null="true" />
             </key>
             <one-to-many class="com.bbs.model.BestPost" />
         </set>
-        <set name="posts" inverse="true">
+        <set name="posts" inverse="true" lazy="false">
             <key>
                 <column name="user_id" not-null="true" />
             </key>
             <one-to-many class="com.bbs.model.Post" />
         </set>
-        <set name="blackLists" inverse="true">
+        <set name="blackLists" inverse="true" lazy="false">
             <key>
                 <column name="user_id" not-null="true" />
             </key>
             <one-to-many class="com.bbs.model.BlackList" />
         </set>
-        <set name="followcards" inverse="true">
+        <set name="followcards" inverse="true" lazy="false">
             <key>
                 <column name="user_id" not-null="true" />
             </key>

@@ -10,4 +10,6 @@ public interface BlackListDao {
 
 	public abstract void update(BlackList blackList);
 
+	public abstract void remove(int userId);
+
 }

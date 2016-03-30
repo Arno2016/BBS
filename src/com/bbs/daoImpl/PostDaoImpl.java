@@ -61,6 +61,7 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		try {
 			Session session = getSession();
 			Post instance = (Post) session.get("com.bbs.model.Post", id);
+			session.flush();
 			session.close();
 			return instance;
 		} catch (RuntimeException re) {
@@ -81,6 +82,7 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 			Query queryObject = session.createQuery(queryString);
 			queryObject.setParameter(0, value);
 			List list = queryObject.list();
+			session.flush();
 			session.close();
 			return list;
 		} catch (RuntimeException re) {
@@ -113,7 +115,6 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		session.save(post);
 		transaction.commit();
 		session.flush();
-		session.clear();
 		session.close();
 	}
 
@@ -129,7 +130,6 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		query.setMaxResults(pageSize);
 		List list = query.list();
 		session.flush();
-		session.clear();
 		session.close();
 		return list;
 	}
@@ -143,7 +143,6 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		query.setInteger(0, postId);
 		List<Post> posts = query.list();
 		session.flush();
-		session.clear();
 		session.close();
 		if (posts != null && posts.size()>0)
 			return posts.get(0);
@@ -158,7 +157,6 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		query.setString(0, '%'+keyword+'%');
 		List list = query.list();
 		session.flush();
-		session.clear();
 		session.close();
 		return list;
 	}
@@ -177,7 +175,6 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		query.setMaxResults(pageSize);
 		List list = query.list();
 		session.flush();
-		session.clear();
 		session.close();
 		return list;
 	}
@@ -193,7 +190,6 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		query.setMaxResults(pageSize);
 		List list = query.list();
 		session.flush();
-		session.clear();
 		session.close();
 		return list;
 	}
@@ -209,7 +205,6 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 			query.setMaxResults(pageSize);
 			List list = query.list();
 			session.flush();
-			session.clear();
 			session.close();
 			return list;
 		}else if (type==8){
@@ -234,7 +229,6 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		query.setMaxResults(pageSize);
 		List list = query.list();
 		session.flush();
-		session.clear();
 		session.close();
 		return list;
 	}
@@ -267,7 +261,6 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		session.delete(post);
 		transaction.commit();
 		session.flush();
-		session.clear();
 		session.close();
 	}
 
@@ -280,7 +273,6 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		session.update(post);
 		transaction.commit();
 		session.flush();
-		session.clear();
 		session.close();
 	}
 	

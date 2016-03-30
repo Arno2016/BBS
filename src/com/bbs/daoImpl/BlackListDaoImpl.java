@@ -42,6 +42,7 @@ public class BlackListDaoImpl extends BaseHibernateDAO implements BlackListDao {
 			Transaction transaction = session.beginTransaction();
 			session.save(transientInstance);
 			transaction.commit();
+			session.flush();
 			session.close();
 			log.debug("save successful");
 		} catch (RuntimeException re) {
@@ -58,6 +59,7 @@ public class BlackListDaoImpl extends BaseHibernateDAO implements BlackListDao {
 			Session session = getSession();
 			BlackList instance = (BlackList) session.get(
 					"com.bbs.model.BlackList", id);
+			session.flush();
 			session.close();
 			return instance;
 		} catch (RuntimeException re) {
@@ -78,6 +80,7 @@ public class BlackListDaoImpl extends BaseHibernateDAO implements BlackListDao {
 			Query queryObject = session.createQuery(queryString);
 			queryObject.setParameter(0, value);
 			List list = queryObject.list();
+			session.flush();
 			session.close();
 			return list;
 		} catch (RuntimeException re) {
@@ -100,10 +103,18 @@ public class BlackListDaoImpl extends BaseHibernateDAO implements BlackListDao {
 		Query query = session.createQuery(sql);
 		query.setInteger(0, userId);
 		List list = query.list();
+	
 		if (list != null && list.size()>0){
 			BlackList blackList = (BlackList) list.get(0);
+			session.flush();
+			session.close();
 			return blackList.getLevel();
 		}
+		else {
+			session.flush();
+			session.close();
+		}
+		
 		return -1;//不存在
 		 
 	}
@@ -121,9 +132,31 @@ public class BlackListDaoImpl extends BaseHibernateDAO implements BlackListDao {
 		BlackList blackList = (BlackList) query.list().get(0);
 		blackList.setLevel(list.getLevel());
 		session.update(blackList);
-		session.flush();
+		
 		transaction.commit();
+		session.flush();
 		session.close();
+	}
+
+
+
+	@Override
+	public void remove(int userId) {
+		int level = getLevel(userId);
+		Session session = getSession();
+		if (level>0){
+			Transaction transaction = session.beginTransaction();
+			String sql = "from BlackList list where list.user.id = ?";
+			Query query = session.createQuery(sql);
+			query.setInteger(0,userId);
+			BlackList blackList = (BlackList) query.list().get(0);
+			session.delete(blackList);
+			transaction.commit();
+		}
+		session.flush();
+		session.close();
+		
+		
 	}
 	
 	

@@ -25,33 +25,14 @@ public class AdminDaoImpl extends BaseHibernateDAO implements AdminDao{
 	public static final String TYPE = "type";
 	public static final String SEX = "sex";
 
-	public void save(Admin transientInstance) {
-		log.debug("saving Admin instance");
-		try {
-			getSession().save(transientInstance);
-			log.debug("save successful");
-		} catch (RuntimeException re) {
-			log.error("save failed", re);
-			throw re;
-		}
-	}
-
-	public void delete(Admin persistentInstance) {
-		log.debug("deleting Admin instance");
-		try {
-			getSession().delete(persistentInstance);
-			log.debug("delete successful");
-		} catch (RuntimeException re) {
-			log.error("delete failed", re);
-			throw re;
-		}
-	}
-
+	
 	public Admin findById(java.lang.Integer id) {
 		log.debug("getting Admin instance with id: " + id);
 		try {
-			Admin instance = (Admin) getSession()
-					.get("com.bbs.model.Admin", id);
+			Session session = getSession();
+			Admin instance = (Admin) 
+					session.get("com.bbs.model.Admin", id);
+			session.close();
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
@@ -59,19 +40,7 @@ public class AdminDaoImpl extends BaseHibernateDAO implements AdminDao{
 		}
 	}
 
-	public List findByExample(Admin instance) {
-		log.debug("finding Admin instance by example");
-		try {
-			List results = getSession().createCriteria("com.bbs.model.Admin")
-					.add(Example.create(instance)).list();
-			log.debug("find by example successful, result size: "
-					+ results.size());
-			return results;
-		} catch (RuntimeException re) {
-			log.error("find by example failed", re);
-			throw re;
-		}
-	}
+	
 
 	public List findByProperty(String propertyName, Object value) {
 		log.debug("finding Admin instance with property: " + propertyName
@@ -79,9 +48,12 @@ public class AdminDaoImpl extends BaseHibernateDAO implements AdminDao{
 		try {
 			String queryString = "from Admin as model where model."
 					+ propertyName + "= ?";
-			Query queryObject = getSession().createQuery(queryString);
+			Session session = getSession();
+			Query queryObject = session.createQuery(queryString);
 			queryObject.setParameter(0, value);
-			return queryObject.list();
+			List list = queryObject.list();
+			session.close();
+			return list;
 		} catch (RuntimeException re) {
 			log.error("find by property name failed", re);
 			throw re;

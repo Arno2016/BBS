@@ -11,4 +11,6 @@ public interface BlackListBiz {
 
 	public void update(BlackList blackList);
 
+	public void remove(int userId);
+
 }
