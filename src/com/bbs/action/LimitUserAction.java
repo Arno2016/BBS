@@ -1,5 +1,8 @@
 package com.bbs.action;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.List;
 
 import com.bbs.biz.BlackListBiz;
@@ -59,6 +62,7 @@ public class LimitUserAction extends BaseAction {
 	@Override
 	public String execute() throws Exception {
 		if (keywords != null){
+			keywords = new String(keywords.getBytes("iso8859-1"),"utf-8");
 			List<User> uses = userBiz.getUserLike(keywords);
 			getRequest().put("uses", uses);
 			getRequest().put("keywords", keywords);
@@ -68,7 +72,14 @@ public class LimitUserAction extends BaseAction {
 	}
 	
 	public String limit(){
+		try {
+			keywords = new String(keywords.getBytes("iso8859-1"),"utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (userId>0&& level>0){
+			System.out.println("limit utf-8:"+keywords);
 			BlackList blackList = new BlackList();
 		    User user = new User();
 		    user.setId(userId);
@@ -86,6 +97,10 @@ public class LimitUserAction extends BaseAction {
 		}else if (level<0){
 			blackListBiz.remove(userId);
 		}
+		System.out.println("before query"+keywords);
+		List<User> uses = userBiz.getUserLike(keywords);
+		getRequest().put("uses", uses);
+		getRequest().put("keywords", keywords);
 		return SUCCESS;
 	}
 	

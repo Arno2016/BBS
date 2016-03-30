@@ -61,7 +61,6 @@
 	 
 	 <!-- 精华帖申请模块 -->
 	<bean name="bestPostDao" class="com.bbs.daoImpl.BestPostDaoImpl">
-	<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<bean id="bestPostBiz" class="com.bbs.bizImpl.BestPostBizImpl">
 		<property name="bestPostDao" ref="bestPostDao"></property>
@@ -70,7 +69,6 @@
 	<!-- 帖子查询模块 -->
 	
 	<bean name="postDao" class="com.bbs.daoImpl.PostDaoImpl">
-	<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<bean id="postBiz" class="com.bbs.bizImpl.PostBizImpl">
 		<property name="postDao" ref="postDao"></property>

@@ -104,7 +104,7 @@ public class LoginAction extends BaseAction {
 	 */
 	@Override
 	public String execute() throws Exception {
-		   
+		   System.out.println(username);
 			int result = userBiz.login(username,password);
 			if (result > 0){
 				int level = blackListBiz.getLevel(result);

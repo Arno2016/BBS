@@ -1,5 +1,7 @@
 package com.bbs.action;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * 
  * @author 张建浩、卜凡、卢静、余莎、姚文娜
@@ -12,6 +14,11 @@ public class LogoutAction extends BaseAction {
 		if (getSession().get("username")!=null){
 			getSession().put("username",null);
 			getSession().put("userId",null);
+		}
+		
+		else if (getSession().get("adminname")!= null){
+			getSession().put("adminname",null);
+			getSession().put("adminid",null);
 		}
 		return SUCCESS;
 	}

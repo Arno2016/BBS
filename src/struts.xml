@@ -136,10 +136,7 @@
 		<result name="input">/pages/error.jsp</result>
 	</action>
 	<action name="limit" class="com.bbs.action.LimitUserAction" method="limit">
-		<result name="success" type="redirectAction">
-		<param name="actionName">searchuser</param>
-		<param name="keywords">${keywords}</param>
-		</result>
+		<result name="success">/manage/limit.jsp</result>
 	</action>
 	
 	

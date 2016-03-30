@@ -1,3 +1,4 @@
+<%@page import="java.net.URLEncoder"%>
 <%@page import="com.bbs.biz.BlackListBiz"%>
 <%@page import="com.bbs.model.User"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
@@ -51,7 +52,7 @@ return ;
               
               
 
-            <form style="float: right;" class="navbar-form navbar-right" role="search" action="<%=request.getContextPath()%>/searchuser.action">
+            <form style="float: right;" class="navbar-form navbar-right" role="search" action="<%=request.getContextPath()%>/searchuser.action" method="get">
                 <div class="input-group" style="width: 300px">
                     <input type="text"  class="form-control" name="keywords" placeholder="搜索用户(用户名/邮箱)">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span> </span>
@@ -63,6 +64,7 @@ return ;
             ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
             BlackListBiz blackListBiz = (BlackListBiz)context.getBean("blackListBiz");
             String keywords = (String)request.getAttribute("keywords");
+            System.out.println("jsp keywords:"+keywords);
             	List<User> uses = (List<User>)request.getAttribute("uses");
             	if (uses == null||uses.size()<1)
             	return ;

@@ -3,11 +3,14 @@ package com.bbs.daoImpl;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,13 +34,6 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 	public static final String POST_TYPE = "postType";
 	public static final String REPLY_NUM = "replyNum";
 	
-	private SessionFactory sessionFactory;
-	
-	
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
 	
 	
 
@@ -159,6 +155,12 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		session.flush();
 		session.close();
 		return list;
+//		Session session = getSession();
+//		Criteria criteria = session.createCriteria(Post.class);
+//		criteria.add(Restrictions.like("title",keyword,MatchMode.ANYWHERE));
+//		List list = criteria.list();
+//		session.close();
+//		return list;
 	}
 
 	

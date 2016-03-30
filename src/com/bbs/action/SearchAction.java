@@ -18,6 +18,8 @@ public class SearchAction extends BaseAction{
 	}
 	@Override
 	public String execute() throws Exception {
+		keywords = new String(keywords.getBytes("iso8859-1"),"utf-8");
+		System.out.println(keywords);
 		List<Post> posts = postBiz.searchPosts(keywords);
 		getRequest().put("posts", posts);
 		return SUCCESS;

@@ -57,11 +57,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="<%=path+"/pages/change-info.jsp"%>">发布公告</a></li>
-                            <li class="active"><a href="#">发布公告</a></li>
-			                <li  ><a href="change-admin.html">资料修改</a></li>
-			                <li ><a href="newpost.html">查看新帖</a></li>
-			                <li><a href="bestpost.html">精华帖请求</a></li>
-			                <li><a href="limituser.html">封锁用户</a></li>
+                            <li class="active"><a href="<%=path%>/manage/notice.jsp">发布公告</a></li>
+			                <li  ><a href="<%=path%>/manage/change-admin.jsp">资料修改</a></li>
+			                <li ><a href="<%=path%>/manage/newpost.jsp">查看新帖</a></li>
+			                <li><a href="<%=path%>/manage/bestpost.jsp">精华帖请求</a></li>
+			                <li><a href="<%=path%>/manage/limit.jsp">封锁用户</a></li>
                             <li class="divider"></li>
                             <li><a href="<%=path+"/logout.action"%>">退出登陆</a></li>
                         </ul>
