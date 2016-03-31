@@ -62,6 +62,8 @@ public interface PostDao {
 
 	public void delete(int postId);
 
-	public void updateType(Integer postId); 
+	public void updateType(Integer postId);
+
+	public void updatePost(Post post); 
 
 }

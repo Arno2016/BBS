@@ -14,15 +14,20 @@ public class PublishPostAction extends BaseAction{
 	private String content;
 	private int mainForum;
 	private int subForum;
+	private int postId;
 	
 	private PostBiz postBiz;
 	
 	private BlackListBiz blackListBiz;
 	
 	
-	
+	public int getPostId() {
+		return postId;
+	}
 
-	
+	public void setPostId(int postId) {
+		this.postId = postId;
+	}
 
 	public void setBlackListBiz(BlackListBiz blackListBiz) {
 		this.blackListBiz = blackListBiz;
@@ -54,7 +59,8 @@ public class PublishPostAction extends BaseAction{
 	public String execute() throws Exception {
 		
 		int userId = (Integer) getSession().get("userId");
-		if (blackListBiz.getLevel(userId)<=3){
+		int level = blackListBiz.getLevel(userId);
+		if (level<=3&&level>0){
 			this.addFieldError("limit", "您已被管理员限制发帖");
 			return "publish";
 		}
@@ -75,6 +81,13 @@ public class PublishPostAction extends BaseAction{
 		post.setReplyNum(0);
 		post.setSendDate(new Timestamp(System.currentTimeMillis()));
 		postBiz.pushlish(post);
+		return SUCCESS;
+	}
+	
+	public String commitEditor(){
+		if (postId>0){
+			postBiz.updatePost(postId,title,content,mainForum,subForum);
+		}
 		return SUCCESS;
 	}
 	

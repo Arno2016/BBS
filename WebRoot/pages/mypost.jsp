@@ -71,8 +71,9 @@ if (session.getAttribute("username") == null){
                         <h4 class="list-group-item-heading" style="color:black">[<%=post.getSubForum().getMainForum().getTitle()%>]</h4>
                         <%=post.getTitle() %>
                     </a>
+                    <a href="<%=path%>/editpost.action?postId=<%=post.getId()%>" style="float: right">编辑</a>
                     <%if (post.getPostType() == 0 && !bestPostBiz.isExist(post.getId())) {%>
-                    <a href="<%=path%>/applybest.action?postId=<%=post.getId()%>" style="float: right">申请精华贴</a>
+                    <a href="<%=path%>/applybest.action?postId=<%=post.getId()%>" style="float: right">申请精华贴&nbsp;</a>
                     <%} %>
                     <p style="float: right;margin-right: 50px">评论量:<%=post.getReplyNum()%>&nbsp;发表日期:<%=post.getTime()%></p>
                 </div>

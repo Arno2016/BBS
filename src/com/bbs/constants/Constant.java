@@ -12,9 +12,9 @@ public class Constant {
 	public static final int FIND_PASSWORD = 0X01;
 	
 	//string 常量
-	public static final String HOST_IP = "115.29.138.206";
+	public static final String HOST_IP = "localhost";
 	public static final String PROJECT_NAME = "BBS";
-	public static final String PORT = "80";
+	public static final String PORT = "8080";
 	
 	
 	

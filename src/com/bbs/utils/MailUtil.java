@@ -80,7 +80,7 @@ public class MailUtil {
 			String info = "欢迎注册我们的技术论坛，点击下方链接激活您的账户<br/><br/>";
 			//获取服务器地址
 			String warning = "<br/><br/>本邮件为系统邮件，请勿回复";
-			message.setContent(info+"http://"+Constant.HOST_IP+"/"+Constant.PROJECT_NAME+"/active.action?code="+code+warning,"text/html;charset=utf-8");
+			message.setContent(info+"http://"+Constant.HOST_IP+":"+Constant.PORT+"/"+Constant.PROJECT_NAME+"/active.action?code="+code+warning,"text/html;charset=utf-8");
 			}
 //			else if (type == Utils.FIND_PASSWORD_EMAIL){
 ////				message.setSubject("找回密码邮件");

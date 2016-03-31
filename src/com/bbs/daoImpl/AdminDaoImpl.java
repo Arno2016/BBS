@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import com.bbs.dao.AdminDao;
 import com.bbs.hibernate.factory.BaseHibernateDAO;
 import com.bbs.model.Admin;
-import com.bbs.model.AdminDAO;
 import com.bbs.model.User;
 
 public class AdminDaoImpl extends BaseHibernateDAO implements AdminDao{

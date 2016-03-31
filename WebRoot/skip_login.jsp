@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
    ${message}
    
-    <jsp:include page="/pages/bottom.jsp"/>
+   
    
   </body>
 </html>

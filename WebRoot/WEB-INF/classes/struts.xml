@@ -56,10 +56,23 @@
 		<interceptor-ref name="loginPermissionStack"></interceptor-ref>
 	</action>
 	
+	<action name="updatepost" class="com.bbs.action.PublishPostAction" method="commitEditor">
+		<result name="success">/pages/mypost.jsp</result>
+		<result name="login">/login.jsp</result>
+		<result name="error">/pages/error.jsp</result>
+		<interceptor-ref name="loginPermissionStack"></interceptor-ref>
+	</action>
+	
 	<action name="postDetail" class="com.bbs.action.PostAction">
 		<result name="success">/pages/post.jsp</result>
 		<result name="error">/pages/error.jsp</result>
 	</action>
+	
+	<action name="editpost" class="com.bbs.action.PostAction" method="editPost">
+		<result name="success">/publish_post.jsp</result>
+		<result name="error">/pages/error.jsp</result>
+	</action>
+	
 	
 	<action name="reply" class="com.bbs.action.ReplyAction">
 		<result name="success">/pages/post.jsp</result>

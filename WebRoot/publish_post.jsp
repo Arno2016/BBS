@@ -1,3 +1,4 @@
+<%@page import="com.bbs.model.Post"%>
 <%@page import="org.apache.struts2.components.Else"%>
 <%@page import="com.bbs.model.SubForum"%>
 <%@page import="com.bbs.model.MainForum"%>
@@ -154,11 +155,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
  <jsp:include page="/pages/header.jsp"/>
  <table class="tb" cellspacing="0" cellpadding="3">
+  <%Post post = 	(Post)request.getAttribute("post"); %>
+  <%if (post== null) {%>
   <form method="post" action="<%=path%>/publish.action">
+  <%}else{ %>
+   <form method="post" action="<%=path%>/updatepost.action?postId=<%=post.getId()%>">
+  <%} %>
               <tr>
             <th>文章标题</th>
             <td>
-                <input required type="text" id="textfile" name="title" />
+           
+            <%   if (post!=null){ %>
+                <input required type="text" id="textfile" name="title" value="<%=post.getTitle()%>" />
+                <%}else{ %>
+                 <input required type="text" id="textfile" name="title" />
+                <%} %>
                 <s:fielderror fieldName="limit"></s:fielderror>
                 <span>你还可以输入30个字符</span>
             </td>
@@ -166,9 +177,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <tr>
             <th>文章内容</th>
             <td>
-                <button class="tab omg">编辑</button>
-                 <button class="tab">预览</button>
-                <textarea type="text" class="" name="content" id="ckeditor"></textarea>
+               <%   if (post!=null){ %>
+                <textarea type="text" class="" name="content" id="ckeditor" ><%=post.getCardContent()%></textarea>
+                 <%}else{ %>
+                  <textarea type="text" class="" name="content" id="ckeditor"></textarea>
+                   <%} %>
                 <span style="float: right;">你还可以输入30000个字符</span>
             </td>
         </tr>
@@ -177,8 +190,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <td>
                 <div id="change" style="float:left">
                     <!-- <a class="btn-select" id="big_btn_select"> -->
-                         
                         <select id="mainforum" name="mainForum" onchange="onselected(this)">
+                       
                          
                         <%
                          ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -224,9 +237,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </form>
     </table>
     </table>
-    <script type="text/javascript">
+     
+        <script type="text/javascript">
         CKEDITOR.replace('ckeditor', { allowedContent: true });
+     
     </script>
+     
+
 
 </body>
 	<script type="text/javascript" src="js/jquery.validate.min.js"></script>

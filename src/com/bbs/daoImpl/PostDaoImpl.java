@@ -18,7 +18,6 @@ import com.bbs.dao.PostDao;
 import com.bbs.hibernate.factory.BaseHibernateDAO;
 import com.bbs.model.Followcard;
 import com.bbs.model.Post;
-import com.bbs.model.PostDAO;
 
 /**
  * @author 张建浩、卜凡、卢静、余莎、姚文娜
@@ -276,6 +275,18 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		transaction.commit();
 		session.flush();
 		session.close();
+	}
+
+
+
+	@Override
+	public void updatePost(Post post) {
+		Session session = getSession();
+		Transaction transaction = session.beginTransaction();
+		session.update(post);
+		transaction.commit();
+		session.close();
+		
 	}
 	
 	

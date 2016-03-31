@@ -100,5 +100,18 @@ public class PostAction extends BaseAction{
 		}
 		return ERROR;
 	}
+	
+	/**
+	 * 编辑申请
+	 */
+	
+	public String editPost(){
+		if (postId>0){
+			Post post = postBiz.getPostById(postId);
+			getRequest().put("post", post);
+			return SUCCESS;
+		}
+		return ERROR;
+	}
 
 }

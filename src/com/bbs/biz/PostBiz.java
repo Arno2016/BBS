@@ -47,6 +47,9 @@ public interface PostBiz {
 	public void delete(int postId);
 
 	public abstract void updateType(Integer postId);
+
+	public abstract void updatePost(int postId, String title, String content,
+			int mainForum, int subForum);
 	
 
 }
