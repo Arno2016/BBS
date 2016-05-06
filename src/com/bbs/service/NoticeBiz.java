@@ -1,4 +1,4 @@
-package com.bbs.biz;
+package com.bbs.service;
 
 import java.util.List;
 

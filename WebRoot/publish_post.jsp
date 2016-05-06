@@ -2,7 +2,7 @@
 <%@page import="org.apache.struts2.components.Else"%>
 <%@page import="com.bbs.model.SubForum"%>
 <%@page import="com.bbs.model.MainForum"%>
-<%@page import="com.bbs.biz.MainForumBiz"%>
+<%@page import="com.bbs.service.MainForumBiz"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>

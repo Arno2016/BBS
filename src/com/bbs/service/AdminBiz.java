@@ -1,4 +1,4 @@
-package com.bbs.biz;
+package com.bbs.service;
 
 import com.bbs.model.Admin;
 import com.bbs.model.User;

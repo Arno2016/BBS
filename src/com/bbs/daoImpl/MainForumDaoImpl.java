@@ -10,6 +10,7 @@ import java.util.Set;
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Example;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +41,9 @@ public class MainForumDaoImpl extends BaseHibernateDAO implements MainForumDao {
 		log.debug("saving MainForum instance");
 		try {
 			Session session = getSession();
+			Transaction beginTransaction = session.beginTransaction();
 			session.save(transientInstance);
+			beginTransaction.commit();
 			session.close();
 			log.debug("save successful");
 		} catch (RuntimeException re) {
@@ -144,6 +147,9 @@ public class MainForumDaoImpl extends BaseHibernateDAO implements MainForumDao {
 			throw re;
 		}
 	}
+
+	
+	
 	
 	
 

@@ -1,8 +1,8 @@
 <%@page import="com.bbs.model.SubForum"%>
-<%@page import="com.bbs.biz.BestPostBiz"%>
+<%@page import="com.bbs.service.BestPostBiz"%>
 <%@page import="com.bbs.model.BestPost"%>
 <%@page import="com.bbs.model.Post"%>
-<%@page import="com.bbs.biz.PostBiz"%>
+<%@page import="com.bbs.service.PostBiz"%>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>

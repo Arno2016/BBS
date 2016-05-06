@@ -1,6 +1,6 @@
 package com.bbs.action;
 
-import com.bbs.biz.UserBiz;
+import com.bbs.service.UserBiz;
 
 /**
  * 激活信息处理

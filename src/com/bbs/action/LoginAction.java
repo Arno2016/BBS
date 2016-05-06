@@ -1,8 +1,8 @@
 package com.bbs.action;
 
-import com.bbs.biz.BlackListBiz;
-import com.bbs.biz.UserBiz;
 import com.bbs.model.User;
+import com.bbs.service.BlackListBiz;
+import com.bbs.service.UserBiz;
 
 /**
  * @author 张建浩、卜凡、卢静、余莎、姚文娜

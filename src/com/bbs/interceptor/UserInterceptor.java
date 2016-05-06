@@ -9,7 +9,8 @@ public class UserInterceptor extends AbstractInterceptor {
 	@Override
 	public String intercept(ActionInvocation arg0) throws Exception {
 		String username = (String) ActionContext.getContext().getSession().get("username");
-		if (username == null){
+		String adminname = (String) ActionContext.getContext().getSession().get("adminname");
+		if (username == null&&adminname == null){
 			//未登录，进行拦截
 			System.out.println("未登录进行拦截");
 			return "login";

@@ -1,8 +1,8 @@
-<%@page import="com.bbs.biz.UserBiz"%>
+<%@page import="com.bbs.service.UserBiz"%>
 <%@page import="com.bbs.model.User"%>
 <%@page import="com.bbs.model.Followcard"%>
 <%@page import="com.bbs.model.Post"%>
-<%@page import="com.bbs.biz.PostBiz"%>
+<%@page import="com.bbs.service.PostBiz"%>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" autoFlush="false" buffer="1000kb"%>
@@ -53,6 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		 else 
   		 	pageNum = (Integer)request.getAttribute("page");
   		    System.out.println("postId"+postId+"pageNum:"+pageNum);
+  		    postBiz.autoIncreaseViewNum(postId);
   	 	 List<Followcard> followcards = postBiz.getFollowCards(postId, pageNum, 5);
   	 %>
   	 
@@ -86,7 +87,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div style="margin-left:20px" >
 
                     <span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;<%=post.getReplyNum() %> &nbsp;|&nbsp;<span>发表于:<%=post.getTime() %></span>
-
+                    <%String username = (String)session.getAttribute("username");
+                    if ((username != null && post.getUser().getUsername().equals(username))||(String)session.getAttribute("adminname")!=null){%>
+					<a style="float:right;margin-right: 20px;" href="<%=path%>/editpost.action?postId=<%=post.getId()%>">编辑</a>
+					<%}%>
                 </div>
                 <strong style=" float:right;margin-right:10px;margin-top: 10px">
                     <span class="badge" style="background: #ff6927;width: 50px;">楼主</span></strong>

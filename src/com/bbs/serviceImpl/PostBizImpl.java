@@ -1,16 +1,16 @@
-package com.bbs.bizImpl;
+package com.bbs.serviceImpl;
 
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
-import com.bbs.biz.PostBiz;
 import com.bbs.dao.MainForumDao;
 import com.bbs.dao.PostDao;
 import com.bbs.model.Followcard;
 import com.bbs.model.MainForum;
 import com.bbs.model.Post;
 import com.bbs.model.SubForum;
+import com.bbs.service.PostBiz;
 
 
 /**
@@ -117,6 +117,15 @@ public class PostBizImpl implements PostBiz {
 		postDao.updatePost(post);
 		
 		
+	}
+	@Override
+	public void autoIncreaseViewNum(int postId){
+		postDao.autoIncreaseViewNum(postId);
+	}
+
+	@Override
+	public List<Post> getHotPosts(int pageIndex, int pageSize) {
+		return postDao.getHotPosts(pageIndex, pageSize);
 	}
 
 	

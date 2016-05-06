@@ -1,10 +1,10 @@
-package com.bbs.bizImpl;
+package com.bbs.serviceImpl;
 
 import java.util.List;
 
-import com.bbs.biz.BestPostBiz;
 import com.bbs.dao.BestPostDao;
 import com.bbs.model.BestPost;
+import com.bbs.service.BestPostBiz;
 
 public class BestPostBizImpl implements BestPostBiz {
 	

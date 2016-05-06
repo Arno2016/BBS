@@ -22,6 +22,8 @@ public interface MainForumDao {
 	public abstract List<MainForum> findAll();
 
 
+
+
 	
 
 }

@@ -1,4 +1,4 @@
-package com.bbs.biz;
+package com.bbs.service;
 
 import java.util.List;
 import java.util.Set;
@@ -50,6 +50,9 @@ public interface PostBiz {
 
 	public abstract void updatePost(int postId, String title, String content,
 			int mainForum, int subForum);
+
+	void autoIncreaseViewNum(int postId);
+	List<Post> getHotPosts(int pageIndex, int pageSize); 
 	
 
 }

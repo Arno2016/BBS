@@ -1,7 +1,7 @@
-<%@page import="com.bbs.biz.BestPostBiz"%>
+<%@page import="com.bbs.service.BestPostBiz"%>
 <%@page import="com.bbs.model.BestPost"%>
 <%@page import="com.bbs.model.Post"%>
-<%@page import="com.bbs.biz.PostBiz"%>
+<%@page import="com.bbs.service.PostBiz"%>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
@@ -75,7 +75,7 @@ if (session.getAttribute("username") == null){
                     <%if (post.getPostType() == 0 && !bestPostBiz.isExist(post.getId())) {%>
                     <a href="<%=path%>/applybest.action?postId=<%=post.getId()%>" style="float: right">申请精华贴&nbsp;</a>
                     <%} %>
-                    <p style="float: right;margin-right: 50px">评论量:<%=post.getReplyNum()%>&nbsp;发表日期:<%=post.getTime()%></p>
+                    <p style="float: right;margin-right: 50px">浏览量:<%=post.getViewNum()%>&nbsp;评论量:<%=post.getReplyNum()%>&nbsp;发表日期:<%=post.getTime()%></p>
                 </div>
  				<%} %>
             </ul>

@@ -18,8 +18,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.junit.Test;
 
-import com.bbs.biz.BestPostBiz;
-import com.bbs.bizImpl.BestPostBizImpl;
 import com.bbs.constants.Constant;
 import com.bbs.dao.BestPostDao;
 import com.bbs.daoImpl.BestPostDaoImpl;
@@ -29,6 +27,8 @@ import com.bbs.model.BestPost;
 import com.bbs.model.Followcard;
 import com.bbs.model.Post;
 import com.bbs.model.User;
+import com.bbs.service.BestPostBiz;
+import com.bbs.serviceImpl.BestPostBizImpl;
 import com.bbs.utils.MailUtil;
 
 /**

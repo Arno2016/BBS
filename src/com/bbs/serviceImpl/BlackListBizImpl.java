@@ -1,8 +1,8 @@
-package com.bbs.bizImpl;
+package com.bbs.serviceImpl;
 
-import com.bbs.biz.BlackListBiz;
 import com.bbs.dao.BlackListDao;
 import com.bbs.model.BlackList;
+import com.bbs.service.BlackListBiz;
 
 public class BlackListBizImpl implements BlackListBiz {
 	private BlackListDao blackListDao;

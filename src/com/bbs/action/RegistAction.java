@@ -3,9 +3,9 @@ package com.bbs.action;
 
 import java.sql.Timestamp;
 
-import com.bbs.biz.UserBiz;
 import com.bbs.constants.Constant;
 import com.bbs.model.User;
+import com.bbs.service.UserBiz;
 import com.bbs.utils.MailUtil;
 import com.bbs.utils.Utils;
 

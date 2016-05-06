@@ -1,10 +1,10 @@
 <%@page import="com.bbs.model.Notice"%>
-<%@page import="com.bbs.biz.NoticeBiz"%>
-<%@page import="com.bbs.biz.UserBiz"%>
+<%@page import="com.bbs.service.NoticeBiz"%>
+<%@page import="com.bbs.service.UserBiz"%>
 <%@page import="com.bbs.model.User"%>
 <%@page import="com.bbs.model.Followcard"%>
 <%@page import="com.bbs.model.Post"%>
-<%@page import="com.bbs.biz.PostBiz"%>
+<%@page import="com.bbs.service.PostBiz"%>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" autoFlush="false" buffer="1000kb"%>

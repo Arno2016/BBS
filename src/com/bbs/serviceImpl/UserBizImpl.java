@@ -1,10 +1,10 @@
-package com.bbs.bizImpl;
+package com.bbs.serviceImpl;
 
 import java.util.List;
 
-import com.bbs.biz.UserBiz;
 import com.bbs.dao.UserDao;
 import com.bbs.model.User;
+import com.bbs.service.UserBiz;
 
 /**
  * @author 张建浩、卜凡、卢静、余莎、姚文娜

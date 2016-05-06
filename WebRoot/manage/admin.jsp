@@ -27,7 +27,7 @@ response.sendRedirect("notice.jsp");
   
   <body>
   
-    <jsp:include page="/manage/adminhead.jsp"/>
+    <jsp:include page="/pages/header.jsp"/>
     
  <div class="login">
 	<div style="margin-left: 120px;">后台管理系统登陆</div>

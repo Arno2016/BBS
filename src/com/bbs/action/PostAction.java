@@ -1,10 +1,10 @@
 package com.bbs.action;
 
-import com.bbs.biz.BestPostBiz;
-import com.bbs.biz.PostBiz;
 import com.bbs.model.BestPost;
 import com.bbs.model.Post;
 import com.bbs.model.User;
+import com.bbs.service.BestPostBiz;
+import com.bbs.service.PostBiz;
 
 public class PostAction extends BaseAction{
 	private Integer postId;

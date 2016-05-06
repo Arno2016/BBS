@@ -57,7 +57,7 @@
 	</action>
 	
 	<action name="updatepost" class="com.bbs.action.PublishPostAction" method="commitEditor">
-		<result name="success">/pages/mypost.jsp</result>
+		<result name="success">/pages/post.jsp</result>
 		<result name="login">/login.jsp</result>
 		<result name="error">/pages/error.jsp</result>
 		<interceptor-ref name="loginPermissionStack"></interceptor-ref>
@@ -121,6 +121,12 @@
 	<action name="postdelete" class="com.bbs.action.PostAction" method="delete">
 		<result name="success">/manage/newpost.jsp</result>
 		<result name="login">/manage/admin.jsp</result>
+		<result name="error">/pages/error.jsp</result>
+		<result name="input">/pages/error.jsp</result>
+	</action>
+	<action name="creatediscuss" class="com.bbs.action.CreateDiscussAction">
+		<result name="success">/manage/create_discuss.jsp</result>
+		<result name="create">/manage/create_discuss.jsp</result>
 		<result name="error">/pages/error.jsp</result>
 		<result name="input">/pages/error.jsp</result>
 	</action>

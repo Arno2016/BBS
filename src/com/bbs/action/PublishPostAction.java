@@ -2,12 +2,12 @@ package com.bbs.action;
 
 import java.sql.Timestamp;
 
-import com.bbs.biz.BlackListBiz;
-import com.bbs.biz.PostBiz;
 import com.bbs.model.MainForum;
 import com.bbs.model.Post;
 import com.bbs.model.SubForum;
 import com.bbs.model.User;
+import com.bbs.service.BlackListBiz;
+import com.bbs.service.PostBiz;
 
 public class PublishPostAction extends BaseAction{
 	private String title;
@@ -87,6 +87,8 @@ public class PublishPostAction extends BaseAction{
 	public String commitEditor(){
 		if (postId>0){
 			postBiz.updatePost(postId,title,content,mainForum,subForum);
+			getRequest().put("postId", postId);
+			getRequest().put("page", 1);
 		}
 		return SUCCESS;
 	}

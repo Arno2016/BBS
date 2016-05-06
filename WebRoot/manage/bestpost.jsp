@@ -1,8 +1,8 @@
 <%@page import="com.bbs.model.BestPost"%>
-<%@page import="com.bbs.biz.BestPostBiz"%>
+<%@page import="com.bbs.service.BestPostBiz"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@page import="com.bbs.model.Post"%>
-<%@page import="com.bbs.biz.PostBiz"%>
+<%@page import="com.bbs.service.PostBiz"%>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
 <%
@@ -34,7 +34,7 @@ return ;
   
   <body>
     
-   <jsp:include page="/manage/adminhead.jsp"/>
+  <jsp:include page="/pages/header.jsp"/>
    
    <div class="container" style="margin-top: 80px">
     <div class="row">
@@ -45,6 +45,7 @@ return ;
                 <li role="presentation"><a href="<%=path%>/manage/newpost.jsp">查看新帖</a></li>
                 <li role="presentation" class="active"><a href="<%=path%>/manage/bestpost.jsp">精华帖请求</a></li>
                  <li role="presentation"><a href="<%=path%>/manage/limit.jsp">封锁用户</a></li>
+                  <li role="presentation"><a href="<%=path%>/manage/create_discuss.jsp">创建讨论区</a></li>
             </ul>
         </div>
 

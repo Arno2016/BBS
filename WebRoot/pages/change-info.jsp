@@ -1,5 +1,5 @@
 <%@page import="com.bbs.model.User"%>
-<%@page import="com.bbs.biz.UserBiz"%>
+<%@page import="com.bbs.service.UserBiz"%>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>

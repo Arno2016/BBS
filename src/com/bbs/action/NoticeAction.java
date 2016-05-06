@@ -2,9 +2,9 @@ package com.bbs.action;
 
 import java.sql.Timestamp;
 
-import com.bbs.biz.NoticeBiz;
 import com.bbs.model.Admin;
 import com.bbs.model.Notice;
+import com.bbs.service.NoticeBiz;
 
 public class NoticeAction extends BaseAction{
 	private String title;

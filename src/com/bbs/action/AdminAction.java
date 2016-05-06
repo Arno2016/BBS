@@ -6,9 +6,9 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 
-import com.bbs.biz.AdminBiz;
 import com.bbs.model.Admin;
 import com.bbs.model.User;
+import com.bbs.service.AdminBiz;
 import com.bbs.utils.Utils;
 import com.opensymphony.xwork2.ActionContext;
 

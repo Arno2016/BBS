@@ -5,10 +5,10 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.List;
 
-import com.bbs.biz.BlackListBiz;
-import com.bbs.biz.UserBiz;
 import com.bbs.model.BlackList;
 import com.bbs.model.User;
+import com.bbs.service.BlackListBiz;
+import com.bbs.service.UserBiz;
 
 public class LimitUserAction extends BaseAction {
 	

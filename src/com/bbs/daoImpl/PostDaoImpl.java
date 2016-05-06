@@ -179,12 +179,27 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		session.close();
 		return list;
 	}
+	
+	@Override
+	public List<Post> getHotPosts(int pageIndex, int pageSize) {
+		Session session = getSession();
+		String sql = "from Post p order by p.viewNum desc";
+		Query query = session.createQuery(sql);
+		int startIndex = (pageIndex -1) * pageSize;
+		query.setFirstResult(startIndex);
+		query.setMaxResults(pageSize);
+		List list = query.list();
+		session.flush();
+		session.close();
+		return list;
+	}
+
 
 
 	@Override
 	public List<Post> getBestPosts(int pageIndex, int pageSize) {
 		Session session = getSession();
-		String sql = "from Post p where p.postType = 1";
+		String sql = "from Post p where p.postType = 1 order by p.viewNum desc";
 		Query query = session.createQuery(sql);
 		int startIndex = (pageIndex -1) * pageSize;
 		query.setFirstResult(startIndex);
@@ -196,7 +211,7 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 	}
 	
 	public List<Post> getPostByType(int type,int pageIndex,int pageSize){
-		if (type==1 || type==2 || type==3||type==4||type==5||type==6||type==7){
+		if (type > 0){
 			Session session = getSession();
 			String sql = "from Post post where post.subForum.mainForum.id=?";
 			Query query = session.createQuery(sql);
@@ -208,11 +223,13 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 			session.flush();
 			session.close();
 			return list;
-		}else if (type==8){
+		}else if (type==-1){
 			return getLatestPosts(pageIndex, pageSize);
 		}
-		else if (type==9){
+		else if (type==-2){
 			return getBestPosts(pageIndex, pageSize);
+		}else if (type==-3){
+			return getHotPosts(pageIndex, pageSize);
 		}
 		return null;
 		
@@ -252,7 +269,20 @@ public class PostDaoImpl extends BaseHibernateDAO implements PostDao{
 		session.flush();
 		session.clear();
 		session.close();
-		
+	}
+	
+	@Override
+	public void autoIncreaseViewNum(int postId) {
+
+		Post post = findById(postId);
+		System.out.println("view:"+post.getViewNum());
+		post.setViewNum(post.getViewNum()+1);
+		Session session = getSession();
+		Transaction transaction = session.beginTransaction();
+		session.update(post);
+		transaction.commit();
+		session.flush();
+		session.close();
 	}
 	
 	public void delete(int postId){

@@ -2,12 +2,12 @@ package com.bbs.action;
 
 import java.sql.Timestamp;
 
-import com.bbs.biz.BlackListBiz;
-import com.bbs.biz.FollowcardBiz;
-import com.bbs.biz.PostBiz;
 import com.bbs.model.Followcard;
 import com.bbs.model.Post;
 import com.bbs.model.User;
+import com.bbs.service.BlackListBiz;
+import com.bbs.service.FollowcardBiz;
+import com.bbs.service.PostBiz;
 
 public class ReplyAction extends BaseAction{
 	private int postId;

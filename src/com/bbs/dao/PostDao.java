@@ -64,6 +64,10 @@ public interface PostDao {
 
 	public void updateType(Integer postId);
 
-	public void updatePost(Post post); 
+	public void updatePost(Post post);
+
+	void autoIncreaseViewNum(int postId);
+
+	List<Post> getHotPosts(int pageIndex, int pageSize); 
 
 }

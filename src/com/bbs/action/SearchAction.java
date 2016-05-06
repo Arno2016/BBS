@@ -2,8 +2,8 @@ package com.bbs.action;
 
 import java.util.List;
 
-import com.bbs.biz.PostBiz;
 import com.bbs.model.Post;
+import com.bbs.service.PostBiz;
 
 public class SearchAction extends BaseAction{
 	private String keywords;

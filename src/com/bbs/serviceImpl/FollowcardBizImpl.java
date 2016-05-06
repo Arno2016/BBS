@@ -1,9 +1,9 @@
-package com.bbs.bizImpl;
+package com.bbs.serviceImpl;
 
-import com.bbs.biz.FollowcardBiz;
 import com.bbs.dao.FollowcardDao;
 import com.bbs.hibernate.factory.BaseHibernateDAO;
 import com.bbs.model.Followcard;
+import com.bbs.service.FollowcardBiz;
 /**
  * 
  * @author 张建浩、卜凡、卢静、余莎、姚文娜

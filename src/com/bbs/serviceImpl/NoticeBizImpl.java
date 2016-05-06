@@ -1,10 +1,10 @@
-package com.bbs.bizImpl;
+package com.bbs.serviceImpl;
 
 import java.util.List;
 
-import com.bbs.biz.NoticeBiz;
 import com.bbs.dao.NoticeDao;
 import com.bbs.model.Notice;
+import com.bbs.service.NoticeBiz;
 
 /**
  * 

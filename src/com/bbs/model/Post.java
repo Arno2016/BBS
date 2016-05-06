@@ -20,6 +20,8 @@ public class Post implements java.io.Serializable {
 	private Timestamp sendDate;
 	private Integer postType;
 	private Integer replyNum;
+	private Integer viewNum;
+	private Set bestPosts = new HashSet(0);
 	private Set followcards = new HashSet(0);
 
 	// Constructors
@@ -41,7 +43,7 @@ public class Post implements java.io.Serializable {
 	/** full constructor */
 	public Post(User user, SubForum subForum, String title, String cardContent,
 			Timestamp sendDate, Integer postType, Integer replyNum,
-			Set followcards) {
+			Integer viewNum, Set bestPosts, Set followcards) {
 		this.user = user;
 		this.subForum = subForum;
 		this.title = title;
@@ -49,6 +51,8 @@ public class Post implements java.io.Serializable {
 		this.sendDate = sendDate;
 		this.postType = postType;
 		this.replyNum = replyNum;
+		this.viewNum = viewNum;
+		this.bestPosts = bestPosts;
 		this.followcards = followcards;
 	}
 
@@ -118,6 +122,22 @@ public class Post implements java.io.Serializable {
 		this.replyNum = replyNum;
 	}
 
+	public Integer getViewNum() {
+		return this.viewNum;
+	}
+
+	public void setViewNum(Integer viewNum) {
+		this.viewNum = viewNum;
+	}
+
+	public Set getBestPosts() {
+		return this.bestPosts;
+	}
+
+	public void setBestPosts(Set bestPosts) {
+		this.bestPosts = bestPosts;
+	}
+
 	public Set getFollowcards() {
 		return this.followcards;
 	}
@@ -128,11 +148,10 @@ public class Post implements java.io.Serializable {
 	
 	public String getTime(){
 		String time = getSendDate().toString();
-		int index = time.lastIndexOf('.');
+		int index = time.indexOf('.');
 		if (index != -1)
-		return time.substring(0,index);
-		else 
-			return time.toString();
+			return time.substring(0, index);
+		else return time;
 	}
 
 }

@@ -1,16 +1,16 @@
 <%@page import="java.util.Set"%>
 <%@page import="com.bbs.model.Notice"%>
-<%@page import="com.bbs.biz.NoticeBiz"%>
+<%@page import="com.bbs.service.NoticeBiz"%>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
 <%@page import="com.bbs.model.Post"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.bbs.bizImpl.PostBizImpl"%>
-<%@page import="com.bbs.biz.PostBiz"%>
+<%@page import="com.bbs.serviceImpl.PostBizImpl"%>
+<%@page import="com.bbs.service.PostBiz"%>
 <%@page import="com.bbs.model.SubForum"%>
 <%@page import="com.bbs.model.MainForum"%>
-<%@page import="com.bbs.biz.MainForumBiz"%>
+<%@page import="com.bbs.service.MainForumBiz"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -90,7 +90,7 @@
             <ul class="list-group">
                 <div class="list-group-item active">
                     论坛新帖
-                    <a href="<%=request.getContextPath() %>/more.action?type=8&&page=1" style="float: right;color: white">更多>></a>
+                    <a href="<%=request.getContextPath() %>/more.action?type=-1&&page=1" style="float: right;color: white">更多>></a>
                     <!--<p style="float: right"></p>-->
                 </div>
                 
@@ -105,7 +105,7 @@
                 <a href="<%=request.getContextPath()%>/pages/post.jsp?postId=<%=post.getId()%>&&page=1" class="list-group-item">
                     <h4 class="list-group-item-heading">[<%=post.getSubForum().getMainForum().getTitle()%>]</h4>
                     <%=post.getTitle() %><span class="badge">新</span>
-                    <p class="text-right" style="float: right;margin-right: 20px">评论量:<%=post.getReplyNum()%>&nbsp;发表日期:<%=post.getTime()%></p>
+                    <p class="text-right" style="float: right;margin-right: 20px">浏览量:<%=post.getViewNum()%>&nbsp;评论量:<%=post.getReplyNum()%>&nbsp;发表日期:<%=post.getTime()%></p>
                 </a>
 				<%}%>
             </ul>
@@ -132,8 +132,8 @@
             <div class="col-md-9" style="margin-left: 15px">
                 <ul class="list-group">
                     <div class="list-group-item active">
-                        论坛热帖
-                        <a href="<%=request.getContextPath() %>/more.action?type=9&&page=1" style="float: right;color: white">更多>></a>
+                        精华帖
+                        <a href="<%=request.getContextPath() %>/more.action?type=-2&&page=1" style="float: right;color: white">更多>></a>
                     </div>
                      <%
 				   
@@ -143,7 +143,7 @@
                     <a href="<%=request.getContextPath()%>/pages/post.jsp?postId=<%=post.getId()%>&&page=1" class="list-group-item">
                         <h4 class="list-group-item-heading">[<%=post.getSubForum().getMainForum().getTitle()%>]</h4>
                             <%=post.getTitle() %><span class="badge">热</span>
-                        <p class="text-right" style="float: right;margin-right: 20px">评论量:<%=post.getReplyNum()%>&nbsp;发表日期:<%=post.getTime()%></p>
+                        <p class="text-right" style="float: right;margin-right: 20px">浏览量:<%=post.getViewNum()%>&nbsp;评论量:<%=post.getReplyNum()%>&nbsp;发表日期:<%=post.getTime()%></p>
                     </a>
                     
                      <%} %>
@@ -170,7 +170,7 @@
       
        
             <div class="col-md-3 col-sm-12">
-                <a href="<%=request.getContextPath() %>/more.action?type=1&&page=1">
+                <a href="<%=request.getContextPath() %>/more.action?type=<%=mainForum.getId() %>&&page=1">
                 <div class="main-forum">
                     <h3><%=mainForum.getTitle() %></h3>
                     <% Set<SubForum> subForums = mainForum.getSubForums();
