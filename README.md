@@ -7,7 +7,7 @@ JavaEE课程设计BBS技术论坛
 3、增加帖子回复界面，美化回复框<br/>
 4、修改板块联动，改善发帖功能<br/>
 
-![zhangjianhao](https://github.com/zhangjianhao/BBS/blob/master/image/1.png)<br/>
-![zhangjianhao](https://github.com/zhangjianhao/BBS/blob/master/image/2.png)<br/>
-![zhangjianhao](https://github.com/zhangjianhao/BBS/blob/master/image/3.png)<br/>
+![zhangjianhao](https://github.com/zhangjianhao/BBS/blob/master/screenshot/1.png)<br/>
+![zhangjianhao](https://github.com/zhangjianhao/BBS/blob/master/screenshot/2.png)<br/>
+![zhangjianhao](https://github.com/zhangjianhao/BBS/blob/master/screenshot/3.png)<br/>
 
