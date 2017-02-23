@@ -1,4 +1,4 @@
-<%@page import="com.bbs.model.Admin"%>
+<%@page import="com.zjianhao.model.Admin"%>
 <%@page import="com.bbs.service.AdminBiz"%>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
