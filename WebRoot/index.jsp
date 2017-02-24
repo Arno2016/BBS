@@ -1,15 +1,15 @@
 <%@page import="java.util.Set"%>
-<%@page import="com.zjianhao.model.Notice"%>
+<%@page import="com.bbs.model.Notice"%>
 <%@page import="com.bbs.service.NoticeBiz"%>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
-<%@page import="com.zjianhao.model.Post"%>
+<%@page import="com.bbs.model.Post"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.bbs.serviceImpl.PostBizImpl"%>
 <%@page import="com.bbs.service.PostBiz"%>
-<%@page import="com.zjianhao.model.SubForum"%>
-<%@page import="com.zjianhao.model.MainForum"%>
+<%@page import="com.bbs.model.SubForum"%>
+<%@page import="com.bbs.model.MainForum"%>
 <%@page import="com.bbs.service.MainForumBiz"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

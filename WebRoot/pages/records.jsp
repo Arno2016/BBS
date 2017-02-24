@@ -1,7 +1,7 @@
-<%@page import="com.zjianhao.model.SubForum"%>
+<%@page import="com.bbs.model.SubForum"%>
 <%@page import="com.bbs.service.BestPostBiz"%>
-<%@page import="com.zjianhao.model.BestPost"%>
-<%@page import="com.zjianhao.model.Post"%>
+<%@page import="com.bbs.model.BestPost"%>
+<%@page import="com.bbs.model.Post"%>
 <%@page import="com.bbs.service.PostBiz"%>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>

@@ -1,4 +1,4 @@
-<%@page import="com.zjianhao.model.Post"%>
+<%@page import="com.bbs.model.Post"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();

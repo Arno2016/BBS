@@ -1,7 +1,7 @@
 <%@page import="com.bbs.service.UserBiz"%>
-<%@page import="com.zjianhao.model.User"%>
-<%@page import="com.zjianhao.model.Followcard"%>
-<%@page import="com.zjianhao.model.Post"%>
+<%@page import="com.bbs.model.User"%>
+<%@page import="com.bbs.model.Followcard"%>
+<%@page import="com.bbs.model.Post"%>
 <%@page import="com.bbs.service.PostBiz"%>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
